@@ -12,3 +12,19 @@ export function getUser() {
         payload: data
     }
 }
+
+export function authenticateLogin(values) {
+
+    const {email, password} = values;
+
+    console.log("in actions index", email, password);
+
+    const data = {
+        loginValid: "in actions index.js"
+    };
+
+    return {
+        type: types.AUTHENTICATE_LOGIN,
+        payload: data
+    }
+}

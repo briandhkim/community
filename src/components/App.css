@@ -27,6 +27,7 @@ Secondary: #F9AA33
 .text-primary-dark{color: #232F34;}
 .text-primary-light{color: #4A6572;}
 .text-secondary{color: #F9AA33;}
+.text-error{color: #d32f2f;}
 
 .btn-primary:hover, .btn-primary:focus{
   background-color: #4A6572;
@@ -94,6 +95,10 @@ ul.navbarMobileNav li a:hover {
 .mb-10 {margin-bottom: 10px;}
 .mb-15 {margin-bottom: 15px;}
 .mb-20 {margin-bottom: 20px;}
+.mt-0 {margin-top: 0px;}
+.mt-2 {margin-top: 2px;}
+.mt-4 {margin-top: 4px;}
+.mt-5 {margin-top: 5px;}
 
 @media screen and (min-width: 992px) {
   /* 992px wide or more */

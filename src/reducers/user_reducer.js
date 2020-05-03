@@ -20,6 +20,12 @@ export default function(state = DEFAUT_STATE, action) {
                 user: "user set in user_reducer",
                 userName: "from user_reducer"
             }
+        case types.AUTHENTICATE_LOGIN:
+            console.log(action);
+
+            return {
+                ...state
+            }
         default:
             //console.log("state at user_reducer default", state);
             return state;
