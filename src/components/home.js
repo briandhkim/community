@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {Link} from 'react-router-dom';
 
 class Home extends Component {
     render() {
@@ -7,13 +8,14 @@ class Home extends Component {
                 <div className="row min-h-400 valign-wrapper">
                     <div className="col s12 m8 offset-m2 center-align">
                         <div className="mb-20">
-                            {
-                            // eslint-disable-next-line 
-                            }<a href="#!" className="btn-large min-w-200 btn-primary waves-effect waves-light">Login</a>
+                            {// eslint-disable-next-line 
+                            }
+                            <Link to="/login" className="btn-large min-w-200 btn-primary waves-effect waves-light">Log in</Link>
                         </div>
                         <div className="">
                             {// eslint-disable-next-line 
-                            }<a href="#!" className="btn-large min-w-200 btn-primary waves-effect waves-light">Sign Up</a>
+                            }
+                            <Link to="/signup" className="btn-large min-w-200 btn-primary waves-effect waves-light">Sign up</Link>
                         </div>
                     </div>
                 </div>

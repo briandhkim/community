@@ -1,11 +1,11 @@
 import React, {Component} from 'react';
 
-class Login extends Component {
+class SignUp extends Component {
     render() {
         return (
             <div className="container">
                 <div className="row min-h-400 valign-wrapper">
-                    <h1>Login Page</h1>
+                    <h1>Sign Up Page</h1>
                 </div>
 
             </div>
@@ -13,4 +13,4 @@ class Login extends Component {
     }
 }
 
-export default Login;
+export default SignUp;
