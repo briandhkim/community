@@ -1,1 +1,163 @@
 @import "~material-design-icons/iconfont/material-icons.css";
+@import url('https://fonts.googleapis.com/css2?family=Lato&family=Open+Sans&family=Roboto&display=swap');
+/* 
+font-family: 'Lato', sans-serif;
+font-family: 'Open Sans', sans-serif;
+font-family: 'Roboto', sans-serif;
+*/
+
+.font-primary {
+  font-family: 'Roboto', sans-serif;
+}
+.font-secondary {
+  font-family: 'Lato', sans-serif;
+}
+.font-tertiary {
+  font-family: 'Open Sans', sans-serif;
+}
+
+/* 
+https://material.io/design/color/applying-color-to-ui.html#sheets-and-surfaces
+Colors:
+Primary: #344955
+Primary-Dark: #232F34
+Primary-Light: #4A6572
+Secondary: #F9AA33
+*/
+
+nav {
+  background-color: #344955;
+}
+.nav-wrapper ul a:hover {
+  color: #F9AA33
+}
+ul.navbarMobileNav {
+  /* background-color: #4A6572; */
+  background-color: #232F34;
+}
+ul.navbarMobileNav li a {
+  color: #ffffff;
+}
+ul.navbarMobileNav li a:hover {
+  background-color: #4A6572;
+  /* background-color: #232F34; */
+  color: #F9AA33;
+}
+
+/* padding */
+.p-2 {
+  padding: 2px;
+}
+.p-5 {
+  padding: 5px;
+}
+.p-8 {
+  padding: 8px;
+}
+.p-10 {
+  padding: 10px;
+}
+.pl-2 {
+  padding-left: 2px;
+}
+.pl-5 {
+  padding-left: 5px;
+}
+.pl-8 {
+  padding-left: 8px;
+}
+.pl-10 {
+  padding-left: 10px;
+}
+
+
+/* margin */
+.m-2 {
+  margin: 2px;
+}
+.m-5 {
+  margin: 5px;
+}
+.m-8 {
+  margin: 8px;
+}
+.m-10 {
+  margin: 10px;
+}
+.ml-2 {
+  margin-left: 2px;
+}
+.ml-5 {
+  margin-left: 5px;
+}
+.ml-8 {
+  margin-left: 8px;
+}
+.ml-10 {
+  margin-left: 10px;
+}
+.mr-2 {
+  margin-right: 2px;
+}
+.mr-5 {
+  margin-right: 5px;
+}
+.mr-8 {
+  margin-right: 8px;
+}
+.mr-10 {
+  margin-right: 10px;
+}
+
+@media screen and (min-width: 992px) {
+  /* 992px wide or more */
+  /* equivalent to materialize .l */
+  .desktop-sm-m-2 {
+    margin: 2px;
+  }
+  .desktop-sm-m-5 {
+    margin: 5px;
+  }
+  .desktop-sm-m-8 {
+    margin: 8px;
+  }
+  .desktop-sm-m-10 {
+    margin: 10px;
+  }
+  .desktop-sm-ml-2 {
+    margin-left: 2px;
+  }
+  .desktop-sm-ml-5 {
+    margin-left: 5px;
+  }
+  .desktop-sm-ml-8 {
+    margin-left: 8px;
+  }
+  .desktop-sm-ml-10 {
+    margin-left: 10px;
+  }
+  .desktop-sm-ml-20 {
+    margin-left: 20px;
+  }
+  .desktop-sm-mr-2 {
+    margin-right: 2px;
+  }
+  .desktop-sm-mr-5 {
+    margin-right: 5px;
+  }
+  .desktop-sm-mr-8 {
+    margin-right: 8px;
+  }
+  .desktop-sm-mr-10 {
+    margin-right: 10px;
+  }
+}
+
+@media screen and (max-width: 992px) and (min-width: 600px) {
+  /* 992px wide or less -and- 600px wide or more*/
+}
+
+@media screen and (max-width: 600px) {
+  /* 600px wide or less */
+  /* equivalent to materialize .s */
+}

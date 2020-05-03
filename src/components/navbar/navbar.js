@@ -16,24 +16,24 @@ class NavBar extends Component {
                         {
                         // eslint-disable-next-line 
                         }
-                        <a href="#" className="brand-logo" title="Yet Another Messaging Link">YAML</a>
+                        <a href="javacript:void(0);" className="brand-logo font-primary desktop-sm-ml-20" title="Yet Another Messaging Link">YAML</a>
                         {
                         // eslint-disable-next-line 
                         }
-                        <a href="#" data-target="nav-mobile" class="sidenav-trigger">
-                            <i class="material-icons">menu</i>
+                        <a href="javacript:void(0);" data-target="nav-mobile" className="sidenav-trigger">
+                            <i className="material-icons">menu</i>
                         </a>
-                        <ul id="nav-default" className="right hide-on-med-and-down">
-                            <li><a href="/">item 1</a></li>
-                            <li><a href="/">item 2</a></li>
-                            <li><a href="/">item 3</a></li>
+                        <ul id="nav-default" className="right hide-on-med-and-down desktop-sm-mr-10">
+                            <li className="font-secondary"><a href="/">item 1</a></li>
+                            <li className="font-secondary"><a href="/">item 2</a></li>
+                            <li className="font-secondary"><a href="/">item 3</a></li>
                         </ul>
                     </div>
                 </nav>
-                <ul class="navbarMobileNav sidenav" id="nav-mobile">
-                    <li><a href="/">item 1</a></li>
-                    <li><a href="/">item 2</a></li>
-                    <li><a href="/">item 3</a></li>
+                <ul className="navbarMobileNav sidenav" id="nav-mobile">
+                    <li className="font-secondary"><a href="/">item 1</a></li>
+                    <li className="font-secondary"><a href="/">item 2</a></li>
+                    <li className="font-secondary"><a href="/">item 3</a></li>
                 </ul>
             </React.Fragment>
         );
