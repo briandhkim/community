@@ -6,15 +6,9 @@ font-family: 'Open Sans', sans-serif;
 font-family: 'Roboto', sans-serif;
 */
 
-.font-primary {
-  font-family: 'Roboto', sans-serif;
-}
-.font-secondary {
-  font-family: 'Lato', sans-serif;
-}
-.font-tertiary {
-  font-family: 'Open Sans', sans-serif;
-}
+.font-primary {font-family: 'Roboto', sans-serif;}
+.font-secondary {font-family: 'Lato', sans-serif;}
+.font-tertiary {font-family: 'Open Sans', sans-serif;}
 
 /* 
 https://material.io/design/color/applying-color-to-ui.html#sheets-and-surfaces
@@ -24,6 +18,20 @@ Primary-Dark: #232F34
 Primary-Light: #4A6572
 Secondary: #F9AA33
 */
+.bg-primary, 
+.btn-primary{background-color: #344955;}
+.bg-primary-dark{background-color: #232F34;}
+.bg-primary-light{background-color: #4A6572;}
+.bg-secondary, .btn-secondary{background-color: #F9AA33;}
+.text-primary{color: #344955;}
+.text-primary-dark{color: #232F34;}
+.text-primary-light{color: #4A6572;}
+.text-secondary{color: #F9AA33;}
+
+.btn-primary:hover, .btn-primary:focus{
+  background-color: #4A6572;
+  color:#F9AA33;
+}
 
 nav {
   background-color: #344955;
@@ -44,113 +52,65 @@ ul.navbarMobileNav li a:hover {
   color: #F9AA33;
 }
 
+/* height */
+.min-h-200 {min-height: 200px;}
+.min-h-400 {min-height: 400px;}
+.min-h-500 {min-height: 500px;}
+.min-h-20vh{min-height: 20vh;}
+.min-h-40vh {min-height: 20vh;}
+.min-h-50vh {min-height: 50vh;}
+/* width */
+.min-w-200 {min-width: 200px;}
+.min-w-300 {min-width: 300px;}
+.min-w-20vw {min-width: 20vw;}
+.min-w-30vw {min-width: 30vw;}
+
 /* padding */
-.p-2 {
-  padding: 2px;
-}
-.p-5 {
-  padding: 5px;
-}
-.p-8 {
-  padding: 8px;
-}
-.p-10 {
-  padding: 10px;
-}
-.pl-2 {
-  padding-left: 2px;
-}
-.pl-5 {
-  padding-left: 5px;
-}
-.pl-8 {
-  padding-left: 8px;
-}
-.pl-10 {
-  padding-left: 10px;
-}
+.p-2 {padding: 2px;}
+.p-5 {padding: 5px;}
+.p-8 {padding: 8px;}
+.p-10 {padding: 10px;}
+.pl-2 {padding-left: 2px;}
+.pl-5 {padding-left: 5px;}
+.pl-8 {padding-left: 8px;}
+.pl-10 {padding-left: 10px;}
 
 
 /* margin */
-.m-2 {
-  margin: 2px;
-}
-.m-5 {
-  margin: 5px;
-}
-.m-8 {
-  margin: 8px;
-}
-.m-10 {
-  margin: 10px;
-}
-.ml-2 {
-  margin-left: 2px;
-}
-.ml-5 {
-  margin-left: 5px;
-}
-.ml-8 {
-  margin-left: 8px;
-}
-.ml-10 {
-  margin-left: 10px;
-}
-.mr-2 {
-  margin-right: 2px;
-}
-.mr-5 {
-  margin-right: 5px;
-}
-.mr-8 {
-  margin-right: 8px;
-}
-.mr-10 {
-  margin-right: 10px;
-}
+.m-2 {margin: 2px;}
+.m-5 {margin: 5px;}
+.m-8 {margin: 8px;}
+.m-10 {margin: 10px;}
+.ml-2 {margin-left: 2px;}
+.ml-5 {margin-left: 5px;}
+.ml-8 {margin-left: 8px;}
+.ml-10 {margin-left: 10px;}
+.mr-2 {margin-right: 2px;}
+.mr-5 {margin-right: 5px;}
+.mr-8 {margin-right: 8px;}
+.mr-10 {margin-right: 10px;}
+.mb-5 {margin-bottom: 5px;}
+.mb-8 {margin-bottom: 8px;}
+.mb-10 {margin-bottom: 10px;}
+.mb-15 {margin-bottom: 15px;}
+.mb-20 {margin-bottom: 20px;}
 
 @media screen and (min-width: 992px) {
   /* 992px wide or more */
   /* equivalent to materialize .l */
-  .desktop-sm-m-2 {
-    margin: 2px;
-  }
-  .desktop-sm-m-5 {
-    margin: 5px;
-  }
-  .desktop-sm-m-8 {
-    margin: 8px;
-  }
-  .desktop-sm-m-10 {
-    margin: 10px;
-  }
-  .desktop-sm-ml-2 {
-    margin-left: 2px;
-  }
-  .desktop-sm-ml-5 {
-    margin-left: 5px;
-  }
-  .desktop-sm-ml-8 {
-    margin-left: 8px;
-  }
-  .desktop-sm-ml-10 {
-    margin-left: 10px;
-  }
-  .desktop-sm-ml-20 {
-    margin-left: 20px;
-  }
-  .desktop-sm-mr-2 {
-    margin-right: 2px;
-  }
-  .desktop-sm-mr-5 {
-    margin-right: 5px;
-  }
-  .desktop-sm-mr-8 {
-    margin-right: 8px;
-  }
-  .desktop-sm-mr-10 {
-    margin-right: 10px;
-  }
+  .desktop-sm-m-2 {margin: 2px;}
+  .desktop-sm-m-5 {margin: 5px;}
+  .desktop-sm-m-8 {margin: 8px;}
+  .desktop-sm-m-10 {margin: 10px;}
+  .desktop-sm-ml-2 {margin-left: 2px;}
+  .desktop-sm-ml-5 {margin-left: 5px;}
+  .desktop-sm-ml-8 {margin-left: 8px;}
+  .desktop-sm-ml-10 {margin-left: 10px;}
+  .desktop-sm-ml-20 {margin-left: 20px;}
+  .desktop-sm-mr-2 {margin-right: 2px;}
+  .desktop-sm-mr-5 {margin-right: 5px;}
+  .desktop-sm-mr-8 {margin-right: 8px;}
+  .desktop-sm-mr-10 {margin-right: 10px;}
 }
 
 @media screen and (max-width: 992px) and (min-width: 600px) {

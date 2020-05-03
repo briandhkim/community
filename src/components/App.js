@@ -1,6 +1,7 @@
 import React from 'react';
 
 import NavBar from './navbar/navbar';
+import Home from './home';
 
 import 'materialize-css/dist/js/materialize.min';
 import 'materialize-css/dist/css/materialize.min.css';
@@ -11,9 +12,7 @@ function App() {
   return (
     <div className="App">
       <NavBar/>
-      <div>
-        body content
-      </div>
+      <Home/>      
     </div>
   );
 }
