@@ -1,12 +1,12 @@
 import React, {Component} from 'react';
 import {Field, reduxForm} from 'redux-form';
 import {connect} from 'react-redux';
-import {getUser, authenticateLogin} from '../../actions/index';
+import {getLoggedInUser, authenticateLogin} from '../../actions/index';
 
 class Login extends Component {
 
-    componentDidMount() {
-        // this.props.getUser();
+    componentWillMount() {
+        this.props.getLoggedInUser();
     }
 
     renderLoginInput({input, id, label, type, placeholder, meta:{touched, error}}) {
@@ -24,8 +24,6 @@ class Login extends Component {
     }
 
     login(values) {
-        console.log("in login fuc", values);
-        
         this.props.authenticateLogin(values);
     }
 
@@ -81,4 +79,4 @@ Login = reduxForm({
     validate: validation
 })(Login);
 
-export default connect(mapStateToProps, {getUser, authenticateLogin})(Login);
+export default connect(mapStateToProps, {getLoggedInUser, authenticateLogin})(Login);

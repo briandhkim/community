@@ -1,26 +1,27 @@
 import types from './types';
 
-export function getUser() {
+export function getLoggedInUser() {
     //axios request here
-
+    console.log("getLoggedInUser in actions index");
+    
     const data = {
-        user: "bkim"
+        getLoggedInUser: "data here"
     };
-
+    
     return {
-        type: types.GET_USER,
+        type: types.GET_LOGGED_IN_USER,
         payload: data
     }
 }
 
 export function authenticateLogin(values) {
-
+    
     const {email, password} = values;
-
-    console.log("in actions index", email, password);
+    
+    console.log("authenticateLogin in actions index", values);
 
     const data = {
-        loginValid: "in actions index.js"
+        authenticateLogin: "data here"
     };
 
     return {

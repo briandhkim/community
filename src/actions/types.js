@@ -1,4 +1,4 @@
 export default {
-    GET_USER    :   'get_user',
+    GET_LOGGED_IN_USER    :   'get_logged_in_user',
     AUTHENTICATE_LOGIN: 'authenticate_login'
 };

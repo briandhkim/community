@@ -7,21 +7,14 @@ const DEFAUT_STATE = {
 
 export default function(state = DEFAUT_STATE, action) {
     switch(action.type) {
-        case types.GET_USER:
-            console.log("action:", action);
-            if (action.payload) {
-                console.log("in user_reducer:", action);
-            } else {
-                console.log("in user_reducer no action payload");
-            }
-
+        case types.GET_LOGGED_IN_USER:
+            console.log(`in user_reducer for ${types.GET_LOGGED_IN_USER}`, action);
+            
             return {
-                ...state,
-                user: "user set in user_reducer",
-                userName: "from user_reducer"
+                ...state
             }
         case types.AUTHENTICATE_LOGIN:
-            console.log(action);
+            console.log(`in user_reducer for ${types.AUTHENTICATE_LOGIN}`, action);
 
             return {
                 ...state
