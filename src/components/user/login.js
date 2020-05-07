@@ -5,17 +5,16 @@ import {getLoggedInUser, authenticateLogin} from '../../actions/index';
 
 class Login extends Component {
 
-    componentWillMount() {
-        this.props.getLoggedInUser();
-    }
+    // componentWillMount() {
+    //     this.props.getLoggedInUser();
+    // }
 
-    renderLoginInput({input, id, label, type, placeholder, meta:{touched, error}}) {
-        // console.log(touched,error);
+    renderLoginInput({input, id, label, type, required, placeholder, meta:{touched, error}}) {
 
         return(
             <React.Fragment>
                 <div className="input-field col s10 m-8">
-                    <input {...input} id={id} type={type} className="validate" />
+                    <input {...input} id={id} type={type} required={required} className="validate" />
                     <label htmlFor={input.name}>{label}</label>
                 </div>
                 <p className="col s12 mt-0 text-error">{touched && error}</p>
@@ -37,10 +36,10 @@ class Login extends Component {
                         <h1>Login</h1>
                         <form onSubmit={handleSubmit((val)=>{this.login(val)})}>
                             <div className="row">
-                                <Field name='email' id="email" component={this.renderLoginInput} type='text' label='Username/Email' />
+                                <Field name='email' id="email" component={this.renderLoginInput} type='text' label='Username/Email' required />
                             </div>
                             <div className="row">
-                                <Field name='password' id="password" component={this.renderLoginInput} type='password' label='Password' />
+                                <Field name='password' id="password" component={this.renderLoginInput} type='password' label='Password' required />
                             </div>
                             <div className="row">
                                 <p>{/* login error message section */}</p>
@@ -59,7 +58,7 @@ class Login extends Component {
 function mapStateToProps(state) {
     return {
         user: state.user.user
-    }
+    };
 }
 
 function validation(values) {
