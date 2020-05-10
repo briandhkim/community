@@ -76,22 +76,11 @@ func (uc UserController) SignUp(w http.ResponseWriter, r *http.Request, _ httpro
 			Password:  bs,
 		}
 
-		res := struct {
-			Success  bool        `json:"success"`
-			Redirect string      `json:"redirect"`
-			User     models.User `json:"user"`
-		}{
-			true,
-			"/",
-			u,
-		}
-
-		//Marshal user data that has been created to json
-		rj, _ := json.Marshal(res)
+		rj, statusCode := u.InsertNewFromSignUp()
 
 		//Write content-type, statuscode, and payload
 		w.Header().Set("Content-Type", "application/json")
-		w.WriteHeader(http.StatusCreated)
+		w.WriteHeader(statusCode)
 		fmt.Fprintf(w, "%s\n", rj)
 	} else {
 		http.Error(w, http.StatusText(http.StatusBadRequest), http.StatusBadRequest)

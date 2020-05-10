@@ -23,6 +23,15 @@ func getCountByEmailAddress(e string) int16 {
 	return count
 }
 
+func (u User) insertNewUser() error {
+	sql := "INSERT INTO users(email, firstName, lastName, password) VALUES (?, ?, ?, ?)"
+	stmt, _ := DB.Prepare(sql)
+
+	_, err := stmt.Exec(u.Email, u.FirstName, u.LastName, string(u.Password))
+
+	return err
+}
+
 // CheckUserWithEmailExists checks if a user with provided email e exists.
 func CheckUserWithEmailExists(e string) ([]byte, int) {
 
@@ -43,4 +52,31 @@ func CheckUserWithEmailExists(e string) ([]byte, int) {
 	rj, _ := json.Marshal(res)
 	return rj, http.StatusOK
 
+}
+
+// InsertNewFromSignUp checks the new user data sent from /signup and
+// inserts the user into the db.
+func (u User) InsertNewFromSignUp() ([]byte, int) {
+	existingEmailCount := getCountByEmailAddress(u.Email)
+
+	insertSuccessful := false
+	statusCode := http.StatusInternalServerError
+
+	if existingEmailCount == 0 {
+		err := u.insertNewUser()
+
+		if err == nil {
+			insertSuccessful = true
+			statusCode = http.StatusCreated
+		}
+	}
+
+	res := struct {
+		Success bool `json:"success"`
+	}{
+		insertSuccessful,
+	}
+
+	rj, _ := json.Marshal(res)
+	return rj, statusCode
 }

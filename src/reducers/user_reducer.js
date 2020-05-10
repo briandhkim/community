@@ -28,7 +28,7 @@ export default function(state = DEFAUT_STATE, action) {
 
                 return {
                     ...state,
-                    signUpSuccessful: true
+                    signUpSuccessful: payload.data.success
                 }
 
             } else {
