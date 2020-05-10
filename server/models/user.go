@@ -1,7 +1,9 @@
 package models
 
 import (
+	"encoding/json"
 	"log"
+	"net/http"
 )
 
 type User struct {
@@ -11,19 +13,34 @@ type User struct {
 	Password  []byte `json:"password"`
 }
 
-// CheckUserWithEmailExists checks if a user with provided email e exists.
-func CheckUserWithEmailExists(e string) bool {
-
+func getCountByEmailAddress(e string) int16 {
 	var count int16
 	err := DB.QueryRow("SELECT COUNT(email) FROM users WHERE email = ?", e).Scan(&count)
 	if err != nil {
 		log.Panic(err)
-		return false
 	}
 
+	return count
+}
+
+// CheckUserWithEmailExists checks if a user with provided email e exists.
+func CheckUserWithEmailExists(e string) ([]byte, int) {
+
+	count := getCountByEmailAddress(e)
+
+	userExists := false
+
 	if count > 0 {
-		return true
+		userExists = true
 	}
-	return false
+
+	res := struct {
+		UserExists bool `json:"userExists"`
+	}{
+		userExists,
+	}
+
+	rj, _ := json.Marshal(res)
+	return rj, http.StatusOK
 
 }

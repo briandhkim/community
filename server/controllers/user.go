@@ -23,18 +23,10 @@ func NewUserController() *UserController {
 func (uc UserController) CheckDuplicateEmail(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 	if r.Method == http.MethodGet {
 
-		userExists := models.CheckUserWithEmailExists(ps.ByName("email"))
-
-		res := struct {
-			UserExists bool `json:"userExists"`
-		}{
-			userExists,
-		}
-
-		rj, _ := json.Marshal(res)
+		rj, statusCode := models.CheckUserWithEmailExists(ps.ByName("email"))
 
 		w.Header().Set("Content-Type", "application/json")
-		w.WriteHeader(http.StatusOK)
+		w.WriteHeader(statusCode)
 		fmt.Fprintf(w, "%s\n", rj)
 
 	} else {
