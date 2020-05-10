@@ -6,3 +6,7 @@ type User struct {
 	LastName  string `json:"lastName"`
 	Password  []byte `json:"password"`
 }
+
+func CheckUserWithEmailExists(e string) {
+	
+}

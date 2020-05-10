@@ -12,8 +12,9 @@ func main() {
 
 	uc := controllers.NewUserController()
 
+	r.GET("/check-duplicate-email/:email", uc.CheckDuplicateEmail)
 	r.POST("/signup", uc.SignUp)
 
-	http.ListenAndServe("localhost:8080", r)
+	http.ListenAndServe(":8080", r)
 
 }

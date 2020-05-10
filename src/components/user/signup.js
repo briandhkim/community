@@ -4,6 +4,8 @@ import {connect} from 'react-redux';
 import {Redirect} from 'react-router-dom';
 import {getLoggedInUser, signUp} from '../../actions/index';
 
+import axios from 'axios';
+
 class SignUp extends Component {
 
     // componentWillMount() {
@@ -20,6 +22,22 @@ class SignUp extends Component {
                 <p className="col s12 mt-0 text-error">{touched && error}</p>
             </React.Fragment>
         );
+    }
+
+    checkDuplicateEmail(input) {
+        if (input === 'abc') {
+            return 'error';
+        }
+
+        if (input && input.length) {
+            axios.get(`/check-duplicate-email/${input}`)
+            .then((res) => {
+                // console.log("dup email check: ", res);
+            })
+            .catch((err) => {
+                console.log("Error 1005: ", err);
+            });
+        }
     }
 
     signUp(values) {
@@ -39,7 +57,7 @@ class SignUp extends Component {
                             <h1 className="mt-0">Sign up</h1>
                             <form onSubmit={handleSubmit((val)=>{this.signUp(val)})}>
                                 <div className="row">
-                                    <Field name='email' id='email' type='email' label='Email' required component={this.renderSignUpInput} />
+                                    <Field name='email' id='email' type='email' label='Email' required component={this.renderSignUpInput} validate={this.checkDuplicateEmail} />
                                 </div>
                                 <div className="row">
                                     <Field name='firstName' id='firstName' type='text' label='First Name' required component={this.renderSignUpInput} />

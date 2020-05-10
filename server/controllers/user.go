@@ -18,6 +18,16 @@ func NewUserController() *UserController {
 	return &UserController{}
 }
 
+// CheckDuplicateEmail checks to see if there is an existing user with a given email.
+// Mainly used for the Sign Up page
+func (uc UserController) CheckDuplicateEmail(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
+	if r.Method == http.MethodGet {
+		fmt.Println(ps.ByName("email"))
+	} else {
+		http.Error(w, http.StatusText(http.StatusBadRequest), http.StatusBadRequest)
+	}
+}
+
 // SignUp handles the POST request made to /signup endpoint.
 func (uc UserController) SignUp(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	// check if user is logged in later
@@ -77,5 +87,7 @@ func (uc UserController) SignUp(w http.ResponseWriter, r *http.Request, _ httpro
 		w.Header().Set("Content-Type", "application/json")
 		w.WriteHeader(http.StatusCreated)
 		fmt.Fprintf(w, "%s\n", uj)
+	} else {
+		http.Error(w, http.StatusText(http.StatusBadRequest), http.StatusBadRequest)
 	}
 }

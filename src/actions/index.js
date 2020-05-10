@@ -37,11 +37,14 @@ export function authenticateLogin(values) {
 
 export function signUp(values) {
 
-    const {email, firstName, lastName, password} = values;
+    let {email, firstName, lastName, password} = values;
 
-    console.log("signUp in actions index", values);
+    // console.log("signUp in actions index", values);
 
-    let data = {};
+    email = email.trim();
+    firstName = firstName.trim();
+    lastName = lastName.trim();
+    password = password.trim();
 
     const req = axios.post('/signup', {email, firstName, lastName, password}, {
         headers: headers
