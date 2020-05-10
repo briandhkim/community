@@ -1,27 +1,26 @@
 import React, {Component} from 'react';
-import {Link} from 'react-router-dom';
+import {connect} from 'react-redux';
+
+import UserLanding from './landing/userLanding';
+import GuestLanding from './landing/guestLanding';
 
 class Home extends Component {
     render() {
-        return (
-            <div className="container">
-                <div className="row min-h-400 valign-wrapper">
-                    <div className="col s12 m8 offset-m2 center-align">
-                        <div className="mb-20">
-                            {// eslint-disable-next-line 
-                            }
-                            <Link to="/login" className="btn-large min-w-200 btn-primary waves-effect waves-light">Log in</Link>
-                        </div>
-                        <div className="">
-                            {// eslint-disable-next-line 
-                            }
-                            <Link to="/signup" className="btn-large min-w-200 btn-primary waves-effect waves-light">Sign up</Link>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        );
+        const {isLoggedIn} = this.props;
+
+        if (isLoggedIn) {
+            return <UserLanding />
+        }
+        return <GuestLanding />
+        
     }
 }
 
-export default Home;
+function mapStateToProps(state) {
+    return {
+        isLoggedIn: state.user.isLoggedIn,
+        user: state.user.user
+    }
+}
+
+export default connect(mapStateToProps, {})(Home);

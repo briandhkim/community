@@ -5,15 +5,19 @@ import {Redirect} from 'react-router-dom';
 import {getLoggedInUser, authenticateLogin} from '../../actions/index';
 
 class Login extends Component {
+    _isMounted = false;
 
     constructor(props) {
         super(props);
         this.login = this.login.bind(this);
     }
 
-    // componentWillMount() {
-    //     this.props.getLoggedInUser();
-    // }
+    componentDidMount() {
+        this._isMounted = true;
+    }
+    componentWillUnmount() {
+        this._isMounted = false;
+    }
 
     renderLoginInput({input, id, label, type, required, placeholder, meta:{touched, error}}) {
 
@@ -30,7 +34,9 @@ class Login extends Component {
 
     login(values) {
         this.props.authenticateLogin(values).then(() => {
-            this.forceUpdate();
+            if (this._isMounted) {
+                this.forceUpdate();
+            }
         });
     }
 
