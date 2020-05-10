@@ -27,7 +27,9 @@ class Login extends Component {
     }
 
     render() {
-        const {handleSubmit, user} = this.props;
+        const {handleSubmit, user, isLoggedIn} = this.props;
+        console.log(user);
+        console.log(isLoggedIn);
 
         return (
             <div className="container">
@@ -57,6 +59,7 @@ class Login extends Component {
 
 function mapStateToProps(state) {
     return {
+        isLoggedIn: state.user.isLoggedIn,
         user: state.user.user
     };
 }

@@ -1,8 +1,8 @@
 import types from '../actions/types';
 
 const DEFAUT_STATE = {
-    user: null,
-    userName: null
+    isLoggedIn: false,
+    user: {test: "abcd"}
 };
 
 export default function(state = DEFAUT_STATE, action) {

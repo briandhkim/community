@@ -2,7 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import {Provider} from 'react-redux';
-import {createStore} from 'redux';
+import {createStore, applyMiddleware} from 'redux';
+import promise from 'redux-promise';
 import rootReducer from './reducers/index';
 
 import {BrowserRouter as Router} from 'react-router-dom';
@@ -12,7 +13,7 @@ import * as serviceWorker from './serviceWorker';
 
 
 ReactDOM.render(
-    <Provider store={createStore(rootReducer)}>
+    <Provider store={createStore(rootReducer, applyMiddleware(promise))}>
       <Router>
         <App />
       </Router>

@@ -41,22 +41,14 @@ export function signUp(values) {
 
     console.log("signUp in actions index", values);
 
-    axios.post('/signup', {email, firstName, lastName, password}, {
-        headers: headers
-    })
-        .then(res => {
-            console.log("signUp axios res: ", res);
-        })
-        .catch(err => {
-            console.log("error in signUp action/index", err);
-        });
+    let data = {};
 
-    const data = {
-        signUp: "date here"
-    }
+    const req = axios.post('/signup', {email, firstName, lastName, password}, {
+        headers: headers
+    });
 
     return {
         type: types.SIGN_UP,
-        payload: data
+        payload: req 
     }
 }
