@@ -21,17 +21,20 @@ export function getLoggedInUser() {
 
 export function authenticateLogin(values) {
     
-    const {email, password} = values;
+    let {email, password} = values;
     
-    console.log("authenticateLogin in actions index", values);
+    // console.log("authenticateLogin in actions index", values);
 
-    const data = {
-        authenticateLogin: "data here"
-    };
+    email = email.trim();
+    password = password.trim();
+
+    const req = axios.post('/login', {email, password}, {
+        headers: headers
+    });
 
     return {
         type: types.AUTHENTICATE_LOGIN,
-        payload: data
+        payload: req
     }
 }
 

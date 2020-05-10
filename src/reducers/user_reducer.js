@@ -3,7 +3,8 @@ import types from '../actions/types';
 const DEFAUT_STATE = {
     signUpSuccessful: null,
     isLoggedIn: false,
-    user: {test: "abcd"}
+    user: null,
+    error: ''
 };
 
 export default function(state = DEFAUT_STATE, action) {
@@ -16,13 +17,36 @@ export default function(state = DEFAUT_STATE, action) {
             }
         case types.AUTHENTICATE_LOGIN:
             console.log(`in user_reducer for ${types.AUTHENTICATE_LOGIN}`, action);
+            var {payload} = action;
 
-            return {
-                ...state
+            if (payload.status === 202) {
+                return {
+                    ...state,
+                    isLoggedIn: true,
+                    error: null
+                }
+            } else if (payload.status === 200) {
+                return {
+                    ...state,
+                    isLoggedIn: false,
+                    error: payload.data.error
+                }
+            } else {
+                let error = '';
+                if (payload.response.status === 403 || !payload.response.data.success) {
+                    error = payload.response.data.error
+                }
+
+                return {
+                    ...state,
+                    isLoggedIn: false,
+                    error
+                }
             }
+
         case types.SIGN_UP:
             console.log(`in user_reducer for ${types.SIGN_UP}`, action);
-            const {payload} = action;
+            var {payload} = action;
 
             if (payload.status === 201) {
 

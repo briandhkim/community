@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {Field, reduxForm} from 'redux-form';
 import {connect} from 'react-redux';
+import {Redirect} from 'react-router-dom';
 import {getLoggedInUser, authenticateLogin} from '../../actions/index';
 
 class Login extends Component {
@@ -27,40 +28,49 @@ class Login extends Component {
     }
 
     render() {
-        const {handleSubmit, user, isLoggedIn} = this.props;
-        console.log(user);
+        let {handleSubmit, user, isLoggedIn, error} = this.props;
+        // console.log(user);
         console.log(isLoggedIn);
+        console.log(error);
+        if (error == undefined) {
+            error = '';
+        }
 
-        return (
-            <div className="container">
-                <div className="row min-h-400 valign-wrapper">
-                    <div className="col s12 m6 offset-m3">
-                        <h1>Login</h1>
-                        <form onSubmit={handleSubmit((val)=>{this.login(val)})}>
-                            <div className="row">
-                                <Field name='email' id="email" component={this.renderLoginInput} type='text' label='Username/Email' required />
-                            </div>
-                            <div className="row">
-                                <Field name='password' id="password" component={this.renderLoginInput} type='password' label='Password' required />
-                            </div>
-                            <div className="row">
-                                <p>{/* login error message section */}</p>
-                            </div>
-                            <button onClick={handleSubmit((val)=>{this.login(val)})} className="btn-large min-w-200 btn-primary waves-effect waves-light">
-                                Login
-                            </button>
-                        </form>
+        if (isLoggedIn) {
+            return <Redirect to={{pathname: '/'}} />
+        } else {
+            return (
+                <div className="container">
+                    <div className="row min-h-400 valign-wrapper">
+                        <div className="col s12 m6 offset-m3">
+                            <h1>Login</h1>
+                            <form onSubmit={handleSubmit((val)=>{this.login(val)})}>
+                                <div className="row">
+                                    <Field name='email' id="email" component={this.renderLoginInput} type='text' label='Username/Email' required />
+                                </div>
+                                <div className="row">
+                                    <Field name='password' id="password" component={this.renderLoginInput} type='password' label='Password' required />
+                                </div>
+                                <div className="row">
+                                    <p> {error} </p>
+                                </div>
+                                <button onClick={handleSubmit((val)=>{this.login(val)})} className="btn-large min-w-200 btn-primary waves-effect waves-light">
+                                    Login
+                                </button>
+                            </form>
+                        </div>
                     </div>
                 </div>
-            </div>
-        );
+            );
+        }
     }
 }
 
 function mapStateToProps(state) {
     return {
         isLoggedIn: state.user.isLoggedIn,
-        user: state.user.user
+        user: state.user.user,
+        error: state.user.error
     };
 }
 

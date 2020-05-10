@@ -7,7 +7,6 @@ import (
 
 	"github.com/briandhkim/community/server/models"
 	"github.com/julienschmidt/httprouter"
-	"golang.org/x/crypto/bcrypt"
 )
 
 // UserController handles http requests made that target CRUD actions for User type
@@ -63,17 +62,11 @@ func (uc UserController) SignUp(w http.ResponseWriter, r *http.Request, _ httpro
 			return
 		}
 
-		bs, err := bcrypt.GenerateFromPassword([]byte(signUpData.Pw), bcrypt.MinCost)
-		if err != nil {
-			http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-			return
-		}
-
 		u := models.User{
 			Email:     signUpData.E,
 			FirstName: signUpData.Fn,
 			LastName:  signUpData.Ln,
-			Password:  bs,
+			Password:  signUpData.Pw,
 		}
 
 		rj, statusCode := u.InsertNewFromSignUp()
@@ -82,6 +75,33 @@ func (uc UserController) SignUp(w http.ResponseWriter, r *http.Request, _ httpro
 		w.Header().Set("Content-Type", "application/json")
 		w.WriteHeader(statusCode)
 		fmt.Fprintf(w, "%s\n", rj)
+	} else {
+		http.Error(w, http.StatusText(http.StatusBadRequest), http.StatusBadRequest)
+	}
+}
+
+// Login handles the POSt request made to /login endpoint
+func (uc UserController) Login(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
+	if r.Method == http.MethodPost {
+
+		defer r.Body.Close()
+		decoder := json.NewDecoder(r.Body)
+		loginData := struct {
+			E  string `json:"email"`
+			Pw string `json:"password"`
+		}{}
+		err := decoder.Decode(&loginData)
+		if err != nil {
+			http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+			return
+		}
+
+		rj, statusCode := models.AuthenticateLogin(loginData.E, loginData.Pw, w)
+
+		w.Header().Set("Content-Type", "application/json")
+		w.WriteHeader(statusCode)
+		fmt.Fprintf(w, "%s\n", rj)
+
 	} else {
 		http.Error(w, http.StatusText(http.StatusBadRequest), http.StatusBadRequest)
 	}

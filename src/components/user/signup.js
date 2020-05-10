@@ -12,7 +12,6 @@ class SignUp extends Component {
     // }
 
     renderSignUpInput({input, id, label, type, required, meta:{asyncValidating, touched, error}}) {
-        console.log(asyncValidating);
         return(
             <React.Fragment>
                 <div className={`input-field col s10 m-8 ${asyncValidating ? 'async-validating' : ''}`}>

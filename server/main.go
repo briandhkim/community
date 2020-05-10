@@ -18,6 +18,7 @@ func main() {
 
 	r.GET("/check-duplicate-email/:email", uc.CheckDuplicateEmail)
 	r.POST("/signup", uc.SignUp)
+	r.POST("/login", uc.Login)
 
 	http.ListenAndServe(":8080", r)
 
