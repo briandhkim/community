@@ -6,6 +6,11 @@ import {getLoggedInUser, authenticateLogin} from '../../actions/index';
 
 class Login extends Component {
 
+    constructor(props) {
+        super(props);
+        this.login = this.login.bind(this);
+    }
+
     // componentWillMount() {
     //     this.props.getLoggedInUser();
     // }
@@ -15,26 +20,22 @@ class Login extends Component {
         return(
             <React.Fragment>
                 <div className="input-field col s10 m-8">
-                    <input {...input} id={id} type={type} required={required} className="validate" />
+                    <input {...input} id={id} type={type} required={required} className="" />
                     <label htmlFor={input.name}>{label}</label>
                 </div>
-                <p className="col s12 mt-0 text-error">{touched && error}</p>
+                <p className="col s12 mt-0 text-error mb-0">{touched && error}</p>
             </React.Fragment>
         );
     }
 
     login(values) {
-        this.props.authenticateLogin(values);
+        this.props.authenticateLogin(values).then(() => {
+            this.forceUpdate();
+        });
     }
 
     render() {
-        let {handleSubmit, user, isLoggedIn, error} = this.props;
-        // console.log(user);
-        console.log(isLoggedIn);
-        console.log(error);
-        if (error == undefined) {
-            error = '';
-        }
+        let {handleSubmit, user, isLoggedIn, loginError} = this.props;
 
         if (isLoggedIn) {
             return <Redirect to={{pathname: '/'}} />
@@ -52,7 +53,7 @@ class Login extends Component {
                                     <Field name='password' id="password" component={this.renderLoginInput} type='password' label='Password' required />
                                 </div>
                                 <div className="row">
-                                    <p> {error} </p>
+                                    <p className="text-error col s8 -mt-10"> {loginError} </p>
                                 </div>
                                 <button onClick={handleSubmit((val)=>{this.login(val)})} className="btn-large min-w-200 btn-primary waves-effect waves-light">
                                     Login
@@ -70,25 +71,12 @@ function mapStateToProps(state) {
     return {
         isLoggedIn: state.user.isLoggedIn,
         user: state.user.user,
-        error: state.user.error
+        loginError: state.user.loginError
     };
 }
 
-function validation(values) {
-    const error = {};
-
-    if (!values.email) {
-        error.email = 'Please provide a username or an email';
-    }
-    if (!values.password) {
-        error.password = 'Please provide a password';
-    }
-    return error;
-}
-
 Login = reduxForm({
-    form: 'login',
-    validate: validation
+    form: 'login'
 })(Login);
 
 export default connect(mapStateToProps, {getLoggedInUser, authenticateLogin})(Login);

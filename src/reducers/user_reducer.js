@@ -4,7 +4,7 @@ const DEFAUT_STATE = {
     signUpSuccessful: null,
     isLoggedIn: false,
     user: null,
-    error: ''
+    loginError: ''
 };
 
 export default function(state = DEFAUT_STATE, action) {
@@ -19,28 +19,33 @@ export default function(state = DEFAUT_STATE, action) {
             console.log(`in user_reducer for ${types.AUTHENTICATE_LOGIN}`, action);
             var {payload} = action;
 
-            if (payload.status === 202) {
-                return {
-                    ...state,
-                    isLoggedIn: true,
-                    error: null
+            if (payload.status === 202 || payload.status === 200) {
+                const {data} = payload;
+
+                if (!data.success) {
+                    return {
+                        ...state,
+                        isLoggedIn: false,
+                        loginError: data.error
+                    }
+                } else {                    
+                    return {
+                        ...state,
+                        isLoggedIn: true,
+                        loginError: null
+                    }
                 }
-            } else if (payload.status === 200) {
-                return {
-                    ...state,
-                    isLoggedIn: false,
-                    error: payload.data.error
-                }
+
             } else {
-                let error = '';
+                let loginError = '';
                 if (payload.response.status === 403 || !payload.response.data.success) {
-                    error = payload.response.data.error
+                    loginError = payload.response.data.error
                 }
 
                 return {
                     ...state,
                     isLoggedIn: false,
-                    error
+                    loginError
                 }
             }
 

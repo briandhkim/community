@@ -106,6 +106,7 @@ input:not(.browser-default):focus:not([readonly]).border-secondary {
 .mr-5 {margin-right: 5px;}
 .mr-8 {margin-right: 8px;}
 .mr-10 {margin-right: 10px;}
+.mb-0 {margin-bottom: 0px;}
 .mb-5 {margin-bottom: 5px;}
 .mb-8 {margin-bottom: 8px;}
 .mb-10 {margin-bottom: 10px;}
@@ -125,6 +126,8 @@ input:not(.browser-default):focus:not([readonly]).border-secondary {
 .mt-4r {margin-top: 4rem;}
 .mt-5r {margin-top: 5rem;}
 .-mt-5 {margin-top: -5px;}
+.-mt-8 {margin-top: -8px;}
+.-mt-10 {margin-top: -10px;}
 
 @media screen and (min-width: 992px) {
   /* 992px wide or more */

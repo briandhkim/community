@@ -99,6 +99,9 @@ func AuthenticateLogin(e string, pw string, w http.ResponseWriter) ([]byte, int)
 		if bErr != nil {
 			success = false
 			err = "Email and/or password do not match."
+			u.FirstName = ""
+			u.LastName = ""
+			u.Password = ""
 			statusCode = http.StatusOK
 		} else {
 			success = true
