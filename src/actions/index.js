@@ -1,4 +1,9 @@
+import axios from 'axios';
 import types from './types';
+
+const headers = {
+    'Content-Type': 'application/x-www-form-urlencoded'
+};
 
 export function getLoggedInUser() {
     //axios request here
@@ -26,6 +31,32 @@ export function authenticateLogin(values) {
 
     return {
         type: types.AUTHENTICATE_LOGIN,
+        payload: data
+    }
+}
+
+export function signUp(values) {
+
+    const {email, firstName, lastName, password} = values;
+
+    console.log("signUp in actions index", values);
+
+    axios.post('/signup', {email, firstName, lastName, password}, {
+        headers: headers
+    })
+        .then(res => {
+            console.log("signUp axios res: ", res);
+        })
+        .catch(err => {
+            console.log("error in signUp action/index", err);
+        });
+
+    const data = {
+        signUp: "date here"
+    }
+
+    return {
+        type: types.SIGN_UP,
         payload: data
     }
 }

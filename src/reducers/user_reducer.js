@@ -19,6 +19,12 @@ export default function(state = DEFAUT_STATE, action) {
             return {
                 ...state
             }
+        case types.SIGN_UP:
+            console.log(`in user_reducer for ${types.SIGN_UP}`, action);
+
+            return {
+                ...state
+            }
         default:
             //console.log("state at user_reducer default", state);
             return state;

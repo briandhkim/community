@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Field, reduxForm} from 'redux-form';
 import {connect} from 'react-redux';
-import {getLoggedInUser} from '../../actions/index';
+import {getLoggedInUser, signUp} from '../../actions/index';
 
 class SignUp extends Component {
 
@@ -22,7 +22,8 @@ class SignUp extends Component {
     }
 
     signUp(values) {
-        console.log(values);
+        // console.log(values);
+        this.props.signUp(values);
     }
 
     render() {
@@ -92,4 +93,4 @@ SignUp = reduxForm({
     validate: validation
 })(SignUp);
 
-export default connect(mapStateToProps, {getLoggedInUser})(SignUp);
+export default connect(mapStateToProps, {getLoggedInUser, signUp})(SignUp);
