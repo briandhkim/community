@@ -7,37 +7,21 @@ import {getLoggedInUser, signUp} from '../../actions/index';
 import axios from 'axios';
 
 class SignUp extends Component {
-
     // componentWillMount() {
     //     this.props.getLoggedInUser();
     // }
 
-    renderSignUpInput({input, id, label, type, required, placeholder, meta:{touched, error}}) {
+    renderSignUpInput({input, id, label, type, required, meta:{asyncValidating, touched, error}}) {
+        console.log(asyncValidating);
         return(
             <React.Fragment>
-                <div className="input-field col s10 m-8">
+                <div className={`input-field col s10 m-8 ${asyncValidating ? 'async-validating' : ''}`}>
                     <input {...input} id={id} type={type} required={required} className="white-text border-secondary validate" />
                     <label htmlFor={input.name} className="text-secondary">{label}</label>
                 </div>
                 <p className="col s12 mt-0 text-error">{touched && error}</p>
             </React.Fragment>
         );
-    }
-
-    checkDuplicateEmail(input) {
-        if (input === 'abc') {
-            return 'error';
-        }
-
-        if (input && input.length) {
-            axios.get(`/check-duplicate-email/${input}`)
-            .then((res) => {
-                // console.log("dup email check: ", res);
-            })
-            .catch((err) => {
-                console.log("Error 1005: ", err);
-            });
-        }
     }
 
     signUp(values) {
@@ -57,7 +41,7 @@ class SignUp extends Component {
                             <h1 className="mt-0">Sign up</h1>
                             <form onSubmit={handleSubmit((val)=>{this.signUp(val)})}>
                                 <div className="row">
-                                    <Field name='email' id='email' type='email' label='Email' required component={this.renderSignUpInput} validate={this.checkDuplicateEmail} />
+                                    <Field name='email' id='email' type='email' label='Email' required component={this.renderSignUpInput} />
                                 </div>
                                 <div className="row">
                                     <Field name='firstName' id='firstName' type='text' label='First Name' required component={this.renderSignUpInput} />
@@ -90,12 +74,11 @@ function mapStateToProps(state) {
     };
 }
 
-function validation(values) {
+function validate(values) {
     const error = {};
     const {email, firstName, lastName, password} = values;
 
     const emailRegex = RegExp("^[A-z0-9._%+-]+@[A-z0-9.-]+\.[a-z]{2,12}$");
-
     if (!emailRegex.test(email)) {
         error.email = 'Please provide a valid email address';
     }
@@ -115,9 +98,28 @@ function validation(values) {
     return error;
 }
 
+function checkDupEmail(values) {
+    const {email} = values;
+    if (email && email.length) {
+        return axios.get(`/check-duplicate-email/${email}`);
+    } 
+}
+
+const asyncValidate = (values) => {
+    //https://redux-form.com/8.3.0/examples/asyncvalidation/
+    return checkDupEmail(values).then((res) => {
+        const {userExists} = res.data;
+        if (userExists) {
+            throw {email: "This email is already being used."}
+        }
+    });
+}
+
 SignUp = reduxForm({
     form: 'signUp',
-    validate: validation
+    validate,
+    asyncValidate,
+    asyncBlurFields: ['email']
 })(SignUp);
 
 export default connect(mapStateToProps, {getLoggedInUser, signUp})(SignUp);

@@ -22,7 +22,21 @@ func NewUserController() *UserController {
 // Mainly used for the Sign Up page
 func (uc UserController) CheckDuplicateEmail(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 	if r.Method == http.MethodGet {
-		fmt.Println(ps.ByName("email"))
+
+		userExists := models.CheckUserWithEmailExists(ps.ByName("email"))
+
+		res := struct {
+			UserExists bool `json:"userExists"`
+		}{
+			userExists,
+		}
+
+		rj, _ := json.Marshal(res)
+
+		w.Header().Set("Content-Type", "application/json")
+		w.WriteHeader(http.StatusOK)
+		fmt.Fprintf(w, "%s\n", rj)
+
 	} else {
 		http.Error(w, http.StatusText(http.StatusBadRequest), http.StatusBadRequest)
 	}
@@ -81,12 +95,12 @@ func (uc UserController) SignUp(w http.ResponseWriter, r *http.Request, _ httpro
 		}
 
 		//Marshal user data that has been created to json
-		uj, _ := json.Marshal(res)
+		rj, _ := json.Marshal(res)
 
 		//Write content-type, statuscode, and payload
 		w.Header().Set("Content-Type", "application/json")
 		w.WriteHeader(http.StatusCreated)
-		fmt.Fprintf(w, "%s\n", uj)
+		fmt.Fprintf(w, "%s\n", rj)
 	} else {
 		http.Error(w, http.StatusText(http.StatusBadRequest), http.StatusBadRequest)
 	}
