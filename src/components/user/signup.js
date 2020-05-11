@@ -7,9 +7,12 @@ import {getLoggedInUser, signUp} from '../../actions/index';
 import axios from 'axios';
 
 class SignUp extends Component {
-    // componentWillMount() {
-    //     this.props.getLoggedInUser();
-    // }
+    
+    constructor(props){
+        super(props);
+
+        this.props.getLoggedInUser();
+    }
 
     renderSignUpInput({input, id, label, type, required, meta:{asyncValidating, touched, error}}) {
         return(
@@ -28,9 +31,11 @@ class SignUp extends Component {
     }
 
     render() {
-        const {handleSubmit, signUpSuccessful} = this.props;
+        const {handleSubmit, signUpSuccessful, isLoggedIn} = this.props;
 
-        if (signUpSuccessful) {
+        if (isLoggedIn) {
+            return <Redirect to={{pathname: '/'}} />
+        } else if (signUpSuccessful) {
             return <Redirect to={{pathname: '/login'}} />
         } else {
             return (

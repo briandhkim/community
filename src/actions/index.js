@@ -6,25 +6,17 @@ const headers = {
 };
 
 export function getLoggedInUser() {
-    //axios request here
-    console.log("getLoggedInUser in actions index");
-    
-    const data = {
-        getLoggedInUser: "data here"
-    };
+    const req = axios.get("/get-logged-in-user");
     
     return {
         type: types.GET_LOGGED_IN_USER,
-        payload: data
+        payload: req
     }
 }
 
 export function authenticateLogin(values) {
-    
     let {email, password} = values;
     
-    // console.log("authenticateLogin in actions index", values);
-
     email = email.trim();
     password = password.trim();
 
@@ -39,10 +31,7 @@ export function authenticateLogin(values) {
 }
 
 export function signUp(values) {
-
     let {email, firstName, lastName, password} = values;
-
-    // console.log("signUp in actions index", values);
 
     email = email.trim();
     firstName = firstName.trim();

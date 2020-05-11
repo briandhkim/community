@@ -87,7 +87,7 @@ func CheckUserWithEmailExists(e string) ([]byte, int) {
 
 }
 
-// GetLoggedInUsers checks and returns the logged in user based on cookie/session data
+// GetLoggedInUser checks and returns the logged in user based on cookie/session data
 func GetLoggedInUser(r *http.Request) ([]byte, int) {
 
 	if UserIsLoggedIn(r) {
@@ -95,6 +95,7 @@ func GetLoggedInUser(r *http.Request) ([]byte, int) {
 
 		if err == nil {
 			u := getUserByEmailAddress(ue)
+			u.Password = ""
 
 			res := struct {
 				UserFound bool `json:"userFound"`

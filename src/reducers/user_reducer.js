@@ -10,13 +10,25 @@ const DEFAUT_STATE = {
 export default function(state = DEFAUT_STATE, action) {
     switch(action.type) {
         case types.GET_LOGGED_IN_USER:
-            console.log(`in user_reducer for ${types.GET_LOGGED_IN_USER}`, action);
+            var {payload} = action;
+
+            if (payload.status === 200) {
+                const {data} = payload;
+
+                if (data.userFound) {
+                    const {user} = data;
+                    return {
+                        ...state,
+                        isLoggedIn: true,
+                        user
+                    }
+                }
+            }
             
             return {
                 ...state
             }
         case types.AUTHENTICATE_LOGIN:
-            console.log(`in user_reducer for ${types.AUTHENTICATE_LOGIN}`, action);
             var {payload} = action;
 
             if (payload.status === 202 || payload.status === 200) {
@@ -50,7 +62,6 @@ export default function(state = DEFAUT_STATE, action) {
             }
 
         case types.SIGN_UP:
-            console.log(`in user_reducer for ${types.SIGN_UP}`, action);
             var {payload} = action;
 
             if (payload.status === 201) {
