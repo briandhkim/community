@@ -12,6 +12,7 @@ import (
 
 type User struct {
 	Email     string `json:"email"`
+	UID       string `json:"uuid"`
 	FirstName string `json:"firstName"`
 	LastName  string `json:"lastName"`
 	Password  string `json:"password"`
@@ -28,16 +29,16 @@ func getCountByEmailAddress(e string) int16 {
 }
 
 func getUserByEmailAddress(e string) User {
-	var em, fn, ln, pw string
+	var em, uid, fn, ln, pw string
 
-	sql := "SELECT email, firstName, lastName, password from users where email = ?"
+	sql := "SELECT email, uid, firstName, lastName, password from users where email = ?"
 
-	err := DB.QueryRow(sql, e).Scan(&em, &fn, &ln, &pw)
+	err := DB.QueryRow(sql, e).Scan(&em, &uid, &fn, &ln, &pw)
 	if err != nil {
 		log.Panic(err)
 	}
 
-	u := User{em, fn, ln, pw}
+	u := User{em, uid, fn, ln, pw}
 
 	return u
 }
@@ -49,10 +50,17 @@ func (u User) insertNewUser() error {
 		return err
 	}
 
-	sql := "INSERT INTO users(email, firstName, lastName, password) VALUES (?, ?, ?, ?)"
+	sql := "INSERT INTO users(email, uid, firstName, lastName, password) VALUES (?, ?, ?, ?, ?)"
 	stmt, _ := DB.Prepare(sql)
 
-	_, err = stmt.Exec(u.Email, u.FirstName, u.LastName, string(bs))
+	for {
+		uID, _ := uuid.NewV4()
+		_, err = stmt.Exec(u.Email, uID.String(), u.FirstName, u.LastName, string(bs))
+
+		if err == nil {
+			break
+		}
+	}
 
 	return err
 }
@@ -99,6 +107,7 @@ func AuthenticateLogin(e string, pw string, w http.ResponseWriter) ([]byte, int)
 		if bErr != nil {
 			success = false
 			err = "Email and/or password do not match."
+			u.UID = ""
 			u.FirstName = ""
 			u.LastName = ""
 			u.Password = ""
@@ -106,6 +115,7 @@ func AuthenticateLogin(e string, pw string, w http.ResponseWriter) ([]byte, int)
 		} else {
 			success = true
 			statusCode = http.StatusAccepted
+			u.Password = ""
 
 			sID, _ := uuid.NewV4()
 			c := &http.Cookie{
