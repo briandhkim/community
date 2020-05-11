@@ -17,6 +17,7 @@ func main() {
 	uc := controllers.NewUserController()
 
 	r.GET("/check-duplicate-email/:email", uc.CheckDuplicateEmail)
+	r.GET("/get-logged-in-user", uc.CheckAndGetLoggedInUser)
 	r.POST("/signup", uc.SignUp)
 	r.POST("/login", uc.Login)
 

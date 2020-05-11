@@ -33,6 +33,21 @@ func (uc UserController) CheckDuplicateEmail(w http.ResponseWriter, r *http.Requ
 	}
 }
 
+// CheckAndGetLoggedInUser checks cookie/session data for record of logged in users and returns a user if available
+func (uc UserController) CheckAndGetLoggedInUser(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
+	if r.Method == http.MethodGet {
+
+		rj, statusCode := models.GetLoggedInUser(r)
+
+		w.Header().Set("Content-Type", "application/json")
+		w.WriteHeader(statusCode)
+		fmt.Fprintf(w, "%s\n", rj)
+
+	} else {
+		http.Error(w, http.StatusText(http.StatusBadRequest), http.StatusBadRequest)
+	}
+}
+
 // SignUp handles the POST request made to /signup endpoint.
 func (uc UserController) SignUp(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	// check if user is logged in later
