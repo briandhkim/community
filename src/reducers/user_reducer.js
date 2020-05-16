@@ -9,8 +9,8 @@ const DEFAUT_STATE = {
 
 export default function(state = DEFAUT_STATE, action) {
     switch(action.type) {
-        case types.GET_LOGGED_IN_USER:
-            var {payload} = action;
+        case types.GET_LOGGED_IN_USER:{
+            const {payload} = action;
 
             if (payload.status === 200) {
                 const {data} = payload;
@@ -28,8 +28,9 @@ export default function(state = DEFAUT_STATE, action) {
             return {
                 ...state
             }
-        case types.AUTHENTICATE_LOGIN:
-            var {payload} = action;
+        }
+        case types.AUTHENTICATE_LOGIN:{
+            const {payload} = action;
 
             if (payload.status === 202 || payload.status === 200) {
                 const {data} = payload;
@@ -60,9 +61,9 @@ export default function(state = DEFAUT_STATE, action) {
                     loginError
                 }
             }
-
-        case types.SIGN_UP:
-            var {payload} = action;
+        }
+        case types.SIGN_UP:{
+            const {payload} = action;
 
             if (payload.status === 201) {
 
@@ -78,7 +79,7 @@ export default function(state = DEFAUT_STATE, action) {
                     user: null
                 }
             }
-
+        }
         default:
             //console.log("state at user_reducer default", state);
             return state;

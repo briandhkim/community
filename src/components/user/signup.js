@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {Link} from 'react-router-dom';
 import {Field, reduxForm} from 'redux-form';
 import {connect} from 'react-redux';
 import {Redirect} from 'react-router-dom';
@@ -17,11 +18,11 @@ class SignUp extends Component {
     renderSignUpInput({input, id, label, type, required, meta:{asyncValidating, touched, error}}) {
         return(
             <React.Fragment>
-                <div className={`input-field col s10 m-8 ${asyncValidating ? 'async-validating' : ''}`}>
+                <div className={`input-field col s10 offset-s1 m-8 font-secondary ${asyncValidating ? 'async-validating' : ''}`}>
                     <input {...input} id={id} type={type} required={required} className="white-text border-secondary validate" />
                     <label htmlFor={input.name} className="text-secondary">{label}</label>
                 </div>
-                <p className="col s12 mt-0 text-error">{touched && error}</p>
+                <p className="col s12 mt-0 text-error font-tertiary">{touched && error}</p>
             </React.Fragment>
         );
     }
@@ -41,8 +42,8 @@ class SignUp extends Component {
             return (
                 <div className="container">
                     <div className="row min-h-400 valign-wrapper">
-                        <div className="col s12 m6 offset-m3 mt-5r p-2r bg-primary-dark white-text">
-                            <h1 className="mt-0">Sign up</h1>
+                        <div className="col s12 m6 offset-m3 mt-5r p-2r bg-primary-dark white-text z-depth-4 center">
+                            <h1 className="mt-0 font-primary">Sign up</h1>
                             <form onSubmit={handleSubmit((val)=>{this.signUp(val)})}>
                                 <div className="row">
                                     <Field name='email' id='email' type='email' label='Email' required component={this.renderSignUpInput} />
@@ -56,10 +57,13 @@ class SignUp extends Component {
                                 <div className="row">
                                     <Field name='password' id='password' type='password' label='Password' required component={this.renderSignUpInput} />
                                 </div>
-                                <div className="row"></div>
-                                <button onClick={handleSubmit((val)=>{this.signUp(val)})} className="btn-large min-w-200 btn-primary waves-effect waves-light">
+                                <button onClick={handleSubmit((val)=>{this.signUp(val)})} className="font-primary btn-large min-w-200 btn-primary waves-effect waves-light">
                                     Sign up
                                 </button>
+                                
+                                <div className="mt-15">
+                                    <Link to="/login" className="font-tertiary btn-small btn-secondary min-w-200 waves-effect waves-light">Log in</Link>
+                                </div>
                             </form>
                         </div>
                     </div>

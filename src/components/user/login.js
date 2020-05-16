@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {Link} from 'react-router-dom';
 import {Field, reduxForm} from 'redux-form';
 import {connect} from 'react-redux';
 import {Redirect} from 'react-router-dom';
@@ -25,16 +26,22 @@ class Login extends Component {
 
         return(
             <React.Fragment>
-                <div className="input-field col s10 m-8">
-                    <input {...input} id={id} type={type} required={required} className="" />
-                    <label htmlFor={input.name}>{label}</label>
+                <div className="input-field col s10 offset-s1 m-8 font-secondary">
+                    <input {...input} id={id} type={type} required={required} className="white-text border-secondary" />
+                    <label htmlFor={input.name} className="text-secondary">{label}</label>
                 </div>
-                <p className="col s12 mt-0 text-error mb-0">{touched && error}</p>
+                <p className="col s12 mt-0 text-error mb-0 font-tertiary">{touched && error}</p>
             </React.Fragment>
         );
     }
 
     login(values) {
+        let {email, password} = values;
+
+        if (email === undefined || password === undefined) {
+            return;
+        }
+
         this.props.authenticateLogin(values).then(() => {
             if (this._isMounted) {
                 this.forceUpdate();
@@ -51,8 +58,8 @@ class Login extends Component {
             return (
                 <div className="container">
                     <div className="row min-h-400 valign-wrapper">
-                        <div className="col s12 m6 offset-m3">
-                            <h1>Login</h1>
+                        <div className="col s12 m6 offset-m3 mt-5r p-2r bg-primary-dark white-text z-depth-4 center">
+                            <h1 className="mt-0 font-primary">Login</h1>
                             <form onSubmit={handleSubmit((val)=>{this.login(val)})}>
                                 <div className="row">
                                     <Field name='email' id="email" component={this.renderLoginInput} type='text' label='Username/Email' required />
@@ -61,11 +68,15 @@ class Login extends Component {
                                     <Field name='password' id="password" component={this.renderLoginInput} type='password' label='Password' required />
                                 </div>
                                 <div className="row">
-                                    <p className="text-error col s8 -mt-10"> {loginError} </p>
+                                    <p className="text-error col s8 offset-s2 -mt-10"> {loginError} </p>
                                 </div>
-                                <button onClick={handleSubmit((val)=>{this.login(val)})} className="btn-large min-w-200 btn-primary waves-effect waves-light">
+                                <button onClick={handleSubmit((val)=>{this.login(val)})} className="font-primary btn-large min-w-200 btn-primary waves-effect waves-light">
                                     Login
                                 </button>
+
+                                <div className="mt-15">
+                                    <Link to="/signup" className="font-tertiary btn-small btn-secondary min-w-200 waves-effect waves-light">Sign up</Link>
+                                </div>
                             </form>
                         </div>
                     </div>

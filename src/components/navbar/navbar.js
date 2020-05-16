@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import {Link} from 'react-router-dom';
 import M from 'materialize-css/dist/js/materialize.min';
 class NavBar extends Component {
@@ -54,4 +55,11 @@ class NavBar extends Component {
     }
 }
 
-export default NavBar;
+function mapStateToProps(state) {
+    return {
+        isLoggedIn: state.user.isLoggedIn,
+        user: state.user.user
+    };
+}
+
+export default connect(mapStateToProps, {})(NavBar);

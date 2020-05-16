@@ -22,7 +22,8 @@ Secondary: #F9AA33
 .btn-primary{background-color: #344955;}
 .bg-primary-dark{background-color: #232F34;}
 .bg-primary-light{background-color: #4A6572;}
-.bg-secondary, .btn-secondary{background-color: #F9AA33;}
+.bg-secondary, 
+.btn-secondary{background-color: #F9AA33;}
 .text-primary{color: #344955;}
 .text-primary-dark{color: #232F34;}
 .text-primary-light{color: #4A6572;}
@@ -33,9 +34,17 @@ input:not(.browser-default):focus:not([readyonly])+label.text-secondary
 {color: #F9AA33;}
 .text-error{color: #d32f2f;}
 
+.btn-secondary {
+  color: #344955;
+}
+
 .btn-primary:hover, .btn-primary:focus{
   background-color: #4A6572;
   color:#F9AA33;
+}
+.btn-secondary:hover, .btn-secondary:focus{
+  background-color: #FFBD5B;
+  color: #232F34;
 }
 
 nav {
