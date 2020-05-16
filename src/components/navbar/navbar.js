@@ -2,6 +2,12 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {Link} from 'react-router-dom';
 import M from 'materialize-css/dist/js/materialize.min';
+
+import GuestNavbarCollection from './guestNavbarCollection';
+import MobileGuestNavbarCollection from './mobileGuestNavbarCollection';
+import UserNavbarColleciton from './userNavbarCollection';
+import MobileUserNavbarCollection from './mobileUserNavbarCollection';
+
 class NavBar extends Component {
     constructor(props) {
         super(props);
@@ -20,6 +26,18 @@ class NavBar extends Component {
     }
 
     render() {
+        const {isLoggedIn, user} = this.props;
+
+        let navbarCollection;
+        let mobileNavbarCollection;
+        if (isLoggedIn) {
+            navbarCollection = <UserNavbarColleciton user={user} />
+            mobileNavbarCollection = <MobileUserNavbarCollection user={user} hideMobileNav={this.hideMobileNav} />
+        } else {
+            navbarCollection = <GuestNavbarCollection />
+            mobileNavbarCollection = <MobileGuestNavbarCollection hideMobileNav={this.hideMobileNav} />
+        }
+
         return (
             <React.Fragment>
                 <nav>
@@ -35,20 +53,12 @@ class NavBar extends Component {
                             <i className="material-icons">menu</i>
                         </a>
                         <ul id="nav-default" className="right hide-on-med-and-down desktop-sm-mr-10">
-                            <li className="font-secondary">
-                                <Link to="/login" > Log in </Link>
-                            </li>
-                            <li className="font-secondary"><a href="/">item 2</a></li>
-                            <li className="font-secondary"><a href="/">item 3</a></li>
+                            {navbarCollection}
                         </ul>
                     </div>
                 </nav>
                 <ul className="navbarMobileNav sidenav" id="nav-mobile">
-                    <li className="font-secondary">
-                        <Link to="/login" onClick={this.hideMobileNav}> Log in </Link>
-                    </li>
-                    <li className="font-secondary"><a href="/">item 2</a></li>
-                    <li className="font-secondary"><a href="/">item 3</a></li>
+                    {mobileNavbarCollection}
                 </ul>
             </React.Fragment>
         );
