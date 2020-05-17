@@ -88,10 +88,10 @@ func CheckUserWithEmailExists(e string) ([]byte, int) {
 }
 
 // GetLoggedInUser checks and returns the logged in user based on cookie/session data
-func GetLoggedInUser(r *http.Request) ([]byte, int) {
+func GetLoggedInUser(w http.ResponseWriter, r *http.Request) ([]byte, int) {
 
-	if UserIsLoggedIn(r) {
-		ue, err := GetUserEmailFromSession(r)
+	if UserIsLoggedIn(w, r) {
+		ue, err := getUserEmailFromSession(w, r)
 
 		if err == nil {
 			u := getUserByEmailAddress(ue)
@@ -153,8 +153,9 @@ func AuthenticateLogin(e string, pw string, w http.ResponseWriter) ([]byte, int)
 
 			sID, _ := uuid.NewV4()
 			c := &http.Cookie{
-				Name:  "yaml-session",
-				Value: sID.String(),
+				Name:   "yaml-session",
+				Value:  sID.String(),
+				MaxAge: sessionLength,
 			}
 			http.SetCookie(w, c)
 			DbSession[c.Value] = session{u.Email, time.Now()}
@@ -176,13 +177,14 @@ func AuthenticateLogin(e string, pw string, w http.ResponseWriter) ([]byte, int)
 
 }
 
+// LogOut handles user logout request
 func LogOut(w http.ResponseWriter, r *http.Request) ([]byte, int) {
 	var s bool
 
-	if !UserIsLoggedIn(r) {
+	if !UserIsLoggedIn(w, r) {
 		s = true
 	} else {
-		err := DeleteUserSessionState(w, r)
+		err := deleteUserSessionState(w, r)
 
 		if err != nil {
 			s = false

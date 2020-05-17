@@ -37,7 +37,7 @@ func (uc UserController) CheckDuplicateEmail(w http.ResponseWriter, r *http.Requ
 func (uc UserController) CheckAndGetLoggedInUser(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	if r.Method == http.MethodGet {
 
-		rj, statusCode := models.GetLoggedInUser(r)
+		rj, statusCode := models.GetLoggedInUser(w, r)
 
 		w.Header().Set("Content-Type", "application/json")
 		w.WriteHeader(statusCode)

@@ -16,8 +16,14 @@ var DbSession = map[string]session{}
 // DbSessionsCleaned will be used later to track session timeout
 var DbSessionsCleaned time.Time
 
+//seconds - setting it to 24 hours
+const sessionLength int = 86400
+
+//12 hours
+const sessionCleanInterval int = 43200
+
 // UserIsLoggedIn checks cookie and session data to see if the user is logged in
-func UserIsLoggedIn(r *http.Request) bool {
+func UserIsLoggedIn(w http.ResponseWriter, r *http.Request) bool {
 
 	c, err := r.Cookie("yaml-session")
 	if err != nil {
@@ -27,6 +33,10 @@ func UserIsLoggedIn(r *http.Request) bool {
 	uEmail := DbSession[c.Value].value
 	uCountByEmail := getCountByEmailAddress(uEmail)
 
+	//refresh session
+	c.MaxAge = sessionLength
+	http.SetCookie(w, c)
+
 	if uCountByEmail == 0 {
 		return false
 	}
@@ -35,11 +45,15 @@ func UserIsLoggedIn(r *http.Request) bool {
 }
 
 // GetUserEmailFromSession returns user's email address from session data
-func GetUserEmailFromSession(r *http.Request) (string, error) {
+func getUserEmailFromSession(w http.ResponseWriter, r *http.Request) (string, error) {
 	c, err := r.Cookie("yaml-session")
 	if err != nil {
 		return "", err
 	}
+
+	//refresh session
+	c.MaxAge = sessionLength
+	http.SetCookie(w, c)
 
 	uEmail := DbSession[c.Value].value
 
@@ -47,7 +61,7 @@ func GetUserEmailFromSession(r *http.Request) (string, error) {
 }
 
 // DeleteUserSessionState handles removing user login state from session and cookie
-func DeleteUserSessionState(w http.ResponseWriter, r *http.Request) error {
+func deleteUserSessionState(w http.ResponseWriter, r *http.Request) error {
 
 	c, err := r.Cookie("yaml-session")
 	if err != nil {
@@ -65,5 +79,19 @@ func DeleteUserSessionState(w http.ResponseWriter, r *http.Request) error {
 	}
 	http.SetCookie(w, c)
 
+	if time.Now().Sub(DbSessionsCleaned) > (time.Second * time.Duration(sessionCleanInterval)) {
+		go cleanSessions()
+	}
+
 	return err
+}
+
+func cleanSessions() {
+	for k, v := range DbSession {
+		if time.Now().Sub(v.lastActivity) > (time.Second*time.Duration(sessionCleanInterval)) || v.value == "" {
+			delete(DbSession, k)
+		}
+	}
+
+	DbSessionsCleaned = time.Now()
 }
