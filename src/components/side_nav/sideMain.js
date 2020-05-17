@@ -1,6 +1,9 @@
 import React, {Component} from 'react';
 import M from 'materialize-css/dist/js/materialize.min';
 
+import SideNavFriends from './sideNavFriends';
+import SideNavChat from './sideNavChat';
+
 class SideMain extends Component {
 
     componentDidMount() {
@@ -16,18 +19,10 @@ class SideMain extends Component {
             <div>
                 <ul className="collapsible">
                     <li>
-                        <div className="collapsible-header pl-2r">
-                            <i className="material-icons">people</i>
-                            Friends
-                        </div>
-                        <div className="collapsible-body">Friends body</div>
+                        <SideNavFriends />
                     </li>
                     <li>
-                        <div className="collapsible-header pl-2r">
-                            <i className="material-icons">chat</i>
-                            Chat
-                        </div>
-                        <div className="collapsible-body">Chat body</div>
+                        <SideNavChat />
                     </li>
                 </ul>
             </div>
