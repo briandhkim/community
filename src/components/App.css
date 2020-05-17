@@ -118,6 +118,9 @@ input:not(.browser-default):focus:not([readonly]).border-secondary {
 .px-5 {padding-left: 5px; padding-right:5px;}
 .px-8 {padding-left: 8px; padding-right:8px;}
 .px-10 {padding-left: 10px; padding-right:10px;}
+.px-r05 {padding-left: 0.5rem; padding-right: 0.5rem;}
+.px-r1 {padding-left: 1rem; padding-right: 1rem;}
+.px-r2 {padding-left: 2rem; padding-right: 2rem;}
 .py-r05,
 .col.py-r05{padding-top: 0.5rem; padding-bottom: 0.5rem;}
 .py-r08,

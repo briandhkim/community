@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import {Link} from 'react-router-dom';
 import M from 'materialize-css/dist/js/materialize.min';
 
+import {logOut} from '../../actions/index';
+
 import GuestNavbarCollection from './guestNavbarCollection';
 import MobileGuestNavbarCollection from './mobileGuestNavbarCollection';
 import UserNavbarColleciton from './userNavbarCollection';
@@ -31,8 +33,8 @@ class NavBar extends Component {
         let navbarCollection;
         let mobileNavbarCollection;
         if (isLoggedIn) {
-            navbarCollection = <UserNavbarColleciton user={user} />
-            mobileNavbarCollection = <MobileUserNavbarCollection user={user} hideMobileNav={this.hideMobileNav} />
+            navbarCollection = <UserNavbarColleciton user={user} logOut={this.props.logOut} />
+            mobileNavbarCollection = <MobileUserNavbarCollection user={user} logOut={this.props.logOut} hideMobileNav={this.hideMobileNav} />
         } else {
             navbarCollection = <GuestNavbarCollection />
             mobileNavbarCollection = <MobileGuestNavbarCollection hideMobileNav={this.hideMobileNav} />
@@ -72,4 +74,4 @@ function mapStateToProps(state) {
     };
 }
 
-export default connect(mapStateToProps, {})(NavBar);
+export default connect(mapStateToProps, {logOut})(NavBar);

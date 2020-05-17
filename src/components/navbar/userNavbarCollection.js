@@ -1,5 +1,4 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
 
 const UserNavbarCollection = (props) => {
     const user = {...props.user};
@@ -7,9 +6,12 @@ const UserNavbarCollection = (props) => {
     return (
         <React.Fragment>
             <li className="font-secondary">
-                <Link to="/" > Log out </Link>
+                {
+                    // eslint-disable-next-line 
+                }
+                <a href="#!" onClick={props.logOut} > Log out </a>
             </li>
-            <li className="font-secondary">
+            <li className="font-secondary px-8">
                 Hi, {user.firstName}
             </li>
         </React.Fragment>

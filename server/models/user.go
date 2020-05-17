@@ -176,6 +176,31 @@ func AuthenticateLogin(e string, pw string, w http.ResponseWriter) ([]byte, int)
 
 }
 
+func LogOut(w http.ResponseWriter, r *http.Request) ([]byte, int) {
+	var s bool
+
+	if !UserIsLoggedIn(r) {
+		s = true
+	} else {
+		err := DeleteUserSessionState(w, r)
+
+		if err != nil {
+			s = false
+		} else {
+			s = true
+		}
+	}
+
+	res := struct {
+		Success bool `json:"success"`
+	}{
+		s,
+	}
+
+	rj, _ := json.Marshal(res)
+	return rj, http.StatusOK
+}
+
 // InsertNewFromSignUp checks the new user data sent from /signup and
 // inserts the user into the db.
 func (u User) InsertNewFromSignUp() ([]byte, int) {

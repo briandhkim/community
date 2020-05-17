@@ -11,7 +11,7 @@ export function getLoggedInUser() {
     return {
         type: types.GET_LOGGED_IN_USER,
         payload: req
-    }
+    };
 }
 
 export function authenticateLogin(values) {
@@ -27,7 +27,7 @@ export function authenticateLogin(values) {
     return {
         type: types.AUTHENTICATE_LOGIN,
         payload: req
-    }
+    };
 }
 
 export function signUp(values) {
@@ -45,5 +45,14 @@ export function signUp(values) {
     return {
         type: types.SIGN_UP,
         payload: req 
-    }
+    };
+}
+
+export function logOut() {
+    const req = axios.post('/logout');
+
+    return {
+        type: types.LOG_OUT,
+        payload: req
+    };
 }

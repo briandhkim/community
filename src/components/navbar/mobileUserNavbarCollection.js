@@ -1,15 +1,19 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
 
 const MobileUserNavbarCollection = (props) => {
     const user = {...props.user};
 
+    function logOutHandler() {
+        props.logOut();
+        props.hideMobileNav();
+    }
+
     return (
         <React.Fragment>
             <li className="font-secondary">
-                <Link to="/" onClick={props.hideMobileNav}> Log out </Link>
+                <a href="#!" onClick={logOutHandler}> Log out </a>
             </li>
-            <li className="font-secondary">
+            <li className="font-secondary px-r2 white-text">
                 Hi, {user.firstName}
             </li>
         </React.Fragment>

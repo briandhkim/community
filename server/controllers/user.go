@@ -90,12 +90,13 @@ func (uc UserController) SignUp(w http.ResponseWriter, r *http.Request, _ httpro
 		w.Header().Set("Content-Type", "application/json")
 		w.WriteHeader(statusCode)
 		fmt.Fprintf(w, "%s\n", rj)
+
 	} else {
 		http.Error(w, http.StatusText(http.StatusBadRequest), http.StatusBadRequest)
 	}
 }
 
-// Login handles the POSt request made to /login endpoint
+// Login handles the POST request made to /login endpoint
 func (uc UserController) Login(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	if r.Method == http.MethodPost {
 
@@ -112,6 +113,21 @@ func (uc UserController) Login(w http.ResponseWriter, r *http.Request, _ httprou
 		}
 
 		rj, statusCode := models.AuthenticateLogin(loginData.E, loginData.Pw, w)
+
+		w.Header().Set("Content-Type", "application/json")
+		w.WriteHeader(statusCode)
+		fmt.Fprintf(w, "%s\n", rj)
+
+	} else {
+		http.Error(w, http.StatusText(http.StatusBadRequest), http.StatusBadRequest)
+	}
+}
+
+// LogOut handles the POST request made to /logout endpoint
+func (uc UserController) LogOut(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
+	if r.Method == http.MethodPost {
+
+		rj, statusCode := models.LogOut(w, r)
 
 		w.Header().Set("Content-Type", "application/json")
 		w.WriteHeader(statusCode)

@@ -4,7 +4,8 @@ const DEFAUT_STATE = {
     signUpSuccessful: null,
     isLoggedIn: false,
     user: null,
-    loginError: ''
+    loginError: '',
+    logoutError: ''
 };
 
 export default function(state = DEFAUT_STATE, action) {
@@ -61,6 +62,25 @@ export default function(state = DEFAUT_STATE, action) {
                     loginError
                 }
             }
+        }
+        case types.LOG_OUT:{
+            const {payload} = action;
+
+            if (payload.status === 200 && payload.data.success) {
+                return {
+                    ...state,
+                    isLoggedIn: false,
+                    user: null,
+                    logoutError: ''
+                }
+            }
+
+            return {
+                ...state,
+                isLoggedIn: false,
+                logoutError: "Encountered error logging out"
+            }
+
         }
         case types.SIGN_UP:{
             const {payload} = action;

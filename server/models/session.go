@@ -45,3 +45,25 @@ func GetUserEmailFromSession(r *http.Request) (string, error) {
 
 	return uEmail, err
 }
+
+// DeleteUserSessionState handles removing user login state from session and cookie
+func DeleteUserSessionState(w http.ResponseWriter, r *http.Request) error {
+
+	c, err := r.Cookie("yaml-session")
+	if err != nil {
+		return err
+	}
+
+	//delete the session data
+	delete(DbSession, c.Value)
+
+	//delete cookie
+	c = &http.Cookie{
+		Name:   "yaml-session",
+		Value:  "",
+		MaxAge: -1,
+	}
+	http.SetCookie(w, c)
+
+	return err
+}

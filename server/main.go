@@ -20,6 +20,7 @@ func main() {
 	r.GET("/get-logged-in-user", uc.CheckAndGetLoggedInUser)
 	r.POST("/signup", uc.SignUp)
 	r.POST("/login", uc.Login)
+	r.POST("/logout", uc.LogOut)
 
 	http.ListenAndServe(":8080", r)
 
