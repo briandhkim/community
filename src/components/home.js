@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 
 import {getLoggedInUser} from '../actions/index';
 
-import UserLanding from './landing/userLanding';
+import UserHome from './user/userHome';
 import GuestLanding from './landing/guestLanding';
 
 class Home extends Component {
@@ -18,7 +18,7 @@ class Home extends Component {
         const {isLoggedIn} = this.props;
 
         if (isLoggedIn) {
-            return <UserLanding />
+            return <UserHome />
         }
         return <GuestLanding />
         

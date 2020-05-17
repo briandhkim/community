@@ -10,6 +10,12 @@ font-family: 'Roboto', sans-serif;
 .font-secondary {font-family: 'Lato', sans-serif;}
 .font-tertiary {font-family: 'Open Sans', sans-serif;}
 
+html, body, #root, .App {height: 100%;}
+
+.block        {display:block;}
+.inline       {display:inline;}
+.inline-block {display:inline-block;}
+
 /* 
 https://material.io/design/color/applying-color-to-ui.html#sheets-and-surfaces
 Colors:
@@ -58,6 +64,14 @@ input:not(.browser-default):focus:not([readyonly])+label.text-secondary
   color: #232F34;
 }
 
+/* border */
+.border {
+  border: 1px solid;
+}
+.border-white {
+  border-color: #ffffff;
+}
+
 nav {
   background-color: #344955;
 }
@@ -89,47 +103,55 @@ input:not(.browser-default):focus:not([readonly]).border-secondary {
 .border-l-1 {border-left: 1px solid;}
 
 /* height */
-.min-h-200 {min-height: 200px;}
-.min-h-400 {min-height: 400px;}
-.min-h-500 {min-height: 500px;}
-.min-h-20vh{min-height: 20vh;}
+.min-h-200  {min-height: 200px;}
+.min-h-400  {min-height: 400px;}
+.min-h-500  {min-height: 500px;}
+.min-h-20vh {min-height: 20vh;}
 .min-h-40vh {min-height: 20vh;}
 .min-h-50vh {min-height: 50vh;}
+.min-h-60vh {min-height: 60vh;}
+.min-h-70vh {min-height: 70vh;}
+.min-h-80vh {min-height: 80vh;}
+.min-h-90vh {min-height: 90vh;}
+.h-full {height: 100%;}
 /* width */
-.min-w-200 {min-width: 200px;}
-.min-w-300 {min-width: 300px;}
+.min-w-200  {min-width: 200px;}
+.min-w-300  {min-width: 300px;}
 .min-w-20vw {min-width: 20vw;}
 .min-w-30vw {min-width: 30vw;}
+.w-full     {width: 100%;}
 
 /* padding */
-.p-2 {padding: 2px;}
-.p-5 {padding: 5px;}
-.p-8 {padding: 8px;}
+.p-2  {padding: 2px;}
+.p-5  {padding: 5px;}
+.p-8  {padding: 8px;}
 .p-10 {padding: 10px;}
 .p-12 {padding: 12px;}
 .p-15 {padding: 15px;}
 .p-1r, .col.p-1r {padding: 1rem;}
 .p-2r, .col.p-2r {padding: 2rem;}
 .p-3r, .col.p-3r {padding: 3rem;}
-.pl-2 {padding-left: 2px;}
-.pl-5 {padding-left: 5px;}
-.pl-8 {padding-left: 8px;}
-.pl-10 {padding-left: 10px;}
-.px-5 {padding-left: 5px; padding-right:5px;}
-.px-8 {padding-left: 8px; padding-right:8px;}
-.px-10 {padding-left: 10px; padding-right:10px;}
+.pl-2   {padding-left: 2px;}
+.pl-5   {padding-left: 5px;}
+.pl-8   {padding-left: 8px;}
+.pl-10  {padding-left: 10px;}
+.pl-1r  {padding-left: 1rem;}
+.pl-2r  {padding-left: 2rem;}
+.px-5   {padding-left: 5px; padding-right:5px;}
+.px-8   {padding-left: 8px; padding-right:8px;}
+.px-10  {padding-left: 10px; padding-right:10px;}
 .px-r05 {padding-left: 0.5rem; padding-right: 0.5rem;}
-.px-r1 {padding-left: 1rem; padding-right: 1rem;}
-.px-r2 {padding-left: 2rem; padding-right: 2rem;}
+.px-r1  {padding-left: 1rem; padding-right: 1rem;}
+.px-r2  {padding-left: 2rem; padding-right: 2rem;}
 .py-r05,
-.col.py-r05{padding-top: 0.5rem; padding-bottom: 0.5rem;}
+.col.py-r05 {padding-top: 0.5rem; padding-bottom: 0.5rem;}
 .py-r08,
-.col.py-r08{padding-top: 0.8rem; padding-bottom: 0.8rem;}
+.col.py-r08 {padding-top: 0.8rem; padding-bottom: 0.8rem;}
 .py-r1,
-.col.py-r1{padding-top: 1rem; padding-bottom: 1rem;}
-.py-5 {padding-top: 5px; padding-bottom: 5px;}
-.py-8 {padding-top: 8px; padding-bottom: 8px;}
-.py-10 {padding-top: 10px; padding-bottom: 10px;}
+.col.py-r1  {padding-top: 1rem; padding-bottom: 1rem;}
+.py-5       {padding-top: 5px; padding-bottom: 5px;}
+.py-8       {padding-top: 8px; padding-bottom: 8px;}
+.py-10      {padding-top: 10px; padding-bottom: 10px;}
 
 
 /* margin */
@@ -189,6 +211,13 @@ input:not(.browser-default):focus:not([readonly]).border-secondary {
   .desktop-sm-mr-5 {margin-right: 5px;}
   .desktop-sm-mr-8 {margin-right: 8px;}
   .desktop-sm-mr-10 {margin-right: 10px;}
+  .l-h-full{height: 100%;}
+}
+
+@media screen and (min-width: 600px) {
+  /* 600px wide or more */
+  .m-h-90   {height: 90%;} 
+  .m-h-full {height: 100%;}
 }
 
 @media screen and (max-width: 992px) and (min-width: 600px) {
