@@ -24,6 +24,10 @@ Secondary: #F9AA33
 .bg-primary-light{background-color: #4A6572;}
 .bg-secondary, 
 .btn-secondary{background-color: #F9AA33;}
+.bg-success{background-color: #43A047;}
+.bg-error{background-color: #D32F2F;}
+.bg-info{background-color: #1E88E5;}
+
 .text-primary{color: #344955;}
 .text-primary-dark{color: #232F34;}
 .text-primary-light{color: #4A6572;}
@@ -33,6 +37,13 @@ label.text-secondary:focus,
 input:not(.browser-default):focus:not([readyonly])+label.text-secondary
 {color: #F9AA33;}
 .text-error{color: #d32f2f;}
+
+.text-h1{font-size: 4.2rem;}
+.text-h2{font-size: 3.56rem;}
+.text-h3{font-size: 2.92rem;}
+.text-h4{font-size: 2.28rem;}
+.text-h5{font-size: 1.64rem;}
+.text-h6{font-size: 1.15rem;}
 
 .btn-secondary {
   color: #344955;
@@ -70,6 +81,10 @@ input:not(.browser-default):focus:not([readonly]).border-secondary {
   border-color: #F9AA33;
 }
 
+.align-v {
+  vertical-align: middle;
+}
+
 /* border */
 .border-l-1 {border-left: 1px solid;}
 
@@ -100,6 +115,18 @@ input:not(.browser-default):focus:not([readonly]).border-secondary {
 .pl-5 {padding-left: 5px;}
 .pl-8 {padding-left: 8px;}
 .pl-10 {padding-left: 10px;}
+.px-5 {padding-left: 5px; padding-right:5px;}
+.px-8 {padding-left: 8px; padding-right:8px;}
+.px-10 {padding-left: 10px; padding-right:10px;}
+.py-r05,
+.col.py-r05{padding-top: 0.5rem; padding-bottom: 0.5rem;}
+.py-r08,
+.col.py-r08{padding-top: 0.8rem; padding-bottom: 0.8rem;}
+.py-r1,
+.col.py-r1{padding-top: 1rem; padding-bottom: 1rem;}
+.py-5 {padding-top: 5px; padding-bottom: 5px;}
+.py-8 {padding-top: 8px; padding-bottom: 8px;}
+.py-10 {padding-top: 10px; padding-bottom: 10px;}
 
 
 /* margin */
@@ -121,6 +148,11 @@ input:not(.browser-default):focus:not([readonly]).border-secondary {
 .mb-10 {margin-bottom: 10px;}
 .mb-15 {margin-bottom: 15px;}
 .mb-20 {margin-bottom: 20px;}
+.mb-1r {margin-bottom: 1rem;}
+.mb-2r {margin-bottom: 2rem;}
+.mb-3r {margin-bottom: 3rem;}
+.mb-4r {margin-bottom: 4rem;}
+.mb-5r {margin-bottom: 5rem;}
 .mt-0 {margin-top: 0px;}
 .mt-2 {margin-top: 2px;}
 .mt-4 {margin-top: 4px;}

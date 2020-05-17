@@ -35,6 +35,17 @@ class Login extends Component {
         );
     }
 
+    renderMessageHeader(message, bgType, icon = null) {
+        const bg = `bg-${bgType}`;
+
+        return (
+            <div className={`col s12 white-text font-secondary text-h6 py-r05 mb-1r ${bg}`}>
+                <i className={`material-icons mr-8 align-v ${icon ? "" : " hide"}`}>{icon}</i>
+                {message}
+            </div>
+        );
+    }
+
     login(values) {
         let {email, password} = values;
 
@@ -50,7 +61,9 @@ class Login extends Component {
     }
 
     render() {
-        let {handleSubmit, user, isLoggedIn, loginError} = this.props;
+        let {handleSubmit, isLoggedIn, loginError, signUpSuccessful} = this.props;
+
+        const messageBanner = signUpSuccessful ? this.renderMessageHeader("Your account has been created", "success", "check_box") : "";
 
         if (isLoggedIn) {
             return <Redirect to={{pathname: '/'}} />
@@ -59,6 +72,7 @@ class Login extends Component {
                 <div className="container">
                     <div className="row min-h-400 valign-wrapper">
                         <div className="col s12 m6 offset-m3 mt-5r p-2r bg-primary-dark white-text z-depth-4 center">
+                            {messageBanner}
                             <h1 className="mt-0 font-primary">Login</h1>
                             <form onSubmit={handleSubmit((val)=>{this.login(val)})}>
                                 <div className="row">
@@ -89,8 +103,8 @@ class Login extends Component {
 function mapStateToProps(state) {
     return {
         isLoggedIn: state.user.isLoggedIn,
-        user: state.user.user,
-        loginError: state.user.loginError
+        loginError: state.user.loginError,
+        signUpSuccessful: state.user.signUpSuccessful
     };
 }
 
