@@ -71,10 +71,10 @@ class Login extends Component {
             return (
                 <div className="container">
                     <div className="row min-h-400 valign-wrapper">
-                        <div className="col s12 m6 offset-m3 mt-5r p-2r bg-primary-dark white-text z-depth-4 center">
+                        <div className="col m12 l6 offset-l3 mt-5r p-2r bg-primary-dark white-text z-depth-4 center">
                             {messageBanner}
                             <h1 className="mt-0 font-primary">Login</h1>
-                            <form onSubmit={handleSubmit((val)=>{this.login(val)})}>
+                            <form onSubmit={handleSubmit((val)=>{this.login(val)})} className="loginForm">
                                 <div className="row">
                                     <Field name='email' id="email" component={this.renderLoginInput} type='text' label='Username/Email' required />
                                 </div>

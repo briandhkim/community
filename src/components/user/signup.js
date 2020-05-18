@@ -42,9 +42,9 @@ class SignUp extends Component {
             return (
                 <div className="container">
                     <div className="row min-h-400 valign-wrapper">
-                        <div className="col s12 m6 offset-m3 mt-5r p-2r bg-primary-dark white-text z-depth-4 center">
+                        <div className="col m12 l6 offset-l3 mt-5r p-2r bg-primary-dark white-text z-depth-4 center">
                             <h1 className="mt-0 font-primary">Sign up</h1>
-                            <form onSubmit={handleSubmit((val)=>{this.signUp(val)})}>
+                            <form onSubmit={handleSubmit((val)=>{this.signUp(val)})} className="signUpForm">
                                 <div className="row">
                                     <Field name='email' id='email' type='email' label='Email' required component={this.renderSignUpInput} />
                                 </div>

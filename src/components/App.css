@@ -42,6 +42,53 @@ ul.dropdown-content li:hover {
   background-color: #4A6572;
 }
 
+/* sign up/login form */
+/* label color */
+.signUpForm .input-field label,
+.loginForm .input-field label {
+  color: #F9AA33;
+}
+/* label focus color */
+.signUpForm .input-field input[type=text]:focus + label,
+.signUpForm .input-field input[type=email]:focus + label,
+.signUpForm .input-field input[type=password]:focus + label,
+.loginForm .input-field input[type=text]:focus + label,
+.loginForm .input-field input[type=password]:focus + label {
+  color: #F9AA33;
+}
+/* label underline focus color */
+.signUpForm .input-field input[type=text]:focus,
+.signUpForm .input-field input[type=email]:focus,
+.signUpForm .input-field input[type=password]:focus,
+.loginForm .input-field input[type=text]:focus,
+.loginForm .input-field input[type=password]:focus {
+  border-bottom: 1px solid #F9AA33;
+  box-shadow: 0 1px 0 0 #F9AA33;
+}
+/* valid color */
+.signUpForm .input-field input[type=text].valid,
+.signUpForm .input-field input[type=email].valid,
+.signUpForm .input-field input[type=password].valid,
+.loginForm .input-field input[type=text].valid,
+.loginForm .input-field input[type=password].valid {
+  border-bottom: 1px solid #43A047;
+  box-shadow: 0 1px 0 0 #43A047;
+}
+/* invalid color */
+.signUpForm .input-field input[type=text].invalid,
+.signUpForm .input-field input[type=email].invalid,
+.signUpForm .input-field input[type=password].invalid,
+.loginForm .input-field input[type=text].invalid,
+.loginForm .input-field input[type=password].invalid {
+  border-bottom: 1px solid #D32F2F;
+  box-shadow: 0 1px 0 0 #D32F2F;
+}
+/* icon prefix focus color */
+.signUpForm .input-field .prefix.active,
+.loginForm .input-field .prefix.active {
+  color: #F9AA33;
+}
+
 /* custom content end */
 
 
@@ -58,24 +105,21 @@ Primary-Light: #4A6572
 Secondary: #F9AA33
 */
 .bg-primary, 
-.btn-primary{background-color: #344955;}
-.bg-primary-dark{background-color: #232F34;}
-.bg-primary-light{background-color: #4A6572;}
+.btn-primary      {background-color: #344955;}
+.bg-primary-dark  {background-color: #232F34;}
+.bg-primary-light {background-color: #4A6572;}
 .bg-secondary, 
-.btn-secondary{background-color: #F9AA33;}
-.bg-success{background-color: #43A047;}
-.bg-error{background-color: #D32F2F;}
-.bg-info{background-color: #1E88E5;}
+.btn-secondary    {background-color: #F9AA33;}
+.bg-success       {background-color: #43A047;}
+.bg-error         {background-color: #D32F2F;}
+.bg-info          {background-color: #1E88E5;}
 
-.text-primary{color: #344955;}
-.text-primary-dark{color: #232F34;}
-.text-primary-light{color: #4A6572;}
-.text-secondary, 
-label.text-secondary, 
-label.text-secondary:focus,
-input:not(.browser-default):focus:not([readyonly])+label.text-secondary
-{color: #F9AA33;}
-.text-error{color: #d32f2f;}
+.text-primary       {color: #344955;}
+.text-primary-dark  {color: #232F34;}
+.text-primary-light {color: #4A6572;}
+.text-secondary     {color: #F9AA33;}
+.text-error         {color: #d32f2f;}
+.btn-secondary {color: #344955;}
 
 .text-h1{font-size: 4.2rem;}
 .text-h2{font-size: 3.56rem;}
@@ -84,13 +128,9 @@ input:not(.browser-default):focus:not([readyonly])+label.text-secondary
 .text-h5{font-size: 1.64rem;}
 .text-h6{font-size: 1.15rem;}
 
-.text-lighter   {font-weight: lighter;}
+.text-lighter {font-weight: lighter;}
 .text-bold    {font-weight: bold;}
 .text-bolder  {font-weight: bolder;}
-
-.btn-secondary {
-  color: #344955;
-}
 
 .btn-primary:hover, .btn-primary:focus{
   background-color: #4A6572;
@@ -132,10 +172,7 @@ ul.navbarMobileNav li a:hover {
 .border-primary       {border-color: #344955;}
 .border-primary-dark  {border-color: #232F34;}
 .border-primary-light {border-color: #4A6572;}
-input:not(.browser-default):focus:not([readonly]).border-secondary,
-.border-secondary {
-  border-color: #F9AA33;
-}
+.border-secondary     {border-color: #F9AA33;}
 
 /* .sideMain li.active .collapsible-header {
   border-bottom: 4px solid;
