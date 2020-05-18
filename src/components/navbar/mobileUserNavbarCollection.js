@@ -1,5 +1,7 @@
 import React from 'react';
 
+import MaterialIcon from '../util/materialIcon';
+
 const MobileUserNavbarCollection = (props) => {
     const user = {...props.user};
 
@@ -10,11 +12,16 @@ const MobileUserNavbarCollection = (props) => {
 
     return (
         <React.Fragment>
+            <li className="font-secondary px-r2 white-text mt-20">
+                Signed in as
+                <span className="font-primary text-bold text-secondary block">
+                <MaterialIcon icon={"face"} styleClass="align-v mr-8" />
+                    {user.firstName} {user.lastName}
+                </span>
+            </li>
+            <li className="divider" tabIndex="-1"></li>
             <li className="font-secondary">
                 <a href="#!" onClick={logOutHandler}> Log out </a>
-            </li>
-            <li className="font-secondary px-r2 white-text">
-                Hi, {user.firstName}
             </li>
         </React.Fragment>
     );

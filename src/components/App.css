@@ -12,6 +12,39 @@ font-family: 'Roboto', sans-serif;
 
 html, body, #root, .App {height: 100%;}
 
+/* custom content start */
+
+/* navbar */
+ul.dropdown-content > li.navDropText:hover {
+  background-color: transparent;
+}
+ul.dropdown-content > li.navDropText > span.p-0 {
+  padding: 0;
+}
+ul.dropdown-content > li.text-primary,
+ul.dropdown-content > li.text-primary > a
+{color: #344955;}
+ul.dropdown-content > li.text-primary-dark,  
+ul.dropdown-content > li.text-primary-dark > a 
+{color: #232F34;}
+ul.dropdown-content > li.text-primary-light, 
+ul.dropdown-content > li.text-primary-light > a
+{color: #4A6572;}
+ul.dropdown-content > li.text-secondary,
+ul.dropdown-content > li.text-secondary > a,
+ul.dropdown-content > li > span.text-secondary,
+ul.dropdown-content > li.text-primary > a:hover,
+ul.dropdown-content > li.text-primary-dark > a:hover, 
+ul.dropdown-content > li.text-primary-light > a:hover
+{color: #F9AA33;}
+
+ul.dropdown-content li:hover {
+  background-color: #4A6572;
+}
+
+/* custom content end */
+
+
 .block        {display:block;}
 .inline       {display:inline;}
 .inline-block {display:inline-block;}
@@ -50,6 +83,10 @@ input:not(.browser-default):focus:not([readyonly])+label.text-secondary
 .text-h4{font-size: 2.28rem;}
 .text-h5{font-size: 1.64rem;}
 .text-h6{font-size: 1.15rem;}
+
+.text-lighter   {font-weight: lighter;}
+.text-bold    {font-weight: bold;}
+.text-bolder  {font-weight: bolder;}
 
 .btn-secondary {
   color: #344955;
@@ -129,6 +166,7 @@ input:not(.browser-default):focus:not([readonly]).border-secondary,
 .w-full     {width: 100%;}
 
 /* padding */
+.p-0  {padding: 0px;}
 .p-2  {padding: 2px;}
 .p-5  {padding: 5px;}
 .p-8  {padding: 8px;}
