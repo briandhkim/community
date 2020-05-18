@@ -86,6 +86,7 @@ function validate(values) {
     const error = {};
     const {email, firstName, lastName, password} = values;
 
+    // eslint-disable-next-line
     const emailRegex = RegExp("^[A-z0-9._%+-]+@[A-z0-9.-]+\.[a-z]{2,12}$");
     if (!emailRegex.test(email)) {
         error.email = 'Please provide a valid email address';
@@ -117,7 +118,9 @@ const asyncValidate = (values) => {
     //https://redux-form.com/8.3.0/examples/asyncvalidation/
     return checkDupEmail(values).then((res) => {
         const {userExists} = res.data;
+        
         if (userExists) {
+            // eslint-disable-next-line
             throw {email: "This email is already being used."}
         }
     });

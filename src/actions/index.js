@@ -56,3 +56,16 @@ export function logOut() {
         payload: req
     };
 }
+
+export function showSearchPeople() {
+    return {
+        type: types.SHOW_SEARCH_PEOPLE,
+        payload: {}
+    }
+}
+export function closeSearchPeople() {
+    return {
+        type: types.CLOSE_SEARCH_PEOPLE,
+        payload: {}
+    }
+}

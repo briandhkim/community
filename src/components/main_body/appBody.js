@@ -1,11 +1,29 @@
-import React from 'react';
+import React, {Component} from 'react';
+import {connect} from 'react-redux';
 
-const AppBody = (props) => {
-    return (
-        <div className="container white-text">
-            <h1>Main content </h1>
-        </div>
-    );
+import SearchPeopleMain from '../social/searchPeopleMain';
+
+class AppBody extends Component {
+
+    render() {
+        const {showSearchPeople} = this.props;
+
+        if (showSearchPeople) {
+            return <SearchPeopleMain />
+        }
+
+        return (
+            <div className="container white-text">
+                <h1>Main content </h1>
+            </div>
+        );
+    }
 }
 
-export default AppBody;
+function mapStateToProps(state) {
+    return{
+        showSearchPeople: state.mainBody.showSearchPeople
+    };
+}
+
+export default connect(mapStateToProps, {})(AppBody);
