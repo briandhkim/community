@@ -8,7 +8,7 @@ const DEFAUT_STATE = {
     logoutError: ''
 };
 
-export default function(state = DEFAUT_STATE, action) {
+export default (state = DEFAUT_STATE, action) => {
     switch(action.type) {
         case types.GET_LOGGED_IN_USER:{
             const {payload} = action;

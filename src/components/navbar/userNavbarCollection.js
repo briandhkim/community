@@ -25,7 +25,7 @@ const UserNavbarCollection = (props) => {
             <ul id="userNavDropdown" className="dropdown-content min-w-200">
                 <li className="font-secondary navDropText px-r1 py-8" >
                     Signed in as
-                    <span className="font-primary text-bold text-secondary p-0">
+                    <span className="font-primary text-bold text-primary-light p-0">
                         {user.firstName} {user.lastName}
                     </span>
                 </li>

@@ -5,7 +5,7 @@ const DEFAULT_STATE = {
     showDefaultScreen: true
 };
 
-export default function(state = DEFAULT_STATE, action) {
+export default (state = DEFAULT_STATE, action) => {
     switch(action.type) {
         case types.SHOW_SEARCH_PEOPLE:{
             return {

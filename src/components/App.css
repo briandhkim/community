@@ -28,7 +28,8 @@ ul.dropdown-content > li.text-primary-dark,
 ul.dropdown-content > li.text-primary-dark > a 
 {color: #232F34;}
 ul.dropdown-content > li.text-primary-light, 
-ul.dropdown-content > li.text-primary-light > a
+ul.dropdown-content > li.text-primary-light > a,
+ul.dropdown-content > li > span.text-primary-light
 {color: #4A6572;}
 ul.dropdown-content > li.text-secondary,
 ul.dropdown-content > li.text-secondary > a,
@@ -44,16 +45,17 @@ ul.dropdown-content li:hover {
 
 /* sign up/login form */
 /* label color */
-.signUpForm .input-field label,
+/* .signUpForm .input-field label,
 .loginForm .input-field label {
   color: #F9AA33;
-}
+} */
 /* label focus color */
 .signUpForm .input-field input[type=text]:focus + label,
 .signUpForm .input-field input[type=email]:focus + label,
 .signUpForm .input-field input[type=password]:focus + label,
 .loginForm .input-field input[type=text]:focus + label,
-.loginForm .input-field input[type=password]:focus + label {
+.loginForm .input-field input[type=password]:focus + label,
+.searchPeopleForm .input-field input[type=text]:focus + label {
   color: #F9AA33;
 }
 /* label underline focus color */
@@ -61,7 +63,8 @@ ul.dropdown-content li:hover {
 .signUpForm .input-field input[type=email]:focus,
 .signUpForm .input-field input[type=password]:focus,
 .loginForm .input-field input[type=text]:focus,
-.loginForm .input-field input[type=password]:focus {
+.loginForm .input-field input[type=password]:focus, 
+.searchPeopleForm .input-field input[type=text]:focus {
   border-bottom: 1px solid #F9AA33;
   box-shadow: 0 1px 0 0 #F9AA33;
 }
@@ -85,7 +88,8 @@ ul.dropdown-content li:hover {
 }
 /* icon prefix focus color */
 .signUpForm .input-field .prefix.active,
-.loginForm .input-field .prefix.active {
+.loginForm .input-field .prefix.active,
+.searchPeopleForm .input-field .prefix.active {
   color: #F9AA33;
 }
 

@@ -1,11 +1,12 @@
 import React from 'react';
 
 const MaterialIcon = (props) => {
-    const {icon} = props;
-    const {styleClass} = props;
+    const {icon, styleClass} = props;
+
+    const styles = styleClass !== undefined ? styleClass : "";
 
     return (
-        <i className={`material-icons ${styleClass}`}>{icon}</i>
+        <i className={`material-icons ${styles}`}>{icon}</i>
     );
 }
 
