@@ -43,6 +43,31 @@ func getUserByEmailAddress(e string) User {
 	return u
 }
 
+func getUserSliceByNameOrEmail(sv string) []User {
+	
+	sql := "select email, uid, firstName, lastName from users where concat(firstname, ' ', lastName) like '%?%' or email like '%?%' order by lastName asc limit 50"
+	
+	rows, err := DB.Query(sql, sv, sv)
+	if err != nil {
+		log.Panic(err)
+	}
+	defer rows.Close()
+
+	us := make([]User, 0, 50)
+	
+	for rows.Next() {
+		var em, uid, fn, ln string
+		if err := rows.Scan(&em, &uid, &fn, &ln); err != nil {
+			log.Panic(err)
+		}
+
+		u := User{em, uid, fn, ln, ""}
+		us = append(us, u)
+	}
+
+	return us
+}
+
 func (u User) insertNewUser() error {
 
 	bs, err := bcrypt.GenerateFromPassword([]byte(u.Password), bcrypt.MinCost)
@@ -228,4 +253,22 @@ func (u User) InsertNewFromSignUp() ([]byte, int) {
 
 	rj, _ := json.Marshal(res)
 	return rj, statusCode
+}
+
+// SearchUsersByNameOrEmail looks up users based on name or email 
+func SearchUsersByNameOrEmail(sv string) ([]byte, int) {
+
+	us := getUserSliceByNameOrEmail(sv)
+
+	res := struct {
+		Success bool `json:"success"`
+		Users []User `json:"users"`
+	}{
+		true,
+		us,
+	}
+
+	rj, _ := json.Marshal(res)
+	return rj, http.StatusOK
+
 }
