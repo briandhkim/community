@@ -6,7 +6,7 @@ const headers = {
 };
 
 export function getLoggedInUser() {
-    const req = axios.get("/get-logged-in-user");
+    const req = axios.get("/user/get-logged-in-user");
     
     return {
         type: types.GET_LOGGED_IN_USER,
@@ -20,7 +20,7 @@ export function authenticateLogin(values) {
     email = email.trim();
     password = password.trim();
 
-    const req = axios.post('/login', {email, password}, {
+    const req = axios.post('/user/login', {email, password}, {
         headers: headers
     });
 
@@ -38,7 +38,7 @@ export function signUp(values) {
     lastName = lastName.trim();
     password = password.trim();
 
-    const req = axios.post('/signup', {email, firstName, lastName, password}, {
+    const req = axios.post('/user/signup', {email, firstName, lastName, password}, {
         headers: headers
     });
 
@@ -49,7 +49,7 @@ export function signUp(values) {
 }
 
 export function logOut() {
-    const req = axios.post('/logout');
+    const req = axios.post('/user/logout');
 
     return {
         type: types.LOG_OUT,

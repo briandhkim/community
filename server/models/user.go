@@ -44,9 +44,9 @@ func getUserByEmailAddress(e string) User {
 }
 
 func getUserSliceByNameOrEmail(sv string) []User {
-	
+
 	sql := "select email, uid, firstName, lastName from users where concat(firstname, ' ', lastName) like '%?%' or email like '%?%' order by lastName asc limit 50"
-	
+
 	rows, err := DB.Query(sql, sv, sv)
 	if err != nil {
 		log.Panic(err)
@@ -54,7 +54,7 @@ func getUserSliceByNameOrEmail(sv string) []User {
 	defer rows.Close()
 
 	us := make([]User, 0, 50)
-	
+
 	for rows.Next() {
 		var em, uid, fn, ln string
 		if err := rows.Scan(&em, &uid, &fn, &ln); err != nil {
@@ -255,14 +255,14 @@ func (u User) InsertNewFromSignUp() ([]byte, int) {
 	return rj, statusCode
 }
 
-// SearchUsersByNameOrEmail looks up users based on name or email 
+// SearchUsersByNameOrEmail looks up users based on name or email
 func SearchUsersByNameOrEmail(sv string) ([]byte, int) {
 
 	us := getUserSliceByNameOrEmail(sv)
 
 	res := struct {
-		Success bool `json:"success"`
-		Users []User `json:"users"`
+		Success bool   `json:"success"`
+		Users   []User `json:"users"`
 	}{
 		true,
 		us,

@@ -17,11 +17,11 @@ func main() {
 	uc := controllers.NewUserController()
 	fc := controllers.NewFriendsController()
 
-	r.GET("/check-duplicate-email/:email", uc.CheckDuplicateEmail)
-	r.GET("/get-logged-in-user", uc.CheckAndGetLoggedInUser)
-	r.POST("/signup", uc.SignUp)
-	r.POST("/login", uc.Login)
-	r.POST("/logout", uc.LogOut)
+	r.GET("/user/check-duplicate-email/:email", uc.CheckDuplicateEmail)
+	r.GET("/user/get-logged-in-user", uc.CheckAndGetLoggedInUser)
+	r.POST("/user/signup", uc.SignUp)
+	r.POST("/user/login", uc.Login)
+	r.POST("/user/logout", uc.LogOut)
 
 	r.POST("/search-people", fc.SearchPeopleByNameOrEmail)
 

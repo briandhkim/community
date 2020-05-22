@@ -110,20 +110,21 @@ function validate(values) {
 function checkDupEmail(values) {
     const {email} = values;
     if (email && email.length) {
-        return axios.get(`/check-duplicate-email/${email}`);
+        return axios.get(`/user/check-duplicate-email/${email}`);
     } 
 }
 
 const asyncValidate = (values) => {
     //https://redux-form.com/8.3.0/examples/asyncvalidation/
-    return checkDupEmail(values).then((res) => {
-        const {userExists} = res.data;
-        
-        if (userExists) {
-            // eslint-disable-next-line
-            throw {email: "This email is already being used."}
-        }
-    });
+    return checkDupEmail(values)
+            .then((res) => {
+                const {userExists} = res.data;
+                
+                if (userExists) {
+                    // eslint-disable-next-line
+                    throw {email: "This email is already being used."}
+                }
+            });
 }
 
 SignUp = reduxForm({
