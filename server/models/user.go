@@ -10,9 +10,10 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
+// User type contains information about the app user
 type User struct {
 	Email     string `json:"email"`
-	UID       string `json:"uuid"`
+	UID       string `json:"uid"`
 	FirstName string `json:"firstName"`
 	LastName  string `json:"lastName"`
 	Password  string `json:"password"`

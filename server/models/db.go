@@ -7,6 +7,7 @@ import (
 	"log"
 )
 
+// DB type is used to establish db connection
 var DB *sql.DB
 var err error
 
