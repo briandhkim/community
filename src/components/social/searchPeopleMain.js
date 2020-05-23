@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
-import {closeSearchPeople} from '../../actions/index';
+import {closeSearchPeopleWindow} from '../../actions/index';
 
 import MaterialIcon from '../util/materialIcon';
 import SearchPeopleForm from './searchPeopleForm';
@@ -16,7 +16,7 @@ class SearchPeopleMain extends Component {
                         <h1 className="text-h2 mt-0">Search People</h1>
                     </div>
                     <div className="col s2 mt-2r">
-                        <button className="btn-large btn-floating waves-effect waves-circle btn-secondary" onClick={this.props.closeSearchPeople}>
+                        <button className="btn-large btn-floating waves-effect waves-circle btn-secondary" onClick={this.props.closeSearchPeopleWindow}>
                             <MaterialIcon icon={"close"} styleClass={"text-bold"} />
                         </button>
                     </div>
@@ -33,4 +33,4 @@ function mapStateToProps(state) {
     return {};
 }
 
-export default connect(mapStateToProps, {closeSearchPeople})(SearchPeopleMain);
+export default connect(mapStateToProps, {closeSearchPeopleWindow})(SearchPeopleMain);

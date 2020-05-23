@@ -14,6 +14,19 @@ html, body, #root, .App {height: 100%;}
 
 /* custom content start */
 
+
+.custom-scroll-bar::-webkit-scrollbar{
+	width: 7px;
+	/*background-color:rgb(227, 129, 23);*/
+	background-color: #212121;
+	background-color: transparent;
+}
+.custom-scroll-bar::-webkit-scrollbar-thumb{
+	width: 5px;
+	/* border-radius: 20px; */
+	background-color: #212121;
+}
+
 /* navbar */
 ul.dropdown-content > li.navDropText:hover {
   background-color: transparent;
@@ -91,6 +104,29 @@ ul.dropdown-content li:hover {
 .loginForm .input-field .prefix.active,
 .searchPeopleForm .input-field .prefix.active {
   color: #F9AA33;
+}
+
+/* sidenav friend list */
+.sideNavFriendsList.collection.with-header .collection-header {
+  background-color: #4A6572;
+  color: #ffffff;
+}
+.sideNavFriendsList.collection.with-header .collection-header .badge {
+  color: #F9AA33;
+}
+.sideNavFriendsList.collection a.collection-item {
+  color: #344955;
+}
+.sideNavFriendsList .custom-scroll-bar::-webkit-scrollbar{
+	width: 7px;
+	/*background-color:rgb(227, 129, 23);*/
+	background-color: #232F34;
+	background-color: transparent;
+}
+.sideNavFriendsList .custom-scroll-bar::-webkit-scrollbar-thumb{
+	width: 5px;
+	/* border-radius: 20px; */
+	background-color: #232F34;
 }
 
 /* custom content end */
@@ -284,6 +320,9 @@ ul.navbarMobileNav li a:hover {
 .-mt-8 {margin-top: -8px;}
 .-mt-10 {margin-top: -10px;}
 
+.overflow-x-auto  {overflow-x: auto;}
+.overflow-y-auto  {overflow-y: auto;}
+
 @media screen and (min-width: 992px) {
   /* 992px wide or more */
   /* equivalent to materialize .l */
@@ -305,8 +344,14 @@ ul.navbarMobileNav li a:hover {
 
 @media screen and (min-width: 600px) {
   /* 600px wide or more */
+
+  /* height */
   .m-h-90   {height: 90%;} 
   .m-h-full {height: 100%;}
+  .m-max-h-100 {max-height: 100px;}
+  .m-max-h-250 {max-height: 250px;}
+  .m-max-h-300 {max-height: 300px;}
+  .m-max-h-500 {max-height: 500px;}
 }
 
 @media screen and (max-width: 992px) and (min-width: 600px) {

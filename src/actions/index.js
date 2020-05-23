@@ -57,13 +57,13 @@ export function logOut() {
     };
 }
 
-export function showSearchPeople() {
+export function showSearchPeopleWindow() {
     return {
         type: types.SHOW_SEARCH_PEOPLE_WINDOW,
         payload: {}
     }
 }
-export function closeSearchPeople() {
+export function closeSearchPeopleWindow() {
     return {
         type: types.CLOSE_SEARCH_PEOPLE_WINDOW,
         payload: {}

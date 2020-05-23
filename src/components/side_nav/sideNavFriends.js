@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
-import {showSearchPeople, loadFriendsByUID} from '../../actions/index';
+import {showSearchPeopleWindow, loadFriendsByUID} from '../../actions/index';
 
 import MaterialIcon from '../util/materialIcon';
+import FriendsList from './friendsList';
 
 class SideNavFriends extends Component {
 
@@ -17,23 +18,23 @@ class SideNavFriends extends Component {
     }
 
     render() {
+        const {friends} = this.props;
+
+        const friendsList = friends ? <FriendsList friends={friends} /> : "";
+
         return(
             <React.Fragment>
                 <div className="collapsible-header pl-2r font-primary">
                     <MaterialIcon icon={"people"} />
                     Friends
                 </div>
-                <div className="collapsible-body px-0 pt-0">
-                    <button className="font-secondary w-full btn btn-secondary waves-effect waves-light" onClick={this.props.showSearchPeople}>
+                <div className="collapsible-body px-0 pt-0 bg-primary">
+                    <button className="font-secondary w-full btn btn-secondary waves-effect waves-light" onClick={this.props.showSearchPeopleWindow}>
                         Search People
                         <MaterialIcon icon={"search"} styleClass="align-v" />
                     </button>
-                    <div className="p-2r">
-                        <ul className="">
-                            <li>person a</li>
-                            <li>person b</li>
-                            <li>person c</li>
-                        </ul>
+                    <div className="p-1r">
+                        {friendsList}
                     </div>
                 </div>
             </React.Fragment>
@@ -49,4 +50,4 @@ function mapStateToProps(state) {
     };
 }
 
-export default connect(mapStateToProps, {showSearchPeople, loadFriendsByUID})(SideNavFriends);
+export default connect(mapStateToProps, {showSearchPeopleWindow, loadFriendsByUID})(SideNavFriends);
