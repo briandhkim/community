@@ -17,6 +17,32 @@ func NewFriendsController() *FriendsController {
 	return &FriendsController{}
 }
 
+// LoadFriendsByUserUID handles the POST request made to /friends/load-friends
+func (fc FriendsController) LoadFriendsByUserUID(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
+	if r.Method == http.MethodPost {
+
+		defer r.Body.Close()
+		decoder := json.NewDecoder(r.Body)
+		d := struct {
+			UID string `json:"uid"`
+		}{}
+		err := decoder.Decode(&d)
+		if err != nil {
+			http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+			return
+		}
+
+		rj, statusCode := models.LoadFriendsByUID(d.UID)
+
+		w.Header().Set("Content-Type", "application/json")
+		w.WriteHeader(statusCode)
+		fmt.Fprintf(w, "%s\n", rj)
+
+	} else {
+		http.Error(w, http.StatusText(http.StatusBadRequest), http.StatusBadRequest)
+	}
+}
+
 // SearchPeopleByNameOrEmail handles the POST request made to /search-people endpoint
 func (fc FriendsController) SearchPeopleByNameOrEmail(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	if r.Method == http.MethodPost {
