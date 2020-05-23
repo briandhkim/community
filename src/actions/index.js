@@ -59,13 +59,22 @@ export function logOut() {
 
 export function showSearchPeople() {
     return {
-        type: types.SHOW_SEARCH_PEOPLE,
+        type: types.SHOW_SEARCH_PEOPLE_WINDOW,
         payload: {}
     }
 }
 export function closeSearchPeople() {
     return {
-        type: types.CLOSE_SEARCH_PEOPLE,
+        type: types.CLOSE_SEARCH_PEOPLE_WINDOW,
         payload: {}
+    }
+}
+
+export function loadFriendsByUID(uid) {
+    const req = axios.post('/friends/load-friends', {uid}, {headers});
+
+    return {
+        type: types.LOAD_FRIENDS_BY_UID,
+        payload: req
     }
 }

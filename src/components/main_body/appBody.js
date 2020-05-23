@@ -6,9 +6,9 @@ import SearchPeopleMain from '../social/searchPeopleMain';
 class AppBody extends Component {
 
     render() {
-        const {showSearchPeople} = this.props;
+        const {showSearchPeopleWindow} = this.props;
 
-        if (showSearchPeople) {
+        if (showSearchPeopleWindow) {
             return <SearchPeopleMain />
         }
 
@@ -21,8 +21,9 @@ class AppBody extends Component {
 }
 
 function mapStateToProps(state) {
+    const {mainBody} = state;
     return{
-        showSearchPeople: state.mainBody.showSearchPeople
+        showSearchPeopleWindow: mainBody.showSearchPeopleWindow
     };
 }
 

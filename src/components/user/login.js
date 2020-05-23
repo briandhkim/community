@@ -101,10 +101,11 @@ class Login extends Component {
 }
 
 function mapStateToProps(state) {
+    const {user} = state;
     return {
-        isLoggedIn: state.user.isLoggedIn,
-        loginError: state.user.loginError,
-        signUpSuccessful: state.user.signUpSuccessful
+        isLoggedIn: user.isLoggedIn,
+        loginError: user.loginError,
+        signUpSuccessful: user.signUpSuccessful
     };
 }
 

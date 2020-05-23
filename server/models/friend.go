@@ -8,7 +8,7 @@ import (
 
 func getFriendUserSliceByUID(uid string) []User {
 	sql := `select
-			id, email, uid, firstName, lastName
+			email, uid, firstName, lastName
 			from
 				users
 			where
@@ -47,7 +47,7 @@ func getFriendUserSliceByUID(uid string) []User {
 	}
 	defer rows.Close()
 
-	us := []User{}
+	var us []User
 
 	for rows.Next() {
 		var em, uid, fn, ln string

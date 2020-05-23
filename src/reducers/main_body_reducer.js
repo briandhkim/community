@@ -1,22 +1,22 @@
 import types from '../actions/types';
 
 const DEFAULT_STATE = {
-    showSearchPeople: false,
+    showSearchPeopleWindow: false,
     showDefaultScreen: true
 };
 
 export default (state = DEFAULT_STATE, action) => {
     switch(action.type) {
-        case types.SHOW_SEARCH_PEOPLE:{
+        case types.SHOW_SEARCH_PEOPLE_WINDOW:{
             return {
                 ...state,
-                showSearchPeople: true
+                showSearchPeopleWindow: true
             }
         }
-        case types.CLOSE_SEARCH_PEOPLE:{
+        case types.CLOSE_SEARCH_PEOPLE_WINDOW:{
             return {
                 ...state,
-                showSearchPeople: false
+                showSearchPeopleWindow: false
             }
         }
         default:

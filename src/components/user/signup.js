@@ -75,10 +75,11 @@ class SignUp extends Component {
 }
 
 function mapStateToProps(state) {
+    const {user} = state;
     return {
-        signUpSuccessful: state.user.signUpSuccessful,
-        isLoggedIn: state.user.isLoggedIn,
-        user: state.user.user
+        signUpSuccessful: user.signUpSuccessful,
+        isLoggedIn: user.isLoggedIn,
+        user: user.user
     };
 }
 

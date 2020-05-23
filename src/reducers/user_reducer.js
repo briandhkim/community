@@ -5,7 +5,8 @@ const DEFAUT_STATE = {
     isLoggedIn: false,
     user: null,
     loginError: '',
-    logoutError: ''
+    logoutError: '',
+    friends : null
 };
 
 export default (state = DEFAUT_STATE, action) => {
@@ -22,13 +23,13 @@ export default (state = DEFAUT_STATE, action) => {
                         ...state,
                         isLoggedIn: true,
                         user
-                    }
+                    };
                 }
             }
             
             return {
                 ...state
-            }
+            };
         }
         case types.AUTHENTICATE_LOGIN:{
             const {payload} = action;
@@ -41,13 +42,13 @@ export default (state = DEFAUT_STATE, action) => {
                         ...state,
                         isLoggedIn: false,
                         loginError: data.error
-                    }
+                    };
                 } else {                    
                     return {
                         ...state,
                         isLoggedIn: true,
                         loginError: null
-                    }
+                    };
                 }
 
             } else {
@@ -60,7 +61,7 @@ export default (state = DEFAUT_STATE, action) => {
                     ...state,
                     isLoggedIn: false,
                     loginError
-                }
+                };
             }
         }
         case types.LOG_OUT:{
@@ -71,15 +72,18 @@ export default (state = DEFAUT_STATE, action) => {
                     ...state,
                     isLoggedIn: false,
                     user: null,
-                    logoutError: ''
-                }
+                    logoutError: '',
+                    friends: null
+                };
             }
 
             return {
                 ...state,
                 isLoggedIn: false,
-                logoutError: "Encountered error logging out"
-            }
+                user: null,
+                logoutError: "Encountered error logging out",
+                friends: null
+            };
 
         }
         case types.SIGN_UP:{
@@ -90,14 +94,26 @@ export default (state = DEFAUT_STATE, action) => {
                 return {
                     ...state,
                     signUpSuccessful: payload.data.success
-                }
+                };
 
             } else {
                 return {
                     ...state,
                     isLoggedIn: false,
                     user: null
-                }
+                };
+            }
+        }
+        case types.LOAD_FRIENDS_BY_UID: {
+            const {payload} = action;
+
+            if (payload.status === 200) {
+                return {
+                    ...state,
+                    friends: payload.data.friends
+                };
+            } else {
+                return {...state};
             }
         }
         default:

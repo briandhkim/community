@@ -1,12 +1,20 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
-import {showSearchPeople} from '../../actions/index';
+import {showSearchPeople, loadFriendsByUID} from '../../actions/index';
 
 import MaterialIcon from '../util/materialIcon';
 
 class SideNavFriends extends Component {
 
+    componentDidMount() {
+        const {user, friends} = this.props;
+        if (user) {
+            if (user.uid && !friends) {
+                this.props.loadFriendsByUID(user.uid);
+            }
+        }
+    }
 
     render() {
         return(
@@ -34,7 +42,11 @@ class SideNavFriends extends Component {
 }
 
 function mapStateToProps(state) {
-    return {};
+    const {user} = state;
+    return {
+        friends: user.friends,
+        user: user.user
+    };
 }
 
-export default connect(mapStateToProps, {showSearchPeople})(SideNavFriends);
+export default connect(mapStateToProps, {showSearchPeople, loadFriendsByUID})(SideNavFriends);
