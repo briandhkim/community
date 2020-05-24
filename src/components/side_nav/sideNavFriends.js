@@ -1,15 +1,16 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
-import {showSearchPeopleWindow, loadFriendsByUID} from '../../actions/index';
+import {getLoggedInUser, showSearchPeopleWindow, loadFriendsByUID} from '../../actions/index';
 
 import MaterialIcon from '../util/materialIcon';
 import FriendsList from './friendsList';
 
 class SideNavFriends extends Component {
-
-    componentDidMount() {
+    
+    loadFriendList() {
         const {user, friends} = this.props;
+
         if (user) {
             if (user.uid && !friends) {
                 this.props.loadFriendsByUID(user.uid);
@@ -18,10 +19,13 @@ class SideNavFriends extends Component {
     }
 
     render() {
-        const {friends} = this.props;
+        const {user, friends} = this.props;
 
+        if (user) {
+            this.loadFriendList();
+        } 
         const friendsList = friends ? <FriendsList friends={friends} /> : "";
-
+        
         return(
             <React.Fragment>
                 <div className="collapsible-header pl-2r font-primary">
@@ -50,4 +54,4 @@ function mapStateToProps(state) {
     };
 }
 
-export default connect(mapStateToProps, {showSearchPeopleWindow, loadFriendsByUID})(SideNavFriends);
+export default connect(mapStateToProps, {getLoggedInUser, showSearchPeopleWindow, loadFriendsByUID})(SideNavFriends);

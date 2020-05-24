@@ -29,7 +29,7 @@ func (uc UserController) CheckDuplicateEmail(w http.ResponseWriter, r *http.Requ
 		fmt.Fprintf(w, "%s\n", rj)
 
 	} else {
-		http.Error(w, http.StatusText(http.StatusBadRequest), http.StatusBadRequest)
+		outputBadRequestError(w)
 	}
 }
 
@@ -44,7 +44,7 @@ func (uc UserController) CheckAndGetLoggedInUser(w http.ResponseWriter, r *http.
 		fmt.Fprintf(w, "%s\n", rj)
 
 	} else {
-		http.Error(w, http.StatusText(http.StatusBadRequest), http.StatusBadRequest)
+		outputBadRequestError(w)
 	}
 }
 
@@ -92,7 +92,7 @@ func (uc UserController) SignUp(w http.ResponseWriter, r *http.Request, _ httpro
 		fmt.Fprintf(w, "%s\n", rj)
 
 	} else {
-		http.Error(w, http.StatusText(http.StatusBadRequest), http.StatusBadRequest)
+		outputBadRequestError(w)
 	}
 }
 
@@ -119,7 +119,7 @@ func (uc UserController) Login(w http.ResponseWriter, r *http.Request, _ httprou
 		fmt.Fprintf(w, "%s\n", rj)
 
 	} else {
-		http.Error(w, http.StatusText(http.StatusBadRequest), http.StatusBadRequest)
+		outputBadRequestError(w)
 	}
 }
 
@@ -134,6 +134,6 @@ func (uc UserController) LogOut(w http.ResponseWriter, r *http.Request, _ httpro
 		fmt.Fprintf(w, "%s\n", rj)
 
 	} else {
-		http.Error(w, http.StatusText(http.StatusBadRequest), http.StatusBadRequest)
+		outputBadRequestError(w)
 	}
 }
