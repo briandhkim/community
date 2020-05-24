@@ -2,7 +2,6 @@ package controllers
 
 import (
 	"encoding/json"
-	"fmt"
 	"net/http"
 
 	"github.com/briandhkim/community/server/models"
@@ -34,12 +33,10 @@ func (fc FriendsController) LoadFriendsByUserUID(w http.ResponseWriter, r *http.
 
 		rj, statusCode := models.LoadFriendsByUID(d.UID)
 
-		w.Header().Set("Content-Type", "application/json")
-		w.WriteHeader(statusCode)
-		fmt.Fprintf(w, "%s\n", rj)
+		outputJSONResponse(w, rj, statusCode)
 
 	} else {
-		http.Error(w, http.StatusText(http.StatusBadRequest), http.StatusBadRequest)
+		outputBadRequestError(w)
 	}
 }
 
@@ -60,11 +57,9 @@ func (fc FriendsController) SearchPeopleByNameOrEmail(w http.ResponseWriter, r *
 
 		rj, statusCode := models.SearchUsersByNameOrEmail(d.Sv)
 
-		w.Header().Set("Content-Type", "application/json")
-		w.WriteHeader(statusCode)
-		fmt.Fprintf(w, "%s\n", rj)
+		outputJSONResponse(w, rj, statusCode)
 
 	} else {
-		http.Error(w, http.StatusText(http.StatusBadRequest), http.StatusBadRequest)
+		outputBadRequestError(w)
 	}
 }

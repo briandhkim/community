@@ -2,7 +2,6 @@ package controllers
 
 import (
 	"encoding/json"
-	"fmt"
 	"net/http"
 
 	"github.com/briandhkim/community/server/models"
@@ -24,9 +23,7 @@ func (uc UserController) CheckDuplicateEmail(w http.ResponseWriter, r *http.Requ
 
 		rj, statusCode := models.CheckUserWithEmailExists(ps.ByName("email"))
 
-		w.Header().Set("Content-Type", "application/json")
-		w.WriteHeader(statusCode)
-		fmt.Fprintf(w, "%s\n", rj)
+		outputJSONResponse(w, rj, statusCode)
 
 	} else {
 		outputBadRequestError(w)
@@ -39,9 +36,7 @@ func (uc UserController) CheckAndGetLoggedInUser(w http.ResponseWriter, r *http.
 
 		rj, statusCode := models.GetLoggedInUser(w, r)
 
-		w.Header().Set("Content-Type", "application/json")
-		w.WriteHeader(statusCode)
-		fmt.Fprintf(w, "%s\n", rj)
+		outputJSONResponse(w, rj, statusCode)
 
 	} else {
 		outputBadRequestError(w)
@@ -86,10 +81,7 @@ func (uc UserController) SignUp(w http.ResponseWriter, r *http.Request, _ httpro
 
 		rj, statusCode := u.InsertNewFromSignUp()
 
-		//Write content-type, statuscode, and payload
-		w.Header().Set("Content-Type", "application/json")
-		w.WriteHeader(statusCode)
-		fmt.Fprintf(w, "%s\n", rj)
+		outputJSONResponse(w, rj, statusCode)
 
 	} else {
 		outputBadRequestError(w)
@@ -114,9 +106,7 @@ func (uc UserController) Login(w http.ResponseWriter, r *http.Request, _ httprou
 
 		rj, statusCode := models.AuthenticateLogin(loginData.E, loginData.Pw, w)
 
-		w.Header().Set("Content-Type", "application/json")
-		w.WriteHeader(statusCode)
-		fmt.Fprintf(w, "%s\n", rj)
+		outputJSONResponse(w, rj, statusCode)
 
 	} else {
 		outputBadRequestError(w)
@@ -129,9 +119,7 @@ func (uc UserController) LogOut(w http.ResponseWriter, r *http.Request, _ httpro
 
 		rj, statusCode := models.LogOut(w, r)
 
-		w.Header().Set("Content-Type", "application/json")
-		w.WriteHeader(statusCode)
-		fmt.Fprintf(w, "%s\n", rj)
+		outputJSONResponse(w, rj, statusCode)
 
 	} else {
 		outputBadRequestError(w)
