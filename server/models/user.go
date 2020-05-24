@@ -37,7 +37,9 @@ func getUserByEmailAddress(e string) User {
 			from 
 				users 
 			where 
-				email = ?`
+				email = ?
+			and
+				date_deleted is null`
 
 	err := DB.QueryRow(sql, e).Scan(&em, &uid, &fn, &ln, &pw)
 	if err != nil {
@@ -56,11 +58,12 @@ func getUserSliceByNameOrEmail(sv string) []User {
 			from 
 				users 
 			where 
-				concat(firstname, ' ', lastName) 
-				like '%?%' 
-				or 
-				email 
-				like '%?%' 
+				(
+					concat(firstname, ' ', lastName) like '%?%' 
+					or 
+					email like '%?%'
+				)
+				and date_deleted is null
 			order by lastName asc 
 			limit 50`
 

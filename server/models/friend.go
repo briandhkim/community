@@ -19,25 +19,20 @@ func getFriendUsersMapByUID(uid string) map[string]User {
 						friends
 					where
 						user_b_id = (
-						select
-							id
-						from
-							users
-						where
-							uid = ?)
-				union distinct
+							select id from users where uid = ?
+						)
+					union distinct
 					select
 						user_b_id as userID
 					from
 						friends
 					where
 						user_a_id = (
-						select
-							id
-						from
-							users
-						where
-							uid = ?) )
+							select id from users where uid = ?
+						) 
+				)
+			and
+				date_deleted is null
 			order by
 				lastName asc`
 
