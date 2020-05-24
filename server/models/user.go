@@ -32,7 +32,12 @@ func getCountByEmailAddress(e string) int16 {
 func getUserByEmailAddress(e string) User {
 	var em, uid, fn, ln, pw string
 
-	sql := "SELECT email, uid, firstName, lastName, password from users where email = ?"
+	sql := `SELECT 
+				email, uid, firstName, lastName, password 
+			from 
+				users 
+			where 
+				email = ?`
 
 	err := DB.QueryRow(sql, e).Scan(&em, &uid, &fn, &ln, &pw)
 	if err != nil {
@@ -46,7 +51,18 @@ func getUserByEmailAddress(e string) User {
 
 func getUserSliceByNameOrEmail(sv string) []User {
 
-	sql := "select email, uid, firstName, lastName from users where concat(firstname, ' ', lastName) like '%?%' or email like '%?%' order by lastName asc limit 50"
+	sql := `select 
+				email, uid, firstName, lastName 
+			from 
+				users 
+			where 
+				concat(firstname, ' ', lastName) 
+				like '%?%' 
+				or 
+				email 
+				like '%?%' 
+			order by lastName asc 
+			limit 50`
 
 	rows, err := DB.Query(sql, sv, sv)
 	if err != nil {
@@ -76,7 +92,10 @@ func (u User) insertNewUser() error {
 		return err
 	}
 
-	sql := "INSERT INTO users(email, uid, firstName, lastName, password) VALUES (?, ?, ?, ?, ?)"
+	sql := `INSERT INTO users
+				(email, uid, firstName, lastName, password) 
+			VALUES 
+				(?, ?, ?, ?, ?)`
 	stmt, _ := DB.Prepare(sql)
 
 	for {

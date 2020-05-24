@@ -8,7 +8,7 @@ import (
 
 func getFriendUserSliceByUID(uid string) []User {
 	sql := `select
-			email, uid, firstName, lastName
+				email, uid, firstName, lastName
 			from
 				users
 			where
