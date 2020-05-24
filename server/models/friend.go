@@ -6,7 +6,7 @@ import (
 	"net/http"
 )
 
-func getFriendUserSliceByUID(uid string) []User {
+func getFriendUsersMapByUID(uid string) map[string]User {
 	sql := `select
 				email, uid, firstName, lastName
 			from
@@ -47,7 +47,7 @@ func getFriendUserSliceByUID(uid string) []User {
 	}
 	defer rows.Close()
 
-	var us []User
+	var fm = make(map[string]User)
 
 	for rows.Next() {
 		var em, uid, fn, ln string
@@ -56,21 +56,21 @@ func getFriendUserSliceByUID(uid string) []User {
 		}
 
 		u := User{em, uid, fn, ln, ""}
-		us = append(us, u)
+		fm[uid] = u
 	}
 
-	return us
+	return fm
 }
 
 // LoadFriendsByUID looks up a user's friends by and returns a json response
-// containing a slice of friend users.
+// containing a map of friend users with user uid key and User struct value.
 func LoadFriendsByUID(uid string) ([]byte, int) {
-	fs := getFriendUserSliceByUID(uid)
+	fm := getFriendUsersMapByUID(uid)
 
 	res := struct {
-		Friends []User `json:"friends"`
+		Friends map[string]User `json:"friends"`
 	}{
-		fs,
+		fm,
 	}
 
 	rj, _ := json.Marshal(res)
