@@ -49,9 +49,7 @@ class Login extends Component {
     login(values) {
         let {email, password} = values;
 
-        if (email === undefined || password === undefined) {
-            return;
-        }
+        if (email === undefined || password === undefined) {return;}
 
         this.props.authenticateLogin(values).then(() => {
             if (this._isMounted) {

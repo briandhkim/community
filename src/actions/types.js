@@ -5,5 +5,6 @@ export default {
     LOG_OUT                     :   'log_out',
     SHOW_SEARCH_PEOPLE_WINDOW   :   'show_search_people_window',
     CLOSE_SEARCH_PEOPLE_WINDOW  :   'close_search_people_window',
+    SEARCH_PEOPLE               :   'search_people',
     LOAD_FRIENDS_BY_UID         :   'load_friends_by_uid'
 };

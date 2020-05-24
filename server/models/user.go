@@ -53,21 +53,23 @@ func getUserByEmailAddress(e string) User {
 
 func getUserSliceByNameOrEmail(sv string) []User {
 
+	v := "%" + sv + "%"
+
 	sql := `select 
 				email, uid, firstName, lastName 
 			from 
 				users 
 			where 
 				(
-					concat(firstname, ' ', lastName) like '%?%' 
+					concat(firstname, ' ', lastName) like ? 
 					or 
-					email like '%?%'
+					email like ?
 				)
 				and date_deleted is null
 			order by lastName asc 
 			limit 50`
 
-	rows, err := DB.Query(sql, sv, sv)
+	rows, err := DB.Query(sql, v, v)
 	if err != nil {
 		log.Panic(err)
 	}

@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {Field, reduxForm} from 'redux-form';
 
+import {searchPeople} from '../../actions/index';
+
 import MaterialIcon from '../util/materialIcon';
 
 class SearchPeopleForm extends Component {
@@ -17,9 +19,11 @@ class SearchPeopleForm extends Component {
     }
 
     searchPeople(value) {
-        let {query} = value;
+        const {query} = value;
 
-        console.log("Query: ", query);
+        if (query === undefined || !query.trim().length) {return;}
+
+        this.props.searchPeople(query);
     }
 
     render() {
@@ -45,4 +49,4 @@ SearchPeopleForm = reduxForm({
     form: 'searchPeople'
 })(SearchPeopleForm);
 
-export default connect(mapStateToProps, {})(SearchPeopleForm);
+export default connect(mapStateToProps, {searchPeople})(SearchPeopleForm);

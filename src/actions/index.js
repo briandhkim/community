@@ -20,9 +20,7 @@ export function authenticateLogin(values) {
     email = email.trim();
     password = password.trim();
 
-    const req = axios.post('/user/login', {email, password}, {
-        headers: headers
-    });
+    const req = axios.post('/user/login', {email, password}, {headers});
 
     return {
         type: types.AUTHENTICATE_LOGIN,
@@ -38,9 +36,7 @@ export function signUp(values) {
     lastName = lastName.trim();
     password = password.trim();
 
-    const req = axios.post('/user/signup', {email, firstName, lastName, password}, {
-        headers: headers
-    });
+    const req = axios.post('/user/signup', {email, firstName, lastName, password}, {headers});
 
     return {
         type: types.SIGN_UP,
@@ -75,6 +71,15 @@ export function loadFriendsByUID(uid) {
 
     return {
         type: types.LOAD_FRIENDS_BY_UID,
+        payload: req
+    }
+}
+
+export function searchPeople(searchValue) {
+    const req = axios.post('/search-people', {searchValue}, {headers});
+
+    return {
+        type: types.SEARCH_PEOPLE,
         payload: req
     }
 }

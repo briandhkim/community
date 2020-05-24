@@ -27,9 +27,7 @@ export default (state = DEFAUT_STATE, action) => {
                 }
             }
             
-            return {
-                ...state
-            };
+            return {...state};
         }
         case types.AUTHENTICATE_LOGIN:{
             const {payload} = action;
