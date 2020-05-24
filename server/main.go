@@ -16,6 +16,7 @@ func main() {
 
 	uc := controllers.NewUserController()
 	fc := controllers.NewFriendsController()
+	sc := controllers.NewSocialController()
 
 	r.GET("/user/check-duplicate-email/:email", uc.CheckDuplicateEmail)
 	r.GET("/user/get-logged-in-user", uc.CheckAndGetLoggedInUser)
@@ -24,7 +25,7 @@ func main() {
 	r.POST("/user/logout", uc.LogOut)
 
 	r.POST("/friends/load-friends", fc.LoadFriendsByUserUID)
-	r.POST("/search-people", fc.SearchPeopleByNameOrEmail)
+	r.POST("/search-people", sc.SearchPeopleByNameOrEmail)
 
 	http.ListenAndServe(":8080", r)
 

@@ -39,27 +39,3 @@ func (fc FriendsController) LoadFriendsByUserUID(w http.ResponseWriter, r *http.
 		outputBadRequestError(w)
 	}
 }
-
-// SearchPeopleByNameOrEmail handles the POST request made to /search-people endpoint
-func (fc FriendsController) SearchPeopleByNameOrEmail(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
-	if r.Method == http.MethodPost {
-
-		defer r.Body.Close()
-		decoder := json.NewDecoder(r.Body)
-		d := struct {
-			Sv string `json:"searchValue"`
-		}{}
-		err := decoder.Decode(&d)
-		if err != nil {
-			http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-			return
-		}
-
-		rj, statusCode := models.SearchUsersByNameOrEmail(d.Sv)
-
-		outputJSONResponse(w, rj, statusCode)
-
-	} else {
-		outputBadRequestError(w)
-	}
-}
