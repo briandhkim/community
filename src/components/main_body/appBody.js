@@ -13,8 +13,10 @@ class AppBody extends Component {
         }
 
         return (
-            <div className="container white-text">
-                <h1>Main content </h1>
+            <div className="container">
+                <div className="col s10 mt-2r">
+                    <h1 className="font-primary text-h2 mt-0">Main content </h1>
+                </div>
             </div>
         );
     }
