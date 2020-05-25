@@ -17,7 +17,7 @@
 - [x] Allow new user signup
 - [x] Verify existing user login
 - [x] Load friends list
-- [ ] Search users by name or email
+- [x] Search users by name or email
 - [ ] Add users to friends list
 - [ ] Delete users from friends list
 - [ ] One-on-one messaging with users in friends list
