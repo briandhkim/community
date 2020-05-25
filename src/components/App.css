@@ -14,13 +14,14 @@ html, body, #root, .App {height: 100%;}
 
 /* custom content start */
 
-
+.appBodyWrapper::-webkit-scrollbar,
 .custom-scroll-bar::-webkit-scrollbar{
 	width: 7px;
 	/*background-color:rgb(227, 129, 23);*/
 	background-color: #212121;
 	background-color: transparent;
 }
+.appBodyWrapper::-webkit-scrollbar-thumb,
 .custom-scroll-bar::-webkit-scrollbar-thumb{
 	width: 5px;
 	/* border-radius: 20px; */
@@ -139,6 +140,26 @@ ul.dropdown-content li:hover {
   .searchPeopleForm .btn:focus {
     background-color: #f3c37c;
   }
+  .searchPeopleResults.collection li {
+    padding-top: 0.75rem;
+    padding-bottom:0.75rem;
+  }
+  .searchPeopleResults.collection li .new.badge {
+    height: 28px;
+    line-height: 28px;
+    margin-top: calc(.75rem - 13px);
+    background-color: #344955;
+  }
+  .searchPeopleResults.collection li .new.badge .material-icons {
+    font-size: 16px;
+    line-height: 1.1;
+  }
+  .searchPeopleResults.collection li .secondary-content.tooltipped {
+    color: #344955;
+  }
+  .searchPeopleResults.collection li .secondary-content.tooltipped:hover {
+    color: #F9AA33;
+  }
 
 /* custom content end */
 
@@ -169,7 +190,9 @@ Secondary: #F9AA33
 .text-primary-dark  {color: #232F34;}
 .text-primary-light {color: #4A6572;}
 .text-secondary     {color: #F9AA33;}
+.text-success       {color: #43A047;}
 .text-error         {color: #d32f2f;}
+.text-info          {color: #1E88E5;}
 .btn-secondary {color: #344955;}
 
 .text-h1{font-size: 4.2rem;}
@@ -357,12 +380,13 @@ ul.navbarMobileNav li a:hover {
   /* 600px wide or more */
 
   /* height */
-  .m-h-90   {height: 90%;} 
-  .m-h-full {height: 100%;}
-  .m-max-h-100 {max-height: 100px;}
-  .m-max-h-250 {max-height: 250px;}
-  .m-max-h-300 {max-height: 300px;}
-  .m-max-h-500 {max-height: 500px;}
+  .m-h-90       {height: 90%;} 
+  .m-h-full     {height: 100%;}
+  .m-min-h-90   {min-height: 90%;}
+  .m-max-h-100  {max-height: 100px;}
+  .m-max-h-250  {max-height: 250px;}
+  .m-max-h-300  {max-height: 300px;}
+  .m-max-h-500  {max-height: 500px;}
 }
 
 @media screen and (max-width: 992px) and (min-width: 600px) {

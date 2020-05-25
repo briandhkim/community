@@ -18,7 +18,6 @@ export default (state = DEFAULT_STATE, action) => {
 
             if (payload.status === 200) {
                 const {data} = payload;
-                console.log(data);
 
                 if (data.success) {
                     return {

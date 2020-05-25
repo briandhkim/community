@@ -9,10 +9,10 @@ class UserHome extends Component {
         return(
             <div className="m-h-90">
                 <div className="row h-full">
-                    <div className="col s12 m4 l3 h-full grey lighten-4">
+                    <div className="col s12 m4 l3 h-full grey lighten-4 sideNavWrapper">
                         <SideMain />
                     </div>
-                    <div className="col s12 m8 l9 h-full white">
+                    <div className="col s12 m8 l9 h-full white overflow-y-auto appBodyWrapper">
                         <AppBody />
                     </div>
                 </div>

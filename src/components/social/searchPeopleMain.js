@@ -5,12 +5,13 @@ import {closeSearchPeopleWindow} from '../../actions/index';
 
 import MaterialIcon from '../util/materialIcon';
 import SearchPeopleForm from './searchPeopleForm';
+import SearchPeopleResult from './searchPeopleResult';
 
 class SearchPeopleMain extends Component {
 
     render() {
         return(
-            <div className="container">
+            <div className="container searchPeopleMain">
                 <div className="row">
                     <div className="col s10 mt-2r">
                         <h1 className="text-h2 font-primary mt-0">Search People</h1>
@@ -21,8 +22,11 @@ class SearchPeopleMain extends Component {
                         </button>
                     </div>
                 </div>
-                <div className="row">
+                <div className="row mb-0">
                     <SearchPeopleForm />
+                </div>
+                <div className="row">
+                    <SearchPeopleResult />
                 </div>
             </div>
         );
