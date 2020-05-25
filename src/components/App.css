@@ -108,7 +108,8 @@ ul.dropdown-content li:hover {
 
 /* sidenav friend list */
 .sideNavFriendsList.collection.with-header .collection-header {
-  background-color: #4A6572;
+  /* background-color: #4A6572; */
+  background-color: #344955;
   color: #ffffff;
 }
 .sideNavFriendsList.collection.with-header .collection-header .badge {

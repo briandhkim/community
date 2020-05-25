@@ -28,11 +28,11 @@ class SideNavFriends extends Component {
         
         return(
             <React.Fragment>
-                <div className="collapsible-header pl-2r font-primary">
+                <div className="collapsible-header pl-2r font-primary bg-primary-light white-text">
                     <MaterialIcon icon={"people"} />
                     Friends
                 </div>
-                <div className="collapsible-body px-0 pt-0 bg-primary">
+                <div className="collapsible-body px-0 pt-0 grey lighten-3">
                     <button className="font-secondary w-full btn btn-secondary waves-effect waves-light" onClick={this.props.showSearchPeopleWindow}>
                         Search People
                         <MaterialIcon icon={"search"} styleClass="align-v" />

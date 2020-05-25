@@ -8,7 +8,7 @@ class SideNavChat extends Component {
     render() {
         return(
             <React.Fragment>
-                <div className="collapsible-header pl-2r font-primary">
+                <div className="collapsible-header pl-2r font-primary bg-primary-light white-text">
                     <MaterialIcon icon={"chat"} />
                     Chat
                 </div>
