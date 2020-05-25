@@ -75,6 +75,12 @@ export function loadFriendsByUID(uid) {
     }
 }
 
+export function toggleSearchInProgress() {
+    return {
+        type: types.TOGGLE_SEARCH_IN_PROGRESS,
+        payload: {}
+    }
+}
 export function searchPeople(searchValue) {
     const req = axios.post('/search-people', {searchValue}, {headers});
 

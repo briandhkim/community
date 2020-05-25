@@ -130,6 +130,16 @@ ul.dropdown-content li:hover {
 	background-color: #232F34;
 }
 
+/* Search People Form */
+  /*
+  When creating your CSS selector,
+  change "brown" to something of your choosing
+  */
+  .searchPeopleForm .btn:hover,
+  .searchPeopleForm .btn:focus {
+    background-color: #f3c37c;
+  }
+
 /* custom content end */
 
 
