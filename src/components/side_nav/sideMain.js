@@ -7,7 +7,7 @@ import SideNavChat from './sideNavChat';
 class SideMain extends Component {
 
     componentDidMount() {
-        const elems = document.querySelector(".collapsible");
+        const elems = document.querySelectorAll(".collapsible");
         M.Collapsible.init(elems, {
             accordion: false
         });

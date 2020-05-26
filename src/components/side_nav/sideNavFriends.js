@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import {showSearchPeopleWindow, loadFriendsByUID, loadFriendRequestDataByUID} from '../../actions/index';
 
 import MaterialIcon from '../util/materialIcon';
-import FriendsList from './friendsList';
+import CollapsibleFriendsList from './collapsibleFriendsList';
 
 class SideNavFriends extends Component {
     
@@ -22,18 +22,17 @@ class SideNavFriends extends Component {
     }
 
     render() {
-        const {user, friends} = this.props;
+        const {user} = this.props;
 
         if (user) {
             this.loadFriendData();
         } 
-        const friendsList = friends ? <FriendsList friends={friends} /> : "";
         
         return(
             <React.Fragment>
                 <div className="collapsible-header pl-2r font-primary bg-primary-light white-text">
                     <MaterialIcon icon={"people"} />
-                    Friends
+                    Social
                 </div>
                 <div className="collapsible-body px-0 pt-0 grey lighten-3">
                     <button className="font-secondary w-full btn btn-secondary waves-effect waves-light" onClick={this.props.showSearchPeopleWindow}>
@@ -41,7 +40,11 @@ class SideNavFriends extends Component {
                         <MaterialIcon icon={"search"} styleClass="align-v" />
                     </button>
                     <div className="p-1r">
-                        {friendsList}
+                        <ul className="collapsible">
+                            <li className="">
+                                <CollapsibleFriendsList />
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </React.Fragment>

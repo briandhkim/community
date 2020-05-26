@@ -19,7 +19,7 @@ const FriendsList = (props) => {
     return (
         <div className="collection with-header sideNavFriendsList">
             <div className="collection-header font-tertiary">
-                <MaterialIcon icon={"people"} />
+                <MaterialIcon icon={"people"} styleClass={"align-v"} /> Friends
                 <span className="secondary-content badge">
                     {numFriends}
                 </span>
