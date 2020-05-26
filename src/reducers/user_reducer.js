@@ -5,8 +5,7 @@ const DEFAUT_STATE = {
     isLoggedIn: false,
     user: null,
     loginError: '',
-    logoutError: '',
-    friends : null
+    logoutError: ''
 };
 
 export default (state = DEFAUT_STATE, action) => {
@@ -70,8 +69,7 @@ export default (state = DEFAUT_STATE, action) => {
                     ...state,
                     isLoggedIn: false,
                     user: null,
-                    logoutError: '',
-                    friends: null
+                    logoutError: ''
                 };
             }
 
@@ -79,8 +77,7 @@ export default (state = DEFAUT_STATE, action) => {
                 ...state,
                 isLoggedIn: false,
                 user: null,
-                logoutError: "Encountered error logging out",
-                friends: null
+                logoutError: "Encountered error logging out"
             };
 
         }
@@ -100,18 +97,6 @@ export default (state = DEFAUT_STATE, action) => {
                     isLoggedIn: false,
                     user: null
                 };
-            }
-        }
-        case types.LOAD_FRIENDS_BY_UID: {
-            const {payload} = action;
-
-            if (payload.status === 200) {
-                return {
-                    ...state,
-                    friends: payload.data.friends
-                };
-            } else {
-                return {...state};
             }
         }
         default:

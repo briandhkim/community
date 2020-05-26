@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import {Link} from 'react-router-dom';
 import M from 'materialize-css/dist/js/materialize.min';
 
-import {logOut} from '../../actions/index';
+import {logOut, resetSocialReducerData} from '../../actions/index';
 
 import GuestNavbarCollection from './guestNavbarCollection';
 import MobileGuestNavbarCollection from './mobileGuestNavbarCollection';
@@ -14,6 +14,7 @@ class NavBar extends Component {
     constructor(props) {
         super(props);
         this.hideMobileNav = this.hideMobileNav.bind(this);
+        this.logOutHandler = this.logOutHandler.bind(this);
     }
 
     componentDidMount() {
@@ -27,14 +28,20 @@ class NavBar extends Component {
         instance.close();
     }
 
+    logOutHandler() {
+        console.log("xxx")
+        this.props.resetSocialReducerData();
+        this.props.logOut();
+    }
+
     render() {
         const {isLoggedIn, user} = this.props;
 
         let navbarCollection;
         let mobileNavbarCollection;
         if (isLoggedIn) {
-            navbarCollection = <UserNavbarColleciton user={user} logOut={this.props.logOut} />
-            mobileNavbarCollection = <MobileUserNavbarCollection user={user} logOut={this.props.logOut} hideMobileNav={this.hideMobileNav} />
+            navbarCollection = <UserNavbarColleciton user={user} logOut={this.logOutHandler} />
+            mobileNavbarCollection = <MobileUserNavbarCollection user={user} logOut={this.logOutHandler} hideMobileNav={this.hideMobileNav} />
         } else {
             navbarCollection = <GuestNavbarCollection />
             mobileNavbarCollection = <MobileGuestNavbarCollection hideMobileNav={this.hideMobileNav} />
@@ -75,4 +82,4 @@ function mapStateToProps(state) {
     };
 }
 
-export default connect(mapStateToProps, {logOut})(NavBar);
+export default connect(mapStateToProps, {logOut, resetSocialReducerData})(NavBar);

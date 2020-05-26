@@ -47,9 +47,9 @@ class SideNavFriends extends Component {
 }
 
 function mapStateToProps(state) {
-    const {user} = state;
+    const {user, social} = state;
     return {
-        friends: user.friends,
+        friends: social.friends,
         user: user.user
     };
 }

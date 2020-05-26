@@ -74,7 +74,8 @@ func GetFriendsByUserUID(uid string) ([]byte, int) {
 
 // getFriendRequestRecipientsByUserUID looks up the friend requests that have
 // been sent by a user and returns a map with key value pair of user UID
-// and user. The users in the map are the request recipients
+// and user.
+// The users in the map are the users that will receive friend requests by the logged in user.
 func getFriendRequestRecipientsByUserUID(uid string) map[string]User {
 	sql := `select 
 				email, uid, firstName, lastName 
@@ -121,7 +122,7 @@ func getFriendRequestRecipientsByUserUID(uid string) map[string]User {
 
 // getFriendRequestSendersByUserUID looks up the friend requests that
 // a user received and returns a map with key value pair of user UID and user.
-// The users in the map are the request senders
+// The users in the map are the users that sent the friend request to the logged in user.
 func getFriendRequestSendersByUserUID(uid string) map[string]User {
 	sql := `select 
 				email, uid, firstName, lastName 
@@ -166,6 +167,8 @@ func getFriendRequestSendersByUserUID(uid string) map[string]User {
 	return rs
 }
 
+// GetFriendRequestDataByUserUID looks up the friend requests received
+// and sent by the user with the provided UID
 func GetFriendRequestDataByUserUID(uid string) ([]byte, int) {
 
 	rrm := getFriendRequestRecipientsByUserUID(uid)

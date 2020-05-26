@@ -74,7 +74,7 @@ function mapStateToProps(state) {
 
     return {
         user: user.user,
-        friends: user.friends,
+        friends: social.friends,
         searchResultUsers: social.searchPeopleResultUsers
     };
 }

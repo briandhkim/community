@@ -89,3 +89,10 @@ export function searchPeople(searchValue) {
         payload: req
     }
 }
+
+export function resetSocialReducerData() {
+    return {
+        type: types.RESET_SOCIAL_REDUCER_DATA,
+        payload: {}
+    }
+}
