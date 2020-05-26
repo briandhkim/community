@@ -25,6 +25,7 @@ func main() {
 	r.POST("/user/logout", uc.LogOut)
 
 	r.POST("/friends/load-friends", fc.LoadFriendsByUserUID)
+	r.POST("/friends/load-friend-request-data", fc.LoadFriendRequestDataByUserUID)
 	r.POST("/search-people", sc.SearchPeopleByNameOrEmail)
 
 	http.ListenAndServe(":8080", r)

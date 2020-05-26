@@ -57,9 +57,9 @@ func getFriendUsersMapByUID(uid string) map[string]User {
 	return fm
 }
 
-// LoadFriendsByUID looks up a user's friends by and returns a json response
+// GetFriendsByUserUID looks up a user's friends by and returns a json response
 // containing a map of friend users with user uid key and User struct value.
-func LoadFriendsByUID(uid string) ([]byte, int) {
+func GetFriendsByUserUID(uid string) ([]byte, int) {
 	fm := getFriendUsersMapByUID(uid)
 
 	res := struct {
@@ -72,10 +72,10 @@ func LoadFriendsByUID(uid string) ([]byte, int) {
 	return rj, http.StatusOK
 }
 
-// getFriendRequestRecipientUsersByUserUID looks up the friend requests that have
+// getFriendRequestRecipientsByUserUID looks up the friend requests that have
 // been sent by a user and returns a map with key value pair of user UID
-// and user. The users in the map are the request recipients 
-func getFriendRequestRecipientUsersByUserUID(uid string) map[string]User {
+// and user. The users in the map are the request recipients
+func getFriendRequestRecipientsByUserUID(uid string) map[string]User {
 	sql := `select 
 				email, uid, firstName, lastName 
 			from 
@@ -97,7 +97,7 @@ func getFriendRequestRecipientUsersByUserUID(uid string) map[string]User {
 					and 
 						fr.date_deleted is null
 				)`
-	
+
 	rows, err := DB.Query(sql, uid)
 	if err != nil {
 		log.Panic(err)
@@ -119,10 +119,10 @@ func getFriendRequestRecipientUsersByUserUID(uid string) map[string]User {
 	return rs
 }
 
-// getFriendRequestSenderUsersByUserUID looks up the friend requests that
+// getFriendRequestSendersByUserUID looks up the friend requests that
 // a user received and returns a map with key value pair of user UID and user.
 // The users in the map are the request senders
-func getFriendRequestSenderUsersByUserUID(uid string) map[string]User {
+func getFriendRequestSendersByUserUID(uid string) map[string]User {
 	sql := `select 
 				email, uid, firstName, lastName 
 			from 
@@ -144,7 +144,7 @@ func getFriendRequestSenderUsersByUserUID(uid string) map[string]User {
 					and 
 						fr.date_deleted is null
 				)`
-	
+
 	rows, err := DB.Query(sql, uid)
 	if err != nil {
 		log.Panic(err)
@@ -164,4 +164,21 @@ func getFriendRequestSenderUsersByUserUID(uid string) map[string]User {
 	}
 
 	return rs
+}
+
+func GetFriendRequestDataByUserUID(uid string) ([]byte, int) {
+
+	rrm := getFriendRequestRecipientsByUserUID(uid)
+	rsm := getFriendRequestSendersByUserUID(uid)
+
+	res := struct {
+		RequestRecipients map[string]User `json:"requestRecipients"`
+		RequestSenders    map[string]User `json:"requestSenders"`
+	}{
+		rrm,
+		rsm,
+	}
+
+	rj, _ := json.Marshal(res)
+	return rj, http.StatusOK
 }

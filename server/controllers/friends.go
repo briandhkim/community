@@ -31,7 +31,31 @@ func (fc FriendsController) LoadFriendsByUserUID(w http.ResponseWriter, r *http.
 			return
 		}
 
-		rj, statusCode := models.LoadFriendsByUID(d.UID)
+		rj, statusCode := models.GetFriendsByUserUID(d.UID)
+
+		outputJSONResponse(w, rj, statusCode)
+
+	} else {
+		outputBadRequestError(w)
+	}
+}
+
+// LoadFriendRequestDataByUserUID handles the POST request made to /friends/load-friend-request-data
+func (fc FriendsController) LoadFriendRequestDataByUserUID(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
+	if r.Method == http.MethodPost {
+
+		defer r.Body.Close()
+		decoder := json.NewDecoder(r.Body)
+		d := struct {
+			UID string `json:"uid"`
+		}{}
+		err := decoder.Decode(&d)
+		if err != nil {
+			http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+			return
+		}
+
+		rj, statusCode := models.GetFriendRequestDataByUserUID(d.UID)
 
 		outputJSONResponse(w, rj, statusCode)
 
