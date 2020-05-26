@@ -12,7 +12,7 @@ class SearchPeopleResult extends Component {
         M.Tooltip.init(elem, {margin: 1});
     }
 
-    renderFriendList() {
+    renderResultList() {
         const {user, friends, searchResultUsers} = this.props;
 
         const list = searchResultUsers.map((su, idx) => {
@@ -60,7 +60,7 @@ class SearchPeopleResult extends Component {
                 </div>
             );
         } else if (searchResultUsers !== null && searchResultUsers.length) {
-            return this.renderFriendList();
+            return this.renderResultList();
         }
 
         return(

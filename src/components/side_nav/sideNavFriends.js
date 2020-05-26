@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
-import {getLoggedInUser, showSearchPeopleWindow, loadFriendsByUID, loadFriendRequestDataByUID} from '../../actions/index';
+import {showSearchPeopleWindow, loadFriendsByUID, loadFriendRequestDataByUID} from '../../actions/index';
 
 import MaterialIcon from '../util/materialIcon';
 import FriendsList from './friendsList';
@@ -59,4 +59,4 @@ function mapStateToProps(state) {
     };
 }
 
-export default connect(mapStateToProps, {getLoggedInUser, showSearchPeopleWindow, loadFriendsByUID, loadFriendRequestDataByUID})(SideNavFriends);
+export default connect(mapStateToProps, {showSearchPeopleWindow, loadFriendsByUID, loadFriendRequestDataByUID})(SideNavFriends);
