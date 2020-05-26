@@ -14,14 +14,27 @@
 
 ##### Features
 
-- [x] Allow new user signup
-- [x] Verify existing user login
-- [x] Load friends list
-- [x] Search users by name or email
-- [ ] Add users to friends list
-- [ ] Delete users from friends list
-- [ ] One-on-one messaging with users in friends list
-- [ ] Group messaging with users
+- [ ] User
+    - [x] Allow new user signup
+        - [x] Check if email is already being used
+    - [x] Returning user login
+    - [ ] Edit account details
+    - [ ] Delete account
+- [ ] Social
+    - [x] Load friends list
+        - [ ] Show users that are online
+    - [ ] Search users by name or email
+        - [x] Add "friend" label to users that are friends
+        - [x] Show option to add user as friend for users that are not in the friends list
+        - [ ] Show option to load more users matching the search
+    - [ ] Add users to friends list
+        - [ ] Send friend requests
+        - [ ] Show friend requests
+        - [ ] Accept friend requests
+        - [ ] Reject friend requests
+    - [ ] Delete users from friends list
+    - [ ] One-on-one messaging with users in friends list
+    - [ ] Group messaging with users
 
 ### Development Details
 
