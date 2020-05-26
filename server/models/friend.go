@@ -71,3 +71,97 @@ func LoadFriendsByUID(uid string) ([]byte, int) {
 	rj, _ := json.Marshal(res)
 	return rj, http.StatusOK
 }
+
+// getFriendRequestRecipientUsersByUserUID looks up the friend requests that have
+// been sent by a user and returns a map with key value pair of user UID
+// and user. The users in the map are the request recipients 
+func getFriendRequestRecipientUsersByUserUID(uid string) map[string]User {
+	sql := `select 
+				email, uid, firstName, lastName 
+			from 
+				users
+			where 
+				id in (
+					select 
+						fr.to_user 
+					from 
+						friend_requests fr
+					join 
+						users u 
+					on 
+						u.id = fr.from_user
+					where 
+						u.uid = ?
+					and 
+						u.date_deleted is null 
+					and 
+						fr.date_deleted is null
+				)`
+	
+	rows, err := DB.Query(sql, uid)
+	if err != nil {
+		log.Panic(err)
+	}
+	defer rows.Close()
+
+	var rs = make(map[string]User)
+
+	for rows.Next() {
+		var em, uid, fn, ln string
+		if err := rows.Scan(&em, &uid, &fn, &ln); err != nil {
+			log.Panic(err)
+		}
+
+		u := User{em, uid, fn, ln, ""}
+		rs[uid] = u
+	}
+
+	return rs
+}
+
+// getFriendRequestSenderUsersByUserUID looks up the friend requests that
+// a user received and returns a map with key value pair of user UID and user.
+// The users in the map are the request senders
+func getFriendRequestSenderUsersByUserUID(uid string) map[string]User {
+	sql := `select 
+				email, uid, firstName, lastName 
+			from 
+				users
+			where 
+				id in (
+					select 
+						fr.from_user 
+					from 
+						friend_requests fr
+					join 
+						users u 
+					on 
+						u.id = fr.to_user
+					where 
+						u.uid = ?
+					and 
+						u.date_deleted is null 
+					and 
+						fr.date_deleted is null
+				)`
+	
+	rows, err := DB.Query(sql, uid)
+	if err != nil {
+		log.Panic(err)
+	}
+	defer rows.Close()
+
+	var rs = make(map[string]User)
+
+	for rows.Next() {
+		var em, uid, fn, ln string
+		if err := rows.Scan(&em, &uid, &fn, &ln); err != nil {
+			log.Panic(err)
+		}
+
+		u := User{em, uid, fn, ln, ""}
+		rs[uid] = u
+	}
+
+	return rs
+}
