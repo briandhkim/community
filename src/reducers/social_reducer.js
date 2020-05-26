@@ -3,7 +3,9 @@ import types from '../actions/types';
 const DEFAULT_STATE = {
     searchInProgress: false,
     searchPeopleResultUsers: null,
-    friends: null
+    friends: null,
+    friendRequestSentToUsers: null,
+    friendRequestFromUsers: null
 };
 
 export default (state = DEFAULT_STATE, action) => {
@@ -15,6 +17,20 @@ export default (state = DEFAULT_STATE, action) => {
                 return {
                     ...state,
                     friends: payload.data.friends
+                };
+            } else {
+                return {...state};
+            }
+        }
+        case types.LOAD_FRIEND_REQUEST_DATA: {
+            const {payload} = action;
+            console.log(payload);
+
+            if (payload.status === 200) {
+                return{
+                    ...state,
+                    friendRequestSentToUsers: payload.data.requestRecipients,
+                    friendRequestFromUsers: payload.data.requestSenders
                 };
             } else {
                 return {...state};

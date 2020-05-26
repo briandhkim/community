@@ -75,6 +75,15 @@ export function loadFriendsByUID(uid) {
     }
 }
 
+export function loadFriendRequestDataByUID(uid) {
+    const req = axios.post('/friends/load-friend-request-data', {uid}, {headers});
+
+    return {
+        type: types.LOAD_FRIEND_REQUEST_DATA,
+        payload: req
+    }
+}
+
 export function toggleSearchInProgress() {
     return {
         type: types.TOGGLE_SEARCH_IN_PROGRESS,

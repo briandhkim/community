@@ -1,19 +1,22 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
-import {getLoggedInUser, showSearchPeopleWindow, loadFriendsByUID} from '../../actions/index';
+import {getLoggedInUser, showSearchPeopleWindow, loadFriendsByUID, loadFriendRequestDataByUID} from '../../actions/index';
 
 import MaterialIcon from '../util/materialIcon';
 import FriendsList from './friendsList';
 
 class SideNavFriends extends Component {
     
-    loadFriendList() {
-        const {user, friends} = this.props;
+    loadFriendData() {
+        const {user, friends, friendRequestSentToUsers, friendRequestFromUsers} = this.props;
 
-        if (user) {
-            if (user.uid && !friends) {
+        if (user && user.uid) {
+            if (!friends) {
                 this.props.loadFriendsByUID(user.uid);
+            }
+            if (!friendRequestFromUsers || !friendRequestSentToUsers) {
+                this.props.loadFriendRequestDataByUID(user.uid);
             }
         }
     }
@@ -22,7 +25,7 @@ class SideNavFriends extends Component {
         const {user, friends} = this.props;
 
         if (user) {
-            this.loadFriendList();
+            this.loadFriendData();
         } 
         const friendsList = friends ? <FriendsList friends={friends} /> : "";
         
@@ -49,9 +52,11 @@ class SideNavFriends extends Component {
 function mapStateToProps(state) {
     const {user, social} = state;
     return {
-        friends: social.friends,
-        user: user.user
+        friends                     : social.friends,
+        friendRequestSentToUsers    : social.friendRequestSentToUsers,
+        friendRequestFromUsers      : social.friendRequestFromUsers,
+        user                        : user.user
     };
 }
 
-export default connect(mapStateToProps, {getLoggedInUser, showSearchPeopleWindow, loadFriendsByUID})(SideNavFriends);
+export default connect(mapStateToProps, {getLoggedInUser, showSearchPeopleWindow, loadFriendsByUID, loadFriendRequestDataByUID})(SideNavFriends);
