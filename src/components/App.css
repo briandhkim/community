@@ -35,6 +35,9 @@ ul.dropdown-content > li.navDropText:hover {
 ul.dropdown-content > li.navDropText > span.p-0 {
   padding: 0;
 }
+ul.dropdown-content > li.navDropText > .navDropUserIcon i {
+  height: 24px;
+}
 ul.dropdown-content > li.text-primary,
 ul.dropdown-content > li.text-primary > a
 {color: #344955;}

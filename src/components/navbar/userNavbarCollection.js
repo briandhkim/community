@@ -10,7 +10,7 @@ const UserNavbarCollection = (props) => {
     useEffect(() => {
         const elems = document.querySelector(".dropdown-trigger");
         M.Dropdown.init(elems, {
-            coverTrigger: false
+            
         });
     });
 
@@ -23,11 +23,16 @@ const UserNavbarCollection = (props) => {
             </li>
 
             <ul id="userNavDropdown" className="dropdown-content min-w-200">
-                <li className="font-secondary navDropText px-r1 py-8" >
-                    Signed in as
-                    <span className="font-primary text-bold text-primary-light p-0">
-                        {user.firstName} {user.lastName}
-                    </span>
+                <li className="font-secondary navDropText px-r1 py-8 row mb-8" >
+                    <div className="col s9">
+                        Signed in as
+                        <span className="block font-primary text-bold text-primary-light p-0">
+                            {user.firstName} {user.lastName}
+                        </span>
+                    </div>
+                    <div className="col s3 navDropUserIcon">
+                        <MaterialIcon icon={"face"} styleClass={"-mt-10"}/>
+                    </div>
                 </li>
                 <li className="divider" tabIndex="-1"></li>
                 <li className="font-secondary text-primary-light">
