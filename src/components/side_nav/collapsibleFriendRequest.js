@@ -3,47 +3,48 @@ import {connect} from 'react-redux';
 
 import MaterialIcon from '../util/materialIcon';
 
-class CollapsibleFriendsList extends Component {
+class CollapsibleFriendRequest extends Component {
 
     renderList() {
-        const {friends} = this.props;
+        const {friendRequestFromUsers} = this.props;
 
-        if (!friends) {
+        if (!friendRequestFromUsers) {
             return (
                 <div className="font-secondary bg-primary-light white-text">
-                    No friends to show.
+                    No friend requests.
                 </div>
             );
         }
 
-        return Object.keys(friends).map(key => {
-            const f = friends[key];
-            return (
+        return Object.keys(friendRequestFromUsers).map(key => {
+            const reqUser = friendRequestFromUsers[key];
+            return(
                 <a href="#!" className="collection-item" key={key}>
                     <MaterialIcon icon={"account_box"} styleClass={"align-v mr-8"} />
-                    {f.firstName} {f.lastName}
+                    {reqUser.firstName} {reqUser.lastName}
                 </a>
             );
         });
     }
 
     render() {
-        const {friends} = this.props;
+        const {friendRequestFromUsers} = this.props;
+        console.log(friendRequestFromUsers);
 
-        let numFriends = 0;
-        
-        if (friends) {
-            numFriends = Object.keys(friends).length;
+        let numRequests = 0;
+
+        if (friendRequestFromUsers) {
+            numRequests = Object.keys(friendRequestFromUsers).length;
         }
         return (
             <React.Fragment>
                 <div className="collapsible-header font-secondary pb-r05 bg-primary white-text">
                     <div className="col s10">
                         <MaterialIcon icon={"people"} styleClass={"align-v"}/>
-                        Friends
+                        Friend requests
                     </div>
                     <div className="col s2 text-secondary right-align">
-                        {numFriends}
+                        {numRequests}
                     </div>
                 </div>
                 <div className="collapsible-body collection p-0 max-h-300 overflow-y-auto custom-scroll-bar">
@@ -51,7 +52,7 @@ class CollapsibleFriendsList extends Component {
                 </div>
             </React.Fragment>
         );
-        
+
     }
 }
 
@@ -59,8 +60,8 @@ function mapStateToProps(state) {
     const {social} = state;
 
     return {
-        friends : social.friends
+        friendRequestFromUsers  : social.friendRequestFromUsers
     };
 }
 
-export default connect(mapStateToProps, {})(CollapsibleFriendsList);
+export default connect(mapStateToProps, {})(CollapsibleFriendRequest)

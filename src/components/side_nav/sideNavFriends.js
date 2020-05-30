@@ -5,6 +5,7 @@ import {showSearchPeopleWindow, loadFriendsByUID, loadFriendRequestDataByUID} fr
 
 import MaterialIcon from '../util/materialIcon';
 import CollapsibleFriendsList from './collapsibleFriendsList';
+import CollapsibleFriendRequest from './collapsibleFriendRequest';
 
 class SideNavFriends extends Component {
     
@@ -41,8 +42,11 @@ class SideNavFriends extends Component {
                     </button>
                     <div className="p-1r">
                         <ul className="collapsible">
-                            <li className="">
+                            <li className="active">
                                 <CollapsibleFriendsList />
+                            </li>
+                            <li className="">
+                                <CollapsibleFriendRequest />
                             </li>
                         </ul>
                     </div>

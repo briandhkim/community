@@ -24,7 +24,6 @@ export default (state = DEFAULT_STATE, action) => {
         }
         case types.LOAD_FRIEND_REQUEST_DATA: {
             const {payload} = action;
-            console.log(payload);
 
             if (payload.status === 200) {
                 return{
