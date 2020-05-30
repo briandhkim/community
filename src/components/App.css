@@ -130,6 +130,12 @@ ul.dropdown-content li:hover {
 	/* border-radius: 20px; */
 	background-color: #232F34;
 }
+.sideNavFriendRequestList.collection .secondary-content.text-success:hover{
+  color: #37e240;
+}
+.sideNavFriendRequestList.collection .secondary-content.text-error:hover{
+  color: #f70808;
+}
 
 /* Search People Form */
   /*

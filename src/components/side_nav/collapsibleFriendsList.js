@@ -19,7 +19,7 @@ class CollapsibleFriendsList extends Component {
         return Object.keys(friends).map(key => {
             const f = friends[key];
             return (
-                <a href="#!" className="collection-item" key={key}>
+                <a href="#!" className="collection-item font-secondary" key={key}>
                     <MaterialIcon icon={"account_box"} styleClass={"align-v mr-8"} />
                     {f.firstName} {f.lastName}
                 </a>
@@ -37,8 +37,8 @@ class CollapsibleFriendsList extends Component {
         }
         return (
             <React.Fragment>
-                <div className="collapsible-header font-secondary pb-r05 bg-primary white-text">
-                    <div className="col s10">
+                <div className="collapsible-header bg-primary white-text">
+                    <div className="col s10 font-primary">
                         <MaterialIcon icon={"people"} styleClass={"align-v"}/>
                         Friends
                     </div>
@@ -46,7 +46,7 @@ class CollapsibleFriendsList extends Component {
                         {numFriends}
                     </div>
                 </div>
-                <div className="collapsible-body collection p-0 max-h-300 overflow-y-auto custom-scroll-bar">
+                <div className="sideNavFriendsList collapsible-body collection p-0 max-h-300 overflow-y-auto custom-scroll-bar">
                     {this.renderList()}
                 </div>
             </React.Fragment>
