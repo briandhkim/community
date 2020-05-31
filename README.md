@@ -28,7 +28,7 @@
         - [x] Show option to add user as friend for users that are not in the friends list
         - [ ] Show option to load more users matching the search
     - [ ] Add users to friends list
-        - [ ] Send friend requests
+        - [x] Send friend requests
         - [x] Show friend requests
         - [ ] Accept friend requests
         - [ ] Reject friend requests
