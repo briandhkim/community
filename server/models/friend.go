@@ -72,6 +72,26 @@ func GetFriendsByUserUID(uid string) ([]byte, int) {
 	return rj, http.StatusOK
 }
 
+func insertNewFriendByUserUID(fromUserUID string, toUserUID string) error {
+
+	sql := `INSERT INTO friends
+				(user_a_id, user_b_id)
+			VALUES
+				(
+					(select id from users where uid = ?),
+					(select id from users where uid = ?)
+				)
+			ON DUPLICATE KEY UPDATE
+				date_deleted = null`
+	stmt, _ := DB.Prepare(sql)
+	defer stmt.Close()
+
+	_, err := stmt.Exec(fromUserUID, toUserUID)
+
+	return err
+
+} 
+
 // getFriendRequestRecipientsByUserUID looks up the friend requests that have
 // been sent by a user and returns a map with key value pair of user UID
 // and user.
@@ -230,7 +250,33 @@ func SendFriendRequest(fromUserUID string, toUserUID string) ([]byte, int) {
 
 }
 
-func deleteFriendRequestByUserData(fromUserUID string, toUserUID string) error {
+// AcceptFriendRequest inserts a new friend row based on the user UID provided 
+// from the POST request and deletes the friend request for the matching users
+func AcceptFriendRequest(fromUserUID string, toUserUID string) ([]byte, int) {
+
+	s := true
+	sc := http.StatusCreated
+
+	insertErr := insertNewFriendByUserUID(fromUserUID, toUserUID)
+	deleteReqErr := deleteFriendRequestByUserUID(fromUserUID, toUserUID)
+
+	if insertErr != nil || deleteReqErr != nil {
+		s = false
+		sc = http.StatusOK
+	}
+
+	res := struct {
+		Success bool `json:"success"`
+	}{
+		s,
+	}
+
+	rj, _ := json.Marshal(res)
+	return rj, sc
+
+}
+
+func deleteFriendRequestByUserUID(fromUserUID string, toUserUID string) error {
 
 	sql := `UPDATE 
 				friend_requests
@@ -251,7 +297,7 @@ func deleteFriendRequestByUserData(fromUserUID string, toUserUID string) error {
 // from the POST request.
 func RejectFriendRequest(fromUserUID string, toUserUID string) ([]byte, int) {
 
-	err := deleteFriendRequestByUserData(fromUserUID, toUserUID)
+	err := deleteFriendRequestByUserUID(fromUserUID, toUserUID)
 
 	s := true
 	sc := http.StatusAccepted
