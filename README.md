@@ -27,10 +27,10 @@
         - [x] Add "friend" label to users that are friends
         - [x] Show option to add user as friend for users that are not in the friends list
         - [ ] Show option to load more users matching the search
-    - [ ] Add users to friends list
+    - [x] Add users to friends list
         - [x] Send friend requests
         - [x] Show friend requests
-        - [ ] Accept friend requests
+        - [x] Accept friend requests
         - [x] Reject friend requests
     - [ ] Delete users from friends list
     - [ ] One-on-one messaging with users in friends list
