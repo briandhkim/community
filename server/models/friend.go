@@ -185,3 +185,45 @@ func GetFriendRequestDataByUserUID(uid string) ([]byte, int) {
 	rj, _ := json.Marshal(res)
 	return rj, http.StatusOK
 }
+
+func insertNewFriendRequest(fromUserUID string, toUserUID string) error {
+
+	sql := `INSERT INTO friend_requests 
+				(from_user, to_user)
+			VALUES
+				(
+					(select id from users where uid = ?),
+					(select id from users where uid = ?)
+				)
+			ON DUPLICATE KEY UPDATE
+				date_deleted = null`
+	stmt, _ := DB.Prepare(sql)
+	defer stmt.Close()
+
+	_, err := stmt.Exec(fromUserUID, toUserUID)
+
+	return err
+}
+
+func SendFriendRequest(fromUserUID string, toUserUID string) ([]byte, int) {
+
+	err := insertNewFriendRequest(fromUserUID, toUserUID)
+
+	s := true
+	sc := http.StatusCreated
+
+	if err != nil {
+		s = false
+		sc = http.StatusOK
+	}
+
+	res := struct {
+		Success bool `json:"success"`
+	}{
+		s,
+	}
+
+	rj, _ := json.Marshal(res)
+	return rj, sc
+
+}

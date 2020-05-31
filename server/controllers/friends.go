@@ -63,3 +63,28 @@ func (fc FriendsController) LoadFriendRequestDataByUserUID(w http.ResponseWriter
 		outputBadRequestError(w)
 	}
 }
+
+// SendFriendRequest handles the POST request made to /friends/send-request
+func (fc FriendsController) SendFriendRequest(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
+	if r.Method == http.MethodPost {
+
+		defer r.Body.Close()
+		decoder := json.NewDecoder(r.Body)
+		d := struct {
+			FUID string `json:"fromUserUID"`
+			TUID string `json:"toUserUID"`
+		}{}
+		err := decoder.Decode(&d)
+		if err != nil {
+			http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+			return
+		}
+
+		rj, statusCode := models.SendFriendRequest(d.FUID, d.TUID)
+
+		outputJSONResponse(w, rj, statusCode)
+
+	} else {
+		outputBadRequestError(w)
+	}
+}

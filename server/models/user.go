@@ -102,7 +102,10 @@ func (u User) insertNewUser() error {
 			VALUES 
 				(?, ?, ?, ?, ?)`
 	stmt, _ := DB.Prepare(sql)
+	defer stmt.Close()
 
+	// If duplicate uid has been generated somehow, the loop will try to generate
+	// another uid and insert again
 	for {
 		uID, _ := uuid.NewV4()
 		_, err = stmt.Exec(u.Email, uID.String(), u.FirstName, u.LastName, string(bs))
