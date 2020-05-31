@@ -46,7 +46,7 @@ class SearchPeopleResult extends Component {
                         </span>;
         }
         if (friendRequestFromUsers[uid]) {
-            secondary = <FriendRequestReceivedAction />;
+            secondary = <FriendRequestReceivedAction targetUID={uid} />;
         }
         if (friendRequestSentToUsers[uid]) {
             secondary = <span className="new badge font-secondary" data-badge-caption="Request sent">

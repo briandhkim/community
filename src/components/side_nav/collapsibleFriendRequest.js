@@ -10,10 +10,9 @@ class CollapsibleFriendRequest extends Component {
 
     componentDidUpdate() {
         const elem = document.querySelectorAll(".tooltipped");
-        M.Tooltip.init(elem, {
-            margin: 0.1,
-            transitionMovement: 2
-        });
+        const margin = 0.1;
+        const transitionMovement = 2;
+        M.Tooltip.init(elem, {margin, transitionMovement});
     }
 
     renderList() {
@@ -33,7 +32,7 @@ class CollapsibleFriendRequest extends Component {
                 <li className="collection-item font-secondary text-primary-light" key={key}>
                     <MaterialIcon icon={"person_add"} styleClass={"align-v mr-8"} />
                     {reqUser.firstName} {reqUser.lastName}
-                    <FriendRequestReceivedAction />
+                    <FriendRequestReceivedAction targetUID={reqUser.uid} />
                 </li>
             );
         });
