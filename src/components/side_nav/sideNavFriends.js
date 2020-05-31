@@ -12,7 +12,7 @@ class SideNavFriends extends Component {
     loadFriendData() {
         const {user, friends, friendRequestSentToUsers, friendRequestFromUsers} = this.props;
 
-        if (user && user.uid) {
+        if (user.uid) {
             if (!friends) {
                 this.props.loadFriendsByUID(user.uid);
             }
@@ -23,11 +23,18 @@ class SideNavFriends extends Component {
     }
 
     render() {
-        const {user} = this.props;
+        const {user, shouldRefreshFriendData, shouldRefreshFriendRequestData} = this.props;
 
         if (user) {
+            // console.log("sideNavFriends - in render");
             this.loadFriendData();
         } 
+        if (shouldRefreshFriendData) {
+            this.props.loadFriendsByUID(user.uid);
+        }
+        if (shouldRefreshFriendRequestData) {
+            this.props.loadFriendRequestDataByUID(user.uid);
+        }
         
         return(
             <React.Fragment>
@@ -59,10 +66,12 @@ class SideNavFriends extends Component {
 function mapStateToProps(state) {
     const {user, social} = state;
     return {
-        friends                     : social.friends,
-        friendRequestSentToUsers    : social.friendRequestSentToUsers,
-        friendRequestFromUsers      : social.friendRequestFromUsers,
-        user                        : user.user
+        user                            : user.user,
+        friends                         : social.friends,
+        friendRequestSentToUsers        : social.friendRequestSentToUsers,
+        friendRequestFromUsers          : social.friendRequestFromUsers,
+        shouldRefreshFriendData         : social.shouldRefreshFriendData,
+        shouldRefreshFriendRequestData  : social.shouldRefreshFriendRequestData
     };
 }
 

@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-
 import M from 'materialize-css/dist/js/materialize.min';
+
+import {rejectFriendRequest} from '../../actions/index';
 
 import MaterialIcon from '../util/materialIcon';
 import FriendRequestReceivedAction from '../util/friendRequestReceivedAction';
@@ -16,11 +17,12 @@ class CollapsibleFriendRequest extends Component {
     }
 
     renderList() {
-        const {friendRequestFromUsers} = this.props;
+        const {user, friendRequestFromUsers} = this.props;
+        // console.log("collapsibleFriendRequest - in renderList ", friendRequestFromUsers);
 
-        if (!friendRequestFromUsers) {
+        if (!friendRequestFromUsers || Object.keys(friendRequestFromUsers).length === 0) {
             return (
-                <div className="font-secondary bg-primary-light white-text">
+                <div className="font-secondary bg-primary-light white-text p-1r">
                     No friend requests.
                 </div>
             );
@@ -32,7 +34,7 @@ class CollapsibleFriendRequest extends Component {
                 <li className="collection-item font-secondary text-primary-light" key={key}>
                     <MaterialIcon icon={"person_add"} styleClass={"align-v mr-8"} />
                     {reqUser.firstName} {reqUser.lastName}
-                    <FriendRequestReceivedAction targetUID={reqUser.uid} />
+                    <FriendRequestReceivedAction fromUID={reqUser.uid} toUID={user.uid} rejectAction={this.props.rejectFriendRequest}/>
                 </li>
             );
         });
@@ -67,11 +69,14 @@ class CollapsibleFriendRequest extends Component {
 }
 
 function mapStateToProps(state) {
-    const {social} = state;
+    const {user, social} = state;
 
     return {
-        friendRequestFromUsers  : social.friendRequestFromUsers
+        user                            : user.user,
+        friendRequestFromUsers          : social.friendRequestFromUsers
     };
 }
 
-export default connect(mapStateToProps, {})(CollapsibleFriendRequest)
+export default connect(mapStateToProps, {
+    rejectFriendRequest
+})(CollapsibleFriendRequest)

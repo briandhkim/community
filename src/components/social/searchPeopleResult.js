@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import M from 'materialize-css/dist/js/materialize.min';
 
-import {loadFriendRequestDataByUID, sendFriendRequest} from '../../actions/index';
+import {sendFriendRequest, rejectFriendRequest} from '../../actions/index';
 
 import MaterialIcon from '../util/materialIcon';
 import FriendRequestReceivedAction from '../util/friendRequestReceivedAction';
@@ -46,7 +46,7 @@ class SearchPeopleResult extends Component {
                         </span>;
         }
         if (friendRequestFromUsers[uid]) {
-            secondary = <FriendRequestReceivedAction targetUID={uid} />;
+            secondary = <FriendRequestReceivedAction fromUID={uid} toUID={user.uid} rejectAction={this.props.rejectFriendRequest} />;
         }
         if (friendRequestSentToUsers[uid]) {
             secondary = <span className="new badge font-secondary" data-badge-caption="Request sent">
@@ -62,11 +62,7 @@ class SearchPeopleResult extends Component {
     }
 
     renderResultList() {
-        const {user, searchResultUsers, shouldRefreshFriendRequestData} = this.props;
-
-        if (shouldRefreshFriendRequestData) {
-            this.props.loadFriendRequestDataByUID(user.uid);
-        }
+        const {searchResultUsers} = this.props;
 
         const list = searchResultUsers.map((su, idx) => {
             return (
@@ -115,9 +111,11 @@ function mapStateToProps(state) {
         friends                         : social.friends,
         friendRequestSentToUsers        : social.friendRequestSentToUsers,
         friendRequestFromUsers          : social.friendRequestFromUsers,
-        searchResultUsers               : social.searchPeopleResultUsers,
-        shouldRefreshFriendRequestData  : social.shouldRefreshFriendRequestData
+        searchResultUsers               : social.searchPeopleResultUsers
     };
 }
 
-export default connect(mapStateToProps, {loadFriendRequestDataByUID, sendFriendRequest})(SearchPeopleResult);
+export default connect(mapStateToProps, { 
+    sendFriendRequest, 
+    rejectFriendRequest
+})(SearchPeopleResult);

@@ -6,6 +6,7 @@ const DEFAULT_STATE = {
     friends: null,
     friendRequestSentToUsers: null,
     friendRequestFromUsers: null,
+    shouldRefreshFriendData: false,
     shouldRefreshFriendRequestData: false
 };
 
@@ -17,7 +18,8 @@ export default (state = DEFAULT_STATE, action) => {
             if (payload.status === 200) {
                 return {
                     ...state,
-                    friends: payload.data.friends
+                    friends: payload.data.friends,
+                    shouldRefreshFriendData: false
                 };
             } else {
                 return {...state};
@@ -43,6 +45,19 @@ export default (state = DEFAULT_STATE, action) => {
             if (payload.status === 201 && payload.data.success) {
                 return {
                     ...state,
+                    shouldRefreshFriendRequestData: true
+                }
+            }
+
+            return {...state};
+        }
+        case types.REJECT_FRIEND_REQUEST: {
+            const {payload} = action;
+
+            if (payload.status === 202 && payload.data.success) {
+                return {
+                    ...state,
+                    shouldRefreshFriendData: true,
                     shouldRefreshFriendRequestData: true
                 }
             }

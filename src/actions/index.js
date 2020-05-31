@@ -6,11 +6,11 @@ const headers = {
 };
 
 export function getLoggedInUser() {
-    const req = axios.get("/user/get-logged-in-user");
+    const payload = axios.get("/user/get-logged-in-user");
     
     return {
         type: types.GET_LOGGED_IN_USER,
-        payload: req
+        payload
     };
 }
 
@@ -20,11 +20,11 @@ export function authenticateLogin(values) {
     email = email.trim();
     password = password.trim();
 
-    const req = axios.post('/user/login', {email, password}, {headers});
+    const payload = axios.post('/user/login', {email, password}, {headers});
 
     return {
         type: types.AUTHENTICATE_LOGIN,
-        payload: req
+        payload
     };
 }
 
@@ -36,20 +36,20 @@ export function signUp(values) {
     lastName = lastName.trim();
     password = password.trim();
 
-    const req = axios.post('/user/signup', {email, firstName, lastName, password}, {headers});
+    const payload = axios.post('/user/signup', {email, firstName, lastName, password}, {headers});
 
     return {
         type: types.SIGN_UP,
-        payload: req 
+        payload 
     };
 }
 
 export function logOut() {
-    const req = axios.post('/user/logout');
+    const payload = axios.post('/user/logout');
 
     return {
         type: types.LOG_OUT,
-        payload: req
+        payload
     };
 }
 
@@ -67,11 +67,11 @@ export function closeSearchPeopleWindow() {
 }
 
 export function loadFriendsByUID(uid) {
-    const req = axios.post('/friends/load-friends', {uid}, {headers});
+    const payload = axios.post('/friends/load-friends', {uid}, {headers});
 
     return {
         type: types.LOAD_FRIENDS_BY_UID,
-        payload: req
+        payload
     }
 }
 export function loadFriendRequestDataByUID(uid) {
@@ -83,11 +83,19 @@ export function loadFriendRequestDataByUID(uid) {
     }
 }
 export function sendFriendRequest(fromUserUID, toUserUID) {
-    const req = axios.post('/friends/send-request', {fromUserUID, toUserUID}, {headers});
+    const payload = axios.post('/friends/send-request', {fromUserUID, toUserUID}, {headers});
 
     return {
         type: types.SEND_FRIEND_REQUEST,
-        payload: req
+        payload
+    }
+}
+export function rejectFriendRequest(fromUserUID, toUserUID) {
+    const payload = axios.post('/friends/reject-request', {fromUserUID, toUserUID}, {headers});
+
+    return {
+        type: types.REJECT_FRIEND_REQUEST,
+        payload
     }
 }
 
@@ -98,11 +106,11 @@ export function toggleSearchInProgress() {
     }
 }
 export function searchPeople(searchValue) {
-    const req = axios.post('/search-people', {searchValue}, {headers});
+    const payload = axios.post('/search-people', {searchValue}, {headers});
 
     return {
         type: types.SEARCH_PEOPLE,
-        payload: req
+        payload
     }
 }
 

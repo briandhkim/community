@@ -8,9 +8,9 @@ class CollapsibleFriendsList extends Component {
     renderList() {
         const {friends} = this.props;
 
-        if (!friends) {
+        if (!friends || Object.keys(friends).length === 0) {
             return (
-                <div className="font-secondary bg-primary-light white-text">
+                <div className="font-secondary bg-primary-light white-text p-1r">
                     No friends to show.
                 </div>
             );

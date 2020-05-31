@@ -3,7 +3,7 @@ import React from 'react';
 import MaterialIcon from './materialIcon';
 
 const FriendRequestReceivedAction = (props) => {
-    const {targetUID} = props;
+    const {fromUID, toUID, rejectAction} = props;
 
     const acceptHandler = (e) => {
         const btn = e.currentTarget;
@@ -14,11 +14,13 @@ const FriendRequestReceivedAction = (props) => {
         const btn = e.currentTarget;
         btn.classList.add("disabled");
         disableButtons();
+
+        rejectAction(fromUID, toUID);
     };
 
     function disableButtons() {
-        const ae = document.getElementsByClassName(`accept${targetUID}`);
-        const re = document.getElementsByClassName(`reject${targetUID}`);
+        const ae = document.getElementsByClassName(`accept${fromUID}`);
+        const re = document.getElementsByClassName(`reject${fromUID}`);
 
         for (let i=0; i<ae.length; i++) {
             ae[i].classList.add("disabled");
@@ -28,10 +30,10 @@ const FriendRequestReceivedAction = (props) => {
 
     return (
         <React.Fragment>
-            <button className={`reject${targetUID} secondary-content text-error tooltipped btn-flat p-0`} onClick={rejectHandler} data-position="right" data-tooltip="Decline request">
+            <button className={`reject${fromUID} secondary-content text-error tooltipped btn-flat p-0`} onClick={rejectHandler} data-position="right" data-tooltip="Decline request">
                 <MaterialIcon icon={"clear"} />
             </button>
-            <button className={`accept${targetUID} secondary-content mr-5 text-success tooltipped btn-flat p-0`} onClick={acceptHandler} data-position="left" data-tooltip="Accept request">
+            <button className={`accept${fromUID} secondary-content mr-5 text-success tooltipped btn-flat p-0`} onClick={acceptHandler} data-position="left" data-tooltip="Accept request">
                 <MaterialIcon icon={"check"} />
             </button>
         </React.Fragment>

@@ -205,12 +205,56 @@ func insertNewFriendRequest(fromUserUID string, toUserUID string) error {
 	return err
 }
 
+// SendFriendRequest inserts a new friend request row based on user UIDs provided
+// from the POST request.
 func SendFriendRequest(fromUserUID string, toUserUID string) ([]byte, int) {
 
 	err := insertNewFriendRequest(fromUserUID, toUserUID)
 
 	s := true
 	sc := http.StatusCreated
+
+	if err != nil {
+		s = false
+		sc = http.StatusOK
+	}
+
+	res := struct {
+		Success bool `json:"success"`
+	}{
+		s,
+	}
+
+	rj, _ := json.Marshal(res)
+	return rj, sc
+
+}
+
+func deleteFriendRequestByUserData(fromUserUID string, toUserUID string) error {
+
+	sql := `UPDATE 
+				friend_requests
+			SET
+				date_deleted = CURRENT_TIMESTAMP
+			WHERE
+				from_user = (select id from users where uid = ?)
+			AND
+				to_user = (select id from users where uid = ?)
+			LIMIT 1`
+
+	_, err := DB.Exec(sql, fromUserUID, toUserUID)
+
+	return err
+}
+
+// RejectFriendRequest soft deletes a friend request based on the user UIDs provided
+// from the POST request.
+func RejectFriendRequest(fromUserUID string, toUserUID string) ([]byte, int) {
+
+	err := deleteFriendRequestByUserData(fromUserUID, toUserUID)
+
+	s := true
+	sc := http.StatusAccepted
 
 	if err != nil {
 		s = false

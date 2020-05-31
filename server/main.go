@@ -27,6 +27,7 @@ func main() {
 	r.POST("/friends/load-friends", fc.LoadFriendsByUserUID)
 	r.POST("/friends/load-friend-request-data", fc.LoadFriendRequestDataByUserUID)
 	r.POST("/friends/send-request", fc.SendFriendRequest)
+	r.POST("/friends/reject-request", fc.RejectFriendRequest)
 	r.POST("/search-people", sc.SearchPeopleByNameOrEmail)
 
 	http.ListenAndServe(":8080", r)
