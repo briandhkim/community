@@ -1,23 +1,44 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-
 import M from 'materialize-css/dist/js/materialize.min';
+
+import {loadFriendRequestDataByUID, sendFriendRequest} from '../../actions/index';
 
 import MaterialIcon from '../util/materialIcon';
 import FriendRequestReceivedAction from '../util/friendRequestReceivedAction';
 
 class SearchPeopleResult extends Component {
+    constructor(props) {
+        super(props);
+
+        this.sendFriendRequest = this.sendFriendRequest.bind(this);
+    }
 
     componentDidUpdate() {
         const elem = document.querySelectorAll(".tooltipped");
-        M.Tooltip.init(elem, {margin: 1});
+        M.Tooltip.init(elem, {
+            margin: 1,
+            transitionMovement: 1
+        });
+    }
+
+    sendFriendRequest(recipientUID) {
+        const {user} = this.props;
+
+        this.props.sendFriendRequest(user.uid, recipientUID);
     }
 
     renderListSecondaryComponent(uid) {
         const {user, friends, friendRequestFromUsers, friendRequestSentToUsers} = this.props;
-        let secondary = <a href="#!" className="secondary-content tooltipped" data-position="left" data-tooltip="Add friend" >
+
+        const sendFriendRequestHandler = (e) => {
+            const btn = e.currentTarget;
+            btn.classList.add("disabled");
+            this.sendFriendRequest(uid);
+        };
+        let secondary = <button className="secondary-content tooltipped btn-flat p-0" onClick={sendFriendRequestHandler} data-position="left" data-tooltip="Add friend" >
                             <MaterialIcon icon={"person_add"} styleClass={""} />
-                        </a>;
+                        </button>;
 
         if (friends[uid]) {
             secondary = <span className="new badge font-secondary" data-badge-caption="Friend">
@@ -41,7 +62,11 @@ class SearchPeopleResult extends Component {
     }
 
     renderResultList() {
-        const {searchResultUsers} = this.props;
+        const {user, searchResultUsers, shouldRefreshFriendRequestData} = this.props;
+
+        if (shouldRefreshFriendRequestData) {
+            this.props.loadFriendRequestDataByUID(user.uid);
+        }
 
         const list = searchResultUsers.map((su, idx) => {
             return (
@@ -86,12 +111,13 @@ function mapStateToProps(state) {
     const {user, social} = state;
 
     return {
-        user: user.user,
-        friends: social.friends,
-        friendRequestSentToUsers: social.friendRequestSentToUsers,
-        friendRequestFromUsers: social.friendRequestFromUsers,
-        searchResultUsers: social.searchPeopleResultUsers
+        user                            : user.user,
+        friends                         : social.friends,
+        friendRequestSentToUsers        : social.friendRequestSentToUsers,
+        friendRequestFromUsers          : social.friendRequestFromUsers,
+        searchResultUsers               : social.searchPeopleResultUsers,
+        shouldRefreshFriendRequestData  : social.shouldRefreshFriendRequestData
     };
 }
 
-export default connect(mapStateToProps, {})(SearchPeopleResult);
+export default connect(mapStateToProps, {loadFriendRequestDataByUID, sendFriendRequest})(SearchPeopleResult);

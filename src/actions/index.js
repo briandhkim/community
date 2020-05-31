@@ -74,12 +74,19 @@ export function loadFriendsByUID(uid) {
         payload: req
     }
 }
-
 export function loadFriendRequestDataByUID(uid) {
     const req = axios.post('/friends/load-friend-request-data', {uid}, {headers});
 
     return {
         type: types.LOAD_FRIEND_REQUEST_DATA,
+        payload: req
+    }
+}
+export function sendFriendRequest(fromUserUID, toUserUID) {
+    const req = axios.post('/friends/send-request', {fromUserUID, toUserUID}, {headers});
+
+    return {
+        type: types.SEND_FRIEND_REQUEST,
         payload: req
     }
 }

@@ -7,12 +7,12 @@ const FriendRequestReceivedAction = (props) => {
 
     return (
         <React.Fragment>
-            <a href="#!" className="secondary-content text-error tooltipped" data-position="right" data-tooltip="Decline request">
+            <button className="secondary-content text-error tooltipped btn-flat p-0" data-position="right" data-tooltip="Decline request">
                 <MaterialIcon icon={"clear"} />
-            </a>
-            <a href="#!" className="secondary-content mr-5 text-success tooltipped" data-position="left" data-tooltip="Accept request">
+            </button>
+            <button className="secondary-content mr-5 text-success tooltipped btn-flat p-0" data-position="left" data-tooltip="Accept request">
                 <MaterialIcon icon={"check"} />
-            </a>
+            </button>
         </React.Fragment>
     );
 }

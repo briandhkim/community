@@ -133,6 +133,16 @@ ul.dropdown-content li:hover {
 .sideNavFriendRequestList.collection .secondary-content.text-success:hover{color: #37e240;}
 .sideNavFriendRequestList.collection .secondary-content.text-error:hover{color: #f56161;}
 
+.sideNavFriendRequestList.collection .secondary-content.btn-flat,
+.searchPeopleResults.collection .collection-item .secondary-content.btn-flat {line-height: inherit;}
+.sideNavFriendRequestList.collection .secondary-content.btn-flat:focus,
+.searchPeopleResults.collection .collection-item .secondary-content.btn-flat:focus {
+  background-color:transparent;
+  color: #F9AA33;
+}
+.sideNavFriendRequestList.collection .secondary-content.btn-flat i,
+.searchPeopleResults.collection .collection-item .secondary-content.btn-flat i {font-size: 24px;}
+
 /* Search People Form */
   /*
   When creating your CSS selector,

@@ -5,7 +5,8 @@ const DEFAULT_STATE = {
     searchPeopleResultUsers: null,
     friends: null,
     friendRequestSentToUsers: null,
-    friendRequestFromUsers: null
+    friendRequestFromUsers: null,
+    shouldRefreshFriendRequestData: false
 };
 
 export default (state = DEFAULT_STATE, action) => {
@@ -29,11 +30,24 @@ export default (state = DEFAULT_STATE, action) => {
                 return{
                     ...state,
                     friendRequestSentToUsers: payload.data.requestRecipients,
-                    friendRequestFromUsers: payload.data.requestSenders
+                    friendRequestFromUsers: payload.data.requestSenders,
+                    shouldRefreshFriendRequestData: false
                 };
             } else {
                 return {...state};
             }
+        }
+        case types.SEND_FRIEND_REQUEST: {
+            const {payload} = action;
+
+            if (payload.status === 201 && payload.data.success) {
+                return {
+                    ...state,
+                    shouldRefreshFriendRequestData: true
+                }
+            }
+
+            return {...state};
         }
         case types.TOGGLE_SEARCH_IN_PROGRESS: {
             return {
