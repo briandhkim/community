@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import M from 'materialize-css/dist/js/materialize.min';
 
 import MaterialIcon from '../util/materialIcon';
+import FriendRequestReceivedAction from '../util/friendRequestReceivedAction';
 
 class SearchPeopleResult extends Component {
 
@@ -12,36 +13,48 @@ class SearchPeopleResult extends Component {
         M.Tooltip.init(elem, {margin: 1});
     }
 
+    renderListSecondaryComponent(uid) {
+        const {user, friends, friendRequestFromUsers, friendRequestSentToUsers} = this.props;
+        let secondary = <a href="#!" className="secondary-content tooltipped" data-position="left" data-tooltip="Add friend" >
+                            <MaterialIcon icon={"person_add"} styleClass={""} />
+                        </a>;
+
+        if (friends[uid]) {
+            secondary = <span className="new badge font-secondary" data-badge-caption="Friend">
+                            <MaterialIcon icon={"check"} styleClass={""} />
+                        </span>;
+        }
+        if (friendRequestFromUsers[uid]) {
+            secondary = <FriendRequestReceivedAction />;
+        }
+        if (friendRequestSentToUsers[uid]) {
+            secondary = <span className="new badge font-secondary" data-badge-caption="Request sent">
+                            <MaterialIcon icon={"mail"} styleClass={""} />
+                        </span>;
+        }
+        if (user.uid === uid) {
+            secondary = <span className="new badge font-secondary" data-badge-caption="You">
+                            <MaterialIcon icon={"face"} styleClass={""} />
+                        </span>;
+        }
+        return secondary;
+    }
+
     renderResultList() {
-        const {user, friends, searchResultUsers} = this.props;
+        const {searchResultUsers} = this.props;
 
         const list = searchResultUsers.map((su, idx) => {
-            let secondary = <a href="#!" className="secondary-content tooltipped" data-position="left" data-tooltip="Add friend" >
-                                <MaterialIcon icon={"person_add"} styleClass={""} />
-                            </a>;
-
-            if (friends[su.uid]) {
-                secondary = <span className="new badge" data-badge-caption="Friend">
-                                <MaterialIcon icon={"check"} styleClass={"align-v"} />
-                            </span>;
-            }
-            if (user.uid === su.uid) {
-                secondary = <span className="new badge" data-badge-caption="You">
-                                <MaterialIcon icon={"face"} styleClass={"align-v"} />
-                            </span>;
-            }
-
             return (
                 <li className="collection-item font-primary text-h6" key={idx}>
                     <MaterialIcon icon={"person_outline"} styleClass="align-v mr-8" />
                     {su.firstName} {su.lastName}
-                    {secondary}
+                    {this.renderListSecondaryComponent(su.uid)}
                 </li>
             );
         });
 
         return (
-            <ul className="collection searchPeopleResults">
+            <ul className="collection searchPeopleResults z-depth-2">
                 {list}
             </ul>
         );
@@ -75,6 +88,8 @@ function mapStateToProps(state) {
     return {
         user: user.user,
         friends: social.friends,
+        friendRequestSentToUsers: social.friendRequestSentToUsers,
+        friendRequestFromUsers: social.friendRequestFromUsers,
         searchResultUsers: social.searchPeopleResultUsers
     };
 }

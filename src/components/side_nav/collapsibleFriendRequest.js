@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import M from 'materialize-css/dist/js/materialize.min';
 
 import MaterialIcon from '../util/materialIcon';
+import FriendRequestReceivedAction from '../util/friendRequestReceivedAction';
 
 class CollapsibleFriendRequest extends Component {
 
@@ -32,12 +33,7 @@ class CollapsibleFriendRequest extends Component {
                 <li className="collection-item font-secondary text-primary-light" key={key}>
                     <MaterialIcon icon={"person_add"} styleClass={"align-v mr-8"} />
                     {reqUser.firstName} {reqUser.lastName}
-                    <a href="#!" className="secondary-content text-error tooltipped" data-position="right" data-tooltip="Decline">
-                        <MaterialIcon icon={"clear"} />
-                    </a>
-                    <a href="#!" className="secondary-content mr-5 text-success tooltipped" data-position="left" data-tooltip="Accept">
-                        <MaterialIcon icon={"check"} />
-                    </a>
+                    <FriendRequestReceivedAction />
                 </li>
             );
         });
@@ -45,7 +41,6 @@ class CollapsibleFriendRequest extends Component {
 
     render() {
         const {friendRequestFromUsers} = this.props;
-        console.log(friendRequestFromUsers);
 
         let numRequests = 0;
 

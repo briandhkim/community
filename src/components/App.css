@@ -116,12 +116,8 @@ ul.dropdown-content li:hover {
   background-color: #344955;
   color: #ffffff;
 }
-.sideNavFriendsList.collection.with-header .collection-header .badge {
-  color: #F9AA33;
-}
-.sideNavFriendsList.collection a.collection-item {
-  color: #344955;
-}
+.sideNavFriendsList.collection.with-header .collection-header .badge {color: #F9AA33;}
+.sideNavFriendsList.collection a.collection-item {color: #344955;}
 .sideNavFriendsList .custom-scroll-bar::-webkit-scrollbar{
 	width: 7px;
 	/*background-color:rgb(227, 129, 23);*/
@@ -133,12 +129,9 @@ ul.dropdown-content li:hover {
 	/* border-radius: 20px; */
 	background-color: #232F34;
 }
-.sideNavFriendRequestList.collection .secondary-content.text-success:hover{
-  color: #37e240;
-}
-.sideNavFriendRequestList.collection .secondary-content.text-error:hover{
-  color: #f70808;
-}
+.sideNavFriendRequestList.collection li:hover {background-color: #dddddd;}
+.sideNavFriendRequestList.collection .secondary-content.text-success:hover{color: #37e240;}
+.sideNavFriendRequestList.collection .secondary-content.text-error:hover{color: #f56161;}
 
 /* Search People Form */
   /*
@@ -153,6 +146,7 @@ ul.dropdown-content li:hover {
     padding-top: 0.75rem;
     padding-bottom:0.75rem;
   }
+  .searchPeopleResults.collection li:hover {background-color: #dddddd;}
   .searchPeopleResults.collection li .new.badge {
     height: 28px;
     line-height: 28px;
@@ -161,14 +155,14 @@ ul.dropdown-content li:hover {
   }
   .searchPeopleResults.collection li .new.badge .material-icons {
     font-size: 16px;
-    line-height: 1.1;
+    vertical-align: text-bottom;
   }
-  .searchPeopleResults.collection li .secondary-content.tooltipped {
-    color: #344955;
-  }
-  .searchPeopleResults.collection li .secondary-content.tooltipped:hover {
-    color: #F9AA33;
-  }
+  .searchPeopleResults.collection li .secondary-content.tooltipped {color: #344955;}
+  .searchPeopleResults.collection li .secondary-content.tooltipped:hover {color: #F9AA33;}
+  .searchPeopleResults.collection li .secondary-content.tooltipped.text-success {color: #43A047;}
+  .searchPeopleResults.collection li .secondary-content.tooltipped.text-success:hover {color: #37e240;}
+  .searchPeopleResults.collection li .secondary-content.tooltipped.text-error {color: #D32F2F;}
+  .searchPeopleResults.collection li .secondary-content.tooltipped.text-error:hover {color: #f56161;}
 
 /* custom content end */
 
