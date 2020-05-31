@@ -3,12 +3,14 @@ import React from 'react';
 import MaterialIcon from './materialIcon';
 
 const FriendRequestReceivedAction = (props) => {
-    const {fromUID, toUID, rejectAction} = props;
+    const {fromUID, toUID, acceptAction, rejectAction} = props;
 
     const acceptHandler = (e) => {
         const btn = e.currentTarget;
         btn.classList.add("disabled");
         disableButtons();
+
+        acceptAction(fromUID, toUID);
     };
     const rejectHandler = (e) => {
         const btn = e.currentTarget;

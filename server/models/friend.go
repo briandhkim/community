@@ -90,7 +90,7 @@ func insertNewFriendByUserUID(fromUserUID string, toUserUID string) error {
 
 	return err
 
-} 
+}
 
 // getFriendRequestRecipientsByUserUID looks up the friend requests that have
 // been sent by a user and returns a map with key value pair of user UID
@@ -250,7 +250,7 @@ func SendFriendRequest(fromUserUID string, toUserUID string) ([]byte, int) {
 
 }
 
-// AcceptFriendRequest inserts a new friend row based on the user UID provided 
+// AcceptFriendRequest inserts a new friend row based on the user UID provided
 // from the POST request and deletes the friend request for the matching users
 func AcceptFriendRequest(fromUserUID string, toUserUID string) ([]byte, int) {
 

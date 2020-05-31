@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import M from 'materialize-css/dist/js/materialize.min';
 
-import {sendFriendRequest, rejectFriendRequest} from '../../actions/index';
+import {sendFriendRequest, acceptFriendRequest, rejectFriendRequest} from '../../actions/index';
 
 import MaterialIcon from '../util/materialIcon';
 import FriendRequestReceivedAction from '../util/friendRequestReceivedAction';
@@ -46,7 +46,7 @@ class SearchPeopleResult extends Component {
                         </span>;
         }
         if (friendRequestFromUsers[uid]) {
-            secondary = <FriendRequestReceivedAction fromUID={uid} toUID={user.uid} rejectAction={this.props.rejectFriendRequest} />;
+            secondary = <FriendRequestReceivedAction fromUID={uid} toUID={user.uid} acceptAction={this.props.acceptFriendRequest} rejectAction={this.props.rejectFriendRequest} />;
         }
         if (friendRequestSentToUsers[uid]) {
             secondary = <span className="new badge font-secondary" data-badge-caption="Request sent">
@@ -117,5 +117,6 @@ function mapStateToProps(state) {
 
 export default connect(mapStateToProps, { 
     sendFriendRequest, 
+    acceptFriendRequest,
     rejectFriendRequest
 })(SearchPeopleResult);

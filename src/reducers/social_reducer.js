@@ -51,13 +51,25 @@ export default (state = DEFAULT_STATE, action) => {
 
             return {...state};
         }
+        case types.ACCEPT_FRIEND_REQUEST: {
+            const {payload} = action;
+
+            if (payload.status ===201 && payload.data.success) {
+                return {
+                    ...state,
+                    shouldRefreshFriendData: true,
+                    shouldRefreshFriendRequestData: true
+                }
+            }
+
+            return {...state};
+        }
         case types.REJECT_FRIEND_REQUEST: {
             const {payload} = action;
 
             if (payload.status === 202 && payload.data.success) {
                 return {
                     ...state,
-                    shouldRefreshFriendData: true,
                     shouldRefreshFriendRequestData: true
                 }
             }

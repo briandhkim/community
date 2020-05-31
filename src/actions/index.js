@@ -57,13 +57,13 @@ export function showSearchPeopleWindow() {
     return {
         type: types.SHOW_SEARCH_PEOPLE_WINDOW,
         payload: {}
-    }
+    };
 }
 export function closeSearchPeopleWindow() {
     return {
         type: types.CLOSE_SEARCH_PEOPLE_WINDOW,
         payload: {}
-    }
+    };
 }
 
 export function loadFriendsByUID(uid) {
@@ -72,7 +72,7 @@ export function loadFriendsByUID(uid) {
     return {
         type: types.LOAD_FRIENDS_BY_UID,
         payload
-    }
+    };
 }
 export function loadFriendRequestDataByUID(uid) {
     const req = axios.post('/friends/load-friend-request-data', {uid}, {headers});
@@ -80,7 +80,7 @@ export function loadFriendRequestDataByUID(uid) {
     return {
         type: types.LOAD_FRIEND_REQUEST_DATA,
         payload: req
-    }
+    };
 }
 export function sendFriendRequest(fromUserUID, toUserUID) {
     const payload = axios.post('/friends/send-request', {fromUserUID, toUserUID}, {headers});
@@ -88,7 +88,15 @@ export function sendFriendRequest(fromUserUID, toUserUID) {
     return {
         type: types.SEND_FRIEND_REQUEST,
         payload
-    }
+    };
+}
+export function acceptFriendRequest(fromUserUID, toUserUID) {
+    const payload = axios.post('/friends/accept-request', {fromUserUID, toUserUID}, {headers});
+
+    return {
+        type: types.ACCEPT_FRIEND_REQUEST,
+        payload
+    };
 }
 export function rejectFriendRequest(fromUserUID, toUserUID) {
     const payload = axios.post('/friends/reject-request', {fromUserUID, toUserUID}, {headers});
@@ -96,14 +104,14 @@ export function rejectFriendRequest(fromUserUID, toUserUID) {
     return {
         type: types.REJECT_FRIEND_REQUEST,
         payload
-    }
+    };
 }
 
 export function toggleSearchInProgress() {
     return {
         type: types.TOGGLE_SEARCH_IN_PROGRESS,
         payload: {}
-    }
+    };
 }
 export function searchPeople(searchValue) {
     const payload = axios.post('/search-people', {searchValue}, {headers});
@@ -111,12 +119,12 @@ export function searchPeople(searchValue) {
     return {
         type: types.SEARCH_PEOPLE,
         payload
-    }
+    };
 }
 
 export function resetSocialReducerData() {
     return {
         type: types.RESET_SOCIAL_REDUCER_DATA,
         payload: {}
-    }
+    };
 }

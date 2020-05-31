@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import M from 'materialize-css/dist/js/materialize.min';
 
-import {rejectFriendRequest} from '../../actions/index';
+import {acceptFriendRequest, rejectFriendRequest} from '../../actions/index';
 
 import MaterialIcon from '../util/materialIcon';
 import FriendRequestReceivedAction from '../util/friendRequestReceivedAction';
@@ -34,7 +34,7 @@ class CollapsibleFriendRequest extends Component {
                 <li className="collection-item font-secondary text-primary-light" key={key}>
                     <MaterialIcon icon={"person_add"} styleClass={"align-v mr-8"} />
                     {reqUser.firstName} {reqUser.lastName}
-                    <FriendRequestReceivedAction fromUID={reqUser.uid} toUID={user.uid} rejectAction={this.props.rejectFriendRequest}/>
+                    <FriendRequestReceivedAction fromUID={reqUser.uid} toUID={user.uid} acceptAction={this.props.acceptFriendRequest} rejectAction={this.props.rejectFriendRequest}/>
                 </li>
             );
         });
@@ -78,5 +78,6 @@ function mapStateToProps(state) {
 }
 
 export default connect(mapStateToProps, {
+    acceptFriendRequest, 
     rejectFriendRequest
 })(CollapsibleFriendRequest)
