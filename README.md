@@ -29,7 +29,7 @@
         - [ ] Show option to load more users matching the search
     - [ ] Add users to friends list
         - [ ] Send friend requests
-        - [ ] Show friend requests
+        - [x] Show friend requests
         - [ ] Accept friend requests
         - [ ] Reject friend requests
     - [ ] Delete users from friends list
