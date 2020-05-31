@@ -31,7 +31,7 @@
         - [x] Send friend requests
         - [x] Show friend requests
         - [ ] Accept friend requests
-        - [ ] Reject friend requests
+        - [x] Reject friend requests
     - [ ] Delete users from friends list
     - [ ] One-on-one messaging with users in friends list
     - [ ] Group messaging with users
