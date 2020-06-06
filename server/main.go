@@ -31,6 +31,13 @@ func main() {
 	r.POST("/friends/reject-request", fc.RejectFriendRequest)
 	r.POST("/search-people", sc.SearchPeopleByNameOrEmail)
 
+	// sz := "1bda56a3-3efb-4f2f-96fc-2a702e530c4f"
+	// am := "65e236ac-a64e-439a-8620-0adcd2fe5929"
+	// ls := "d76f73c3-0ea2-4afa-b009-794f1164910a"
+	// rh := "1e0c1b57-303a-407a-8c59-0b79e70c1ccc"
+
+	// models.LoadDirectMessageByUserUIDs(sz, rh)
+
 	http.ListenAndServe(":8080", r)
 
 }
