@@ -62,7 +62,7 @@ func getDirectMessageChatByUserUIDs(aUID, bUID string) (Chat, error) {
 func LoadDirectMessageByUserUIDs(aUID, bUID string) {
 	c, err := getDirectMessageChatByUserUIDs(aUID, bUID)
 	if err != nil && err == sql.ErrNoRows {
-		// Create new chat and insert users in chat_users 
+		// Create new chat and insert users in chat_users
 	} else {
 		fmt.Println(c)
 		// Load messages here
