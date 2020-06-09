@@ -10,7 +10,12 @@
 
 #### Backend
 
-* Golang
+* [Golang](https://golang.org/)
+
+#### Other
+
+* [Electron](https://www.electronjs.org/)
+    * just for fun.
 
 ##### Features
 
@@ -35,6 +40,10 @@
     - [ ] Delete users from friends list
     - [ ] One-on-one messaging with users in friends list
     - [ ] Group messaging with users
+- [ ] Other
+    - [ ] Set up electron
+        - [x] configure electron for development
+        - [ ] configure electron for production
 
 ### Development Details
 
@@ -75,6 +84,16 @@ See [The Go Blog](https://blog.golang.org/gofmt) for more information.
 
 Run this in the `/server` directory. Starts the server that will listen for request on port `:8080`
 `pakcage.json` file has a `proxy` setting that connects the frontend requests to the backend server.
+
+#### Electron scripts
+
+###### `npm run electron`
+
+During development: run `npm run electron` **after** running `npm start` and the app displays in the browser.
+
+References: 
+- [Medium article for setting up React with Electron](https://medium.com/@brockhoff/using-electron-with-react-the-basics-e93f9761f86f)
+- [Freecode camp tutorial for setting up React & Electron](https://www.freecodecamp.org/news/building-an-electron-application-with-create-react-app-97945861647c/#:~:text=Electron%20and,is%20Facebook's%20JavaScript%20view%20framework.&text=And%20Electron%20is%20GitHub's%20framework,platform%20desktop%20apps%20in%20JavaScript.&text=Most%20use%20webpack%20for%20the%20configuration%20necessary%20for%20React%20development.)
 
 ---
 
