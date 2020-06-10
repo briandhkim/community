@@ -2,8 +2,11 @@ package models
 
 import (
 	"database/sql"
+	"encoding/json"
 	"fmt"
 	"log"
+	"net/http"
+	"time"
 
 	uuid "github.com/satori/go.uuid"
 )
@@ -17,9 +20,10 @@ type Chat struct {
 
 // Message contains the message content and the author information
 type Message struct {
-	UID      string `json:"uid"`
-	Text     string `json:"text"`
-	FromUser User   `json:"user"`
+	UID         string `json:"uid"`
+	Text        string `json:"text"`
+	FromUser    User   `json:"user"`
+	DateCreated string `json:"dateCreated"`
 }
 
 func getDMChatByUserUIDs(aUID, bUID string) Chat {
@@ -115,10 +119,67 @@ func createNewDMChat(aUID, bUID string) (Chat, error) {
 	return c, err
 }
 
+func getChatMessagesSlice(c Chat) []Message {
+	sql := `select 
+				m.uid mUID, m.message, m.date_created,
+				u.email, u.uid uUID, u.firstName, u.lastName
+			from 
+				messages m
+			join
+				users u
+			on
+				m.user_id = u.id
+			where
+				m.chat_id = (
+					select id from chat where uid = ?
+				)
+			order by m.date_created desc
+			limit 75`
+
+	rows, err := DB.Query(sql, c.UID)
+	if err != nil {
+		log.Panic(err)
+	}
+	defer rows.Close()
+
+	var ms = make([]Message, 0, 75)
+
+	for rows.Next() {
+		var mUID, txt, d, em, userUID, fn, ln string
+		if err := rows.Scan(&mUID, &txt, &d, &em, &userUID, &fn, &ln); err != nil {
+			log.Panic(err)
+		}
+
+		u := User{em, userUID, fn, ln, ""}
+
+		t, _ := time.Parse("2006-01-02 15:04:05", d)
+		dc := t.Format("Jan 02, 06 - 03:04pm")
+
+		m := Message{mUID, txt, u, dc}
+
+		ms = append(ms, m)
+	}
+
+	return ms
+}
+
 // LoadDMDataByUserUIDs handles...
-func LoadDMDataByUserUIDs(aUID, bUID string) {
+func LoadDMDataByUserUIDs(aUID, bUID string) ([]byte, int) {
 
 	c := getDMChatByUserUIDs(aUID, bUID)
 
-	fmt.Println(c)
+	ms := getChatMessagesSlice(c)
+
+	res := struct {
+		C  Chat      `json:"chat"`
+		MS []Message `json:"messages"`
+	}{
+		c,
+		ms,
+	}
+
+	fmt.Println(res)
+
+	rj, _ := json.Marshal(res)
+	return rj, http.StatusOK
 }
