@@ -117,7 +117,10 @@ ul.dropdown-content li:hover {
   color: #ffffff;
 }
 .sideNavFriendsList.collection.with-header .collection-header .badge {color: #F9AA33;}
-.sideNavFriendsList.collection a.collection-item {color: #344955;}
+.sideNavFriendsList.collection a.collection-item, 
+.sideNavFriendsList.collection li.collection-item 
+{color: #344955;}
+.sideNavFriendsList.collection li.collection-item:hover {background-color: #dddddd;}
 .sideNavFriendsList .custom-scroll-bar::-webkit-scrollbar{
 	width: 7px;
 	/*background-color:rgb(227, 129, 23);*/
@@ -133,8 +136,10 @@ ul.dropdown-content li:hover {
 .sideNavFriendRequestList.collection .secondary-content.text-success:hover{color: #37e240;}
 .sideNavFriendRequestList.collection .secondary-content.text-error:hover{color: #f56161;}
 
+.sideNavFriendsList.collection .secondary-content.btn-flat,
 .sideNavFriendRequestList.collection .secondary-content.btn-flat,
 .searchPeopleResults.collection .collection-item .secondary-content.btn-flat {line-height: inherit;}
+.sideNavFriendsList.collection .secondary-content.btn-flat:focus,
 .sideNavFriendRequestList.collection .secondary-content.btn-flat:focus,
 .searchPeopleResults.collection .collection-item .secondary-content.btn-flat:focus {
   background-color:transparent;

@@ -8,10 +8,10 @@ const FriendsList = (props) => {
     const list = Object.keys(friends).map(key => {
         const f = friends[key];
         return (
-            <a href="#!" className= "collection-item" key={key}>
+            <li className= "collection-item" key={key}>
                 <MaterialIcon icon={"account_box"} styleClass="align-v mr-8" />
                 {f.firstName} {f.lastName}
-            </a>
+            </li>
         );
     });
     const numFriends = Object.keys(friends).length;

@@ -1,9 +1,19 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
+import M from 'materialize-css/dist/js/materialize.min';
+
 import MaterialIcon from '../util/materialIcon';
+import FriendListAction from '../util/friendListAction';
 
 class CollapsibleFriendsList extends Component {
+    
+    componentDidUpdate() {
+        const elem = document.querySelectorAll(".tooltipped");
+        const margin = 0.1;
+        const transitionMovement = 2;
+        M.Tooltip.init(elem, {margin, transitionMovement});
+    }
 
     renderList() {
         const {friends} = this.props;
@@ -19,10 +29,11 @@ class CollapsibleFriendsList extends Component {
         return Object.keys(friends).map(key => {
             const f = friends[key];
             return (
-                <a href="#!" className="collection-item font-secondary" key={key}>
+                <li className="collection-item font-secondary" key={key}>
                     <MaterialIcon icon={"account_box"} styleClass={"align-v mr-8"} />
                     {f.firstName} {f.lastName}
-                </a>
+                    <FriendListAction />
+                </li>
             );
         });
     }
@@ -46,9 +57,9 @@ class CollapsibleFriendsList extends Component {
                         {numFriends}
                     </div>
                 </div>
-                <div className="sideNavFriendsList collapsible-body collection p-0 max-h-300 overflow-y-auto custom-scroll-bar">
+                <ul className="sideNavFriendsList collapsible-body collection p-0 max-h-300 overflow-y-auto custom-scroll-bar">
                     {this.renderList()}
-                </div>
+                </ul>
             </React.Fragment>
         );
         
