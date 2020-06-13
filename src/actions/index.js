@@ -128,3 +128,12 @@ export function resetSocialReducerData() {
         payload: {}
     };
 }
+
+export function openDirectMessage(uid_a, uid_b) {
+    const payload = axios.post('/chat/load-dm-data', {uid_a, uid_b}, {headers});
+
+    return {
+        type: types.OPEN_DIRECT_MESSAGE,
+        payload
+    }
+}

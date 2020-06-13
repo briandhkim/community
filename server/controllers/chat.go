@@ -16,6 +16,7 @@ func NewChatController() *ChatController {
 	return &ChatController{}
 }
 
+// LoadDirectMessageDataByUserUID handles the post request made to /chat/load-dm-data
 func (cc ChatController) LoadDirectMessageDataByUserUID(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	if r.Method == http.MethodPost {
 
