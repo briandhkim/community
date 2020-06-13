@@ -3,7 +3,6 @@ package models
 import (
 	"database/sql"
 	"encoding/json"
-	"fmt"
 	"log"
 	"net/http"
 	"time"
@@ -177,8 +176,6 @@ func LoadDMDataByUserUIDs(aUID, bUID string) ([]byte, int) {
 		c,
 		ms,
 	}
-
-	fmt.Println(res)
 
 	rj, _ := json.Marshal(res)
 	return rj, http.StatusOK

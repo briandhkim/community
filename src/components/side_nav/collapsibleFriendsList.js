@@ -1,13 +1,14 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-
 import M from 'materialize-css/dist/js/materialize.min';
+
+import {openDirectMessage} from '../../actions/index';
 
 import MaterialIcon from '../util/materialIcon';
 import FriendListAction from '../util/friendListAction';
 
 class CollapsibleFriendsList extends Component {
-    
+
     componentDidUpdate() {
         const elem = document.querySelectorAll(".tooltipped");
         const margin = 0.1;
@@ -16,7 +17,7 @@ class CollapsibleFriendsList extends Component {
     }
 
     renderList() {
-        const {friends} = this.props;
+        const {friends, user} = this.props;
 
         if (!friends || Object.keys(friends).length === 0) {
             return (
@@ -32,7 +33,7 @@ class CollapsibleFriendsList extends Component {
                 <li className="collection-item font-secondary" key={key}>
                     <MaterialIcon icon={"account_box"} styleClass={"align-v mr-8"} />
                     {f.firstName} {f.lastName}
-                    <FriendListAction />
+                    <FriendListAction friend={f} user={user} openDM={this.props.openDirectMessage} />
                 </li>
             );
         });
@@ -67,11 +68,12 @@ class CollapsibleFriendsList extends Component {
 }
 
 function mapStateToProps(state) {
-    const {social} = state;
+    const {social, user} = state;
 
     return {
+        user    : user.user,
         friends : social.friends
     };
 }
 
-export default connect(mapStateToProps, {})(CollapsibleFriendsList);
+export default connect(mapStateToProps, {openDirectMessage})(CollapsibleFriendsList);
