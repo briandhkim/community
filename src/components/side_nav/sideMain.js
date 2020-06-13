@@ -18,7 +18,7 @@ class SideMain extends Component {
         return (
             <div>
                 <ul className="collapsible sideMain">
-                    <li>
+                    <li className="active">
                         <SideNavFriends />
                     </li>
                     <li>
