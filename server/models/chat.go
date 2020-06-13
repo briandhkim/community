@@ -12,9 +12,10 @@ import (
 
 // Chat type associates users and messages to target chat group
 type Chat struct {
-	UID      string `json:"uid"`
-	Name     string `json:"name"`
-	Password string `json:"password"`
+	UID      string          `json:"uid"`
+	Name     string          `json:"name"`
+	Password string          `json:"password"`
+	Users    map[string]User `json:"users"`
 }
 
 // Message contains the message content and the author information
@@ -62,8 +63,14 @@ func getDMChatByUserUIDs(aUID, bUID string) Chat {
 	if err != nil && err == sql.ErrNoRows {
 		c, _ = createNewDMChat(aUID, bUID)
 	} else {
-		c = Chat{uid, n, ""}
+		c = Chat{uid, n, "", map[string]User{}}
 	}
+
+	u := getUserByUID(aUID)
+	c.Users[u.UID] = u
+
+	u = getUserByUID(bUID)
+	c.Users[u.UID] = u
 
 	return c
 }
