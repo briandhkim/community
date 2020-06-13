@@ -27,7 +27,7 @@ func (fc FriendsController) LoadFriendsByUserUID(w http.ResponseWriter, r *http.
 		}{}
 		err := decoder.Decode(&d)
 		if err != nil {
-			http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+			outputInternalServerError(w)
 			return
 		}
 
@@ -51,7 +51,7 @@ func (fc FriendsController) LoadFriendRequestDataByUserUID(w http.ResponseWriter
 		}{}
 		err := decoder.Decode(&d)
 		if err != nil {
-			http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+			outputInternalServerError(w)
 			return
 		}
 
@@ -76,7 +76,7 @@ func (fc FriendsController) SendFriendRequest(w http.ResponseWriter, r *http.Req
 		}{}
 		err := decoder.Decode(&d)
 		if err != nil {
-			http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+			outputInternalServerError(w)
 			return
 		}
 
@@ -101,7 +101,7 @@ func (fc FriendsController) AcceptFriendRequest(w http.ResponseWriter, r *http.R
 		}{}
 		err := decoder.Decode(&d)
 		if err != nil {
-			http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+			outputInternalServerError(w)
 			return
 		}
 
@@ -126,7 +126,7 @@ func (fc FriendsController) RejectFriendRequest(w http.ResponseWriter, r *http.R
 		}{}
 		err := decoder.Decode(&d)
 		if err != nil {
-			http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+			outputInternalServerError(w)
 			return
 		}
 

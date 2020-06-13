@@ -17,6 +17,7 @@ func main() {
 	uc := controllers.NewUserController()
 	fc := controllers.NewFriendsController()
 	sc := controllers.NewSocialController()
+	cc := controllers.NewChatController()
 
 	r.GET("/user/check-duplicate-email/:email", uc.CheckDuplicateEmail)
 	r.GET("/user/get-logged-in-user", uc.CheckAndGetLoggedInUser)
@@ -30,6 +31,8 @@ func main() {
 	r.POST("/friends/accept-request", fc.AcceptFriendRequest)
 	r.POST("/friends/reject-request", fc.RejectFriendRequest)
 	r.POST("/search-people", sc.SearchPeopleByNameOrEmail)
+
+	r.POST("/chat/load-dm-data", cc.LoadDirectMessageDataByUserUID)
 
 	// sz := "1bda56a3-3efb-4f2f-96fc-2a702e530c4f"
 	// am := "65e236ac-a64e-439a-8620-0adcd2fe5929"

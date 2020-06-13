@@ -27,7 +27,7 @@ func (sc SocialController) SearchPeopleByNameOrEmail(w http.ResponseWriter, r *h
 		}{}
 		err := decoder.Decode(&d)
 		if err != nil {
-			http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+			outputInternalServerError(w)
 			return
 		}
 

@@ -68,7 +68,7 @@ func (uc UserController) SignUp(w http.ResponseWriter, r *http.Request, _ httpro
 		}{}
 		err := decoder.Decode(&signUpData)
 		if err != nil {
-			http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+			outputInternalServerError(w)
 			return
 		}
 
@@ -100,7 +100,7 @@ func (uc UserController) Login(w http.ResponseWriter, r *http.Request, _ httprou
 		}{}
 		err := decoder.Decode(&loginData)
 		if err != nil {
-			http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+			outputInternalServerError(w)
 			return
 		}
 

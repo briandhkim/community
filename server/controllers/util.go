@@ -18,3 +18,7 @@ func outputJSONResponse(w http.ResponseWriter, j []byte, s int) {
 func outputBadRequestError(w http.ResponseWriter) {
 	http.Error(w, http.StatusText(http.StatusBadRequest), http.StatusBadRequest)
 }
+
+func outputInternalServerError(w http.ResponseWriter) {
+	http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
+}
