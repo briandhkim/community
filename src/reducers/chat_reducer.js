@@ -1,7 +1,8 @@
 import types from '../actions/types';
 
 const DEFAULT_STATE = {
-    activeChat: null
+    activeChat: null,
+    activeChatMessages: null
 };
 
 export default (state = DEFAULT_STATE, action) => {
@@ -10,9 +11,18 @@ export default (state = DEFAULT_STATE, action) => {
             const {payload} = action;
             console.log(payload);
 
-            return {
-                ...state
+            if (payload.status ===200) {
+                const {data} = payload;
+                const {chat, messages} = data;
+
+                return {
+                    ...state,
+                    activeChat: chat,
+                    activeChatMessages: messages
+                }
             }
+
+            return {...state}
         }
         default: 
             return state;
