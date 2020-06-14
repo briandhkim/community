@@ -1,13 +1,21 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
+import ChatHeader from './chatHeader';
+import ChatBody from './chatBody';
+
 class ChatContainer extends Component {
 
     render() {
+        const {chat, user, chatMessages} = this.props;
 
         return (
-            <div className="container chatMain mt-05r h-600 m-h-850 bg-primary">
-                Chat Main
+            <div className="container chatMain mt-05r z-depth-3">
+                <ChatHeader chat={chat} user={user} />
+                <ChatBody user={user} messages={chatMessages} />
+                <div className="row bg-primary-light min-h-100">
+
+                </div>
             </div>
         );
     }

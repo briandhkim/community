@@ -27,7 +27,8 @@ type Message struct {
 }
 
 func getDMChatByUserUIDs(aUID, bUID string) Chat {
-	var uid, n string
+	var uid string
+	var n sql.NullString
 
 	s := `select 
 				uid, name 
@@ -63,13 +64,15 @@ func getDMChatByUserUIDs(aUID, bUID string) Chat {
 	if err != nil && err == sql.ErrNoRows {
 		c, _ = createNewDMChat(aUID, bUID)
 	} else {
-		c = Chat{uid, n, "", map[string]User{}}
+		c = Chat{uid, n.String, "", map[string]User{}}
 	}
 
 	u := getUserByUID(aUID)
+	u.Password = ""
 	c.Users[u.UID] = u
 
 	u = getUserByUID(bUID)
+	u.Password = ""
 	c.Users[u.UID] = u
 
 	return c
