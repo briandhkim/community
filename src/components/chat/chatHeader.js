@@ -8,15 +8,18 @@ const ChatHeader = (props) => {
 
     let commaIdx = 0;
     const chatUsers = Object.keys(cUsers).map(key => {
+        
+        let uLabel = '';
         if (key !== user.uid) {
             const u = cUsers[key];
-
-            return (
-                <React.Fragment key={key}>
-                    {commaIdx++ ? ',': ''} {u.firstName} {u.lastName}
-                </React.Fragment>
-            );
+            uLabel = `${commaIdx++ ? ',': ''} ${u.firstName} ${u.lastName}`
         }
+
+        return (
+            <React.Fragment key={key}>
+                {uLabel}
+            </React.Fragment>
+        );
     });
 
 
