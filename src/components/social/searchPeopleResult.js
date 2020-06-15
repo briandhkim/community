@@ -75,7 +75,7 @@ class SearchPeopleResult extends Component {
         });
 
         return (
-            <ul className="collection searchPeopleResults z-depth-2">
+            <ul className="collection searchPeopleResults z-depth-2 max-h-550 overflow-y-auto custom-scroll-bar">
                 {list}
             </ul>
         );

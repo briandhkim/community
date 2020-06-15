@@ -14,6 +14,9 @@ html, body, #root, .App {
   height: 100%;
   min-height: 100vh;
 }
+body {
+  background-color: #fafafa;
+}
 
 /* custom content start */
 
@@ -309,6 +312,12 @@ ul.navbarMobileNav li a:hover {
 .max-h-200  {max-height: 200px;}
 .max-h-250  {max-height: 250px;}
 .max-h-300  {max-height: 300px;}
+.max-h-400  {max-height: 400px;}
+.max-h-500  {max-height: 500px;}
+.max-h-550  {max-height: 550px;}
+.max-h-600  {max-height: 600px;}
+.max-h-700  {max-height: 700px;}
+.max-h-800  {max-height: 800px;}
 .h-200  {height: 200px;}
 .h-300  {height: 300px;}
 .h-400  {height: 400px;}
