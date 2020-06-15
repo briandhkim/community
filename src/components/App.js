@@ -14,7 +14,7 @@ import './App.css';
 
 function App() {
   return (
-    <div className="App">
+    <div className="App grey lighten-5">
       <NavBar/>
       <Switch>
         <Route exact path="/" component={Home} />

@@ -80,7 +80,8 @@ ul.dropdown-content li:hover {
 .signUpForm .input-field input[type=password]:focus + label,
 .loginForm .input-field input[type=text]:focus + label,
 .loginForm .input-field input[type=password]:focus + label,
-.searchPeopleForm .input-field input[type=text]:focus + label {
+.searchPeopleForm .input-field input[type=text]:focus + label,
+.sendMessageForm textarea.materialize-textarea:focus + label {
   color: #F9AA33;
 }
 /* label underline focus color */
@@ -89,7 +90,8 @@ ul.dropdown-content li:hover {
 .signUpForm .input-field input[type=password]:focus,
 .loginForm .input-field input[type=text]:focus,
 .loginForm .input-field input[type=password]:focus, 
-.searchPeopleForm .input-field input[type=text]:focus {
+.searchPeopleForm .input-field input[type=text]:focus,
+.sendMessageForm textarea.materialize-textarea:focus {
   border-bottom: 1px solid #F9AA33;
   box-shadow: 0 1px 0 0 #F9AA33;
 }
@@ -431,6 +433,15 @@ ul.navbarMobileNav li a:hover {
 .overflow-x-auto  {overflow-x: auto;}
 .overflow-y-auto  {overflow-y: auto;}
 
+@media screen and (min-width: 1200px) {
+  /* 1200px wide or more */
+  /* equivalent to materialize .xl */
+  .xl-min-h-500 {min-height: 500px;}
+  .xl-min-h-600 {min-height: 600px;}
+  .xl-min-h-700 {min-height: 700px;}
+  .xl-min-h-800 {min-height: 800px;}
+}
+
 @media screen and (min-width: 992px) {
   /* 992px wide or more */
   /* equivalent to materialize .l */
@@ -447,6 +458,11 @@ ul.navbarMobileNav li a:hover {
   .desktop-sm-mr-5 {margin-right: 5px;}
   .desktop-sm-mr-8 {margin-right: 8px;}
   .desktop-sm-mr-10 {margin-right: 10px;}
+  .l-min-h-500  {min-height: 500px;}
+  .l-min-h-600  {min-height: 600px;}
+  .l-min-h-700  {min-height: 700px;}
+  .l-min-h-800  {min-height: 800px;}
+  .l-min-h-900  {min-height: 900px;}
   .l-h-full{height: 100%;}
 }
 

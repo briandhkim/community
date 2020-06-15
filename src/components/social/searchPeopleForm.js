@@ -10,7 +10,7 @@ class SearchPeopleForm extends Component {
 
     renderSearchInput({input, id, label, type, icon, meta:{touched, error}}) {
         return (
-            <div className="input-field font-primary col s10">
+            <div className="input-field font-primary col s9 m10">
                 <MaterialIcon icon={icon} styleClass={"prefix"} />
                 <input {...input} id={id} type={type} className="font-secondary" />
                 <label htmlFor={id} className="">{label}</label>
@@ -33,12 +33,12 @@ class SearchPeopleForm extends Component {
         const {handleSubmit} = this.props;
 
         return(
-            <div className="col s12 l10">
+            <div className="col s12">
                 <form onSubmit={handleSubmit((val)=>{this.searchPeople(val)})} className="searchPeopleForm">
                     <div className="row">
                         <Field name='query' id='searchPeopleQuery' type='text' label='Search' icon='search' component={this.renderSearchInput} />
-                        <div className="input-field col s-2">
-                            <button className="btn waves-effect bg-secondary" onClick={handleSubmit((val)=>{this.searchPeople(val)})}>
+                        <div className="input-field col s2">
+                            <button className="btn waves-effect btn-secondary white-text" onClick={handleSubmit((val)=>{this.searchPeople(val)})}>
                                 <MaterialIcon icon={"send"} aria-label="Submit Search" />
                             </button>
                         </div>

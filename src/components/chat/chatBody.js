@@ -1,8 +1,6 @@
 import React, {useEffect} from 'react';
 import M from 'materialize-css/dist/js/materialize.min';
 
-import MaterialIcon from '../util/materialIcon';
-
 const ChatBody = (props) => {
     const {user, messages} = props;
 
@@ -24,7 +22,7 @@ const ChatBody = (props) => {
     const messageLeft = (m, idx) => {
         return (
             <div className="col s11 m9 l7 mb-1r" key={idx}>
-                <div className="col s11 mb-5">
+                <div className="col s12 l10 mb-5">
                     <div className="p-10 inline-block min-w-100 tooltipped font-primary bg-primary-light text-secondary rounded-5 z-depth-2" data-position="bottom" data-tooltip={`${m.dateCreated}`}>
                         {m.text}
                     </div>
@@ -41,7 +39,7 @@ const ChatBody = (props) => {
     const messageRight = (m, idx) => {
         return (
             <div className="col s11 offset-s1 m9 offset-m3 l7 offset-l5 mb-1r right-align" key={idx}>
-                <div className="col s11 offset-s1 mb-5">
+                <div className="col s12 l10 offset-l2 mb-5">
                     <div className="p-10 inline-block min-w-100 tooltipped font-primary left-align blue darken-2 white-text rounded-5 z-depth-2" data-position="bottom" data-tooltip={`${m.dateCreated}`}>
                         {m.text}
                     </div>

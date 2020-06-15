@@ -13,11 +13,11 @@ class SearchPeopleMain extends Component {
         return(
             <div className="container searchPeopleMain">
                 <div className="row">
-                    <div className="col s10 mt-2r">
-                        <h1 className="text-h2 font-primary mt-0">Search People</h1>
+                    <div className="col m8 l10 mt-2r">
+                        <h1 className="text-h3 font-primary mt-0">Search People</h1>
                     </div>
                     <div className="col s2 mt-2r">
-                        <button className="btn-large btn-floating waves-effect waves-circle btn-secondary" onClick={this.props.closeSearchPeopleWindow}>
+                        <button className="btn-small btn-floating waves-effect waves-circle btn-secondary" onClick={this.props.closeSearchPeopleWindow}>
                             <MaterialIcon icon={"close"} styleClass={"text-bold"} />
                         </button>
                     </div>

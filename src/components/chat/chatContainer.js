@@ -11,7 +11,7 @@ class ChatContainer extends Component {
         const {chat, user, chatMessages} = this.props;
 
         return (
-            <div className="container chatMain mt-05r z-depth-3">
+            <div className=" chatMain mt-05r z-depth-3">
                 <ChatHeader chat={chat} user={user} />
                 <ChatBody user={user} messages={chatMessages} />
                 <MessageInput />

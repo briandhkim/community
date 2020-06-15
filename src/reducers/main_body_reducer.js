@@ -11,13 +11,15 @@ export default (state = DEFAULT_STATE, action) => {
         case types.OPEN_DIRECT_MESSAGE:{
             return {
                 ...state,
+                showSearchPeopleWindow: false,
                 showChatWindow: true
             }
         }
         case types.SHOW_SEARCH_PEOPLE_WINDOW:{
             return {
                 ...state,
-                showSearchPeopleWindow: true
+                showSearchPeopleWindow: true,
+                showChatWindow: false
             }
         }
         case types.CLOSE_SEARCH_PEOPLE_WINDOW:{
