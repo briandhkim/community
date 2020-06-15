@@ -33,6 +33,7 @@ func main() {
 	r.POST("/search-people", sc.SearchPeopleByNameOrEmail)
 
 	r.POST("/chat/load-dm-data", cc.LoadDirectMessageDataByUserUID)
+	r.POST("/chat/insert-new-message", cc.InsertNewMessage)
 
 	// sz := "1bda56a3-3efb-4f2f-96fc-2a702e530c4f"
 	// am := "65e236ac-a64e-439a-8620-0adcd2fe5929"

@@ -40,3 +40,29 @@ func (cc ChatController) LoadDirectMessageDataByUserUID(w http.ResponseWriter, r
 		outputBadRequestError(w)
 	}
 }
+
+// InsertNewMessage handles the post request made to /chat/insert-new-message
+func (cc ChatController) InsertNewMessage(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
+	if r.Method == http.MethodPost {
+
+		defer r.Body.Close()
+		decoder := json.NewDecoder(r.Body)
+		d := struct {
+			C string `json:"chat_uid"`
+			U string `json:"user_uid"`
+			M string `json:"message"`
+		}{}
+		err := decoder.Decode(&d)
+		if err != nil {
+			outputInternalServerError(w)
+			return
+		}
+
+		rj, statusCode := models.InsertNewChatMessage(d.C, d.U, d.M)
+
+		outputJSONResponse(w, rj, statusCode)
+
+	} else {
+		outputBadRequestError(w)
+	}
+}

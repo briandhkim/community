@@ -172,7 +172,8 @@ func getChatMessagesSlice(c Chat) []Message {
 	return ms
 }
 
-// LoadDMDataByUserUIDs handles...
+// LoadDMDataByUserUIDs gets Chat and Message data based on the user UIDs provided.
+// This is intended to handle direct messaging feature
 func LoadDMDataByUserUIDs(aUID, bUID string) ([]byte, int) {
 
 	c := getDMChatByUserUIDs(aUID, bUID)
@@ -185,6 +186,44 @@ func LoadDMDataByUserUIDs(aUID, bUID string) ([]byte, int) {
 	}{
 		c,
 		ms,
+	}
+
+	rj, _ := json.Marshal(res)
+	return rj, http.StatusOK
+}
+
+func insertNewMessage(cUID, uUID, m string) {
+	sql := `INSERT INTO messages
+				(uid, chat_id, user_id, message)
+			VALUES
+				(
+					?, 
+					(select id from chat where uid = ?), 
+					(select id from users where uid = ?), 
+					?
+				)`
+	stmt, _ := DB.Prepare(sql)
+	defer stmt.Close()
+
+	for {
+		uID, _ := uuid.NewV4()
+		_, err = stmt.Exec(uID.String(), cUID, uUID, m)
+
+		if err == nil {
+			break
+		}
+	}
+
+}
+
+// InsertNewChatMessage inserts a new message for chat and returns json response for the request
+func InsertNewChatMessage(cUID, uUID, m string) ([]byte, int) {
+	insertNewMessage(cUID, uUID, m)
+
+	res := struct {
+		S bool `json:"success"`
+	}{
+		true,
 	}
 
 	rj, _ := json.Marshal(res)
