@@ -41,6 +41,7 @@
     - [ ] One-on-one messaging with users in friends list
     - [ ] Group messaging with users
 - [ ] Other
+    - [ ] Set up migration
     - [ ] Set up electron
         - [x] configure electron for development
         - [ ] configure electron for production
