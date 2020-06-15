@@ -362,6 +362,7 @@ ul.navbarMobileNav li a:hover {
 .pb-10  {padding-bottom: 10px;}
 .pb-r025{padding-bottom: 0.25rem;}
 .pb-r05 {padding-bottom: 0.5rem;}
+.pb-1   {padding-bottom: 1rem;}
 .px-0   {padding-left: 0px; padding-right: 0px;}
 .px-5   {padding-left: 5px; padding-right: 5px;}
 .px-8   {padding-left: 8px; padding-right: 8px;}
@@ -424,6 +425,8 @@ ul.navbarMobileNav li a:hover {
 .-mt-5 {margin-top: -5px;}
 .-mt-8 {margin-top: -8px;}
 .-mt-10 {margin-top: -10px;}
+.my-0   {margin-top: 0px; margin-bottom: 0px;}
+.mx-0   {margin-left: 0px; margin-right: 0px;}
 
 .overflow-x-auto  {overflow-x: auto;}
 .overflow-y-auto  {overflow-y: auto;}

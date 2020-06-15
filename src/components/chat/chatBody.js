@@ -25,7 +25,7 @@ const ChatBody = (props) => {
         return (
             <div className="col s11 m9 l7 mb-1r" key={idx}>
                 <div className="col s11 mb-5">
-                    <div className="p-10 inline-block min-w-100 tooltipped font-primary bg-primary-light white-text rounded-5 z-depth-2" data-position="bottom" data-tooltip={`${m.dateCreated}`}>
+                    <div className="p-10 inline-block min-w-100 tooltipped font-primary bg-primary-light text-secondary rounded-5 z-depth-2" data-position="bottom" data-tooltip={`${m.dateCreated}`}>
                         {m.text}
                     </div>
                 </div>

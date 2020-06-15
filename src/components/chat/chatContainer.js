@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 
 import ChatHeader from './chatHeader';
 import ChatBody from './chatBody';
+import MessageInput from './messageInput';
 
 class ChatContainer extends Component {
 
@@ -13,9 +14,7 @@ class ChatContainer extends Component {
             <div className="container chatMain mt-05r z-depth-3">
                 <ChatHeader chat={chat} user={user} />
                 <ChatBody user={user} messages={chatMessages} />
-                <div className="row bg-primary-light min-h-100">
-
-                </div>
+                <MessageInput />
             </div>
         );
     }

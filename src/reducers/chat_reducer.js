@@ -9,7 +9,6 @@ export default (state = DEFAULT_STATE, action) => {
     switch(action.type) {
         case types.OPEN_DIRECT_MESSAGE:{
             const {payload} = action;
-            // console.log(payload);
 
             if (payload.status ===200) {
                 const {data} = payload;
