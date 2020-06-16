@@ -4,19 +4,24 @@ import {connect} from 'react-redux';
 import ChatHeader from './chatHeader';
 import ChatBody from './chatBody';
 import MessageInput from './messageInput';
+import BodyDefaultCircleLoader from '../main_body/bodyDefaultCircleLoader';
 
 class ChatContainer extends Component {
 
     render() {
         const {chat, user, chatMessages} = this.props;
 
-        return (
-            <div className=" chatMain mt-05r z-depth-3">
-                <ChatHeader chat={chat} user={user} />
-                <ChatBody user={user} messages={chatMessages} />
-                <MessageInput />
-            </div>
-        );
+        if (chat) {
+            return (
+                <div className=" chatMain mt-05r z-depth-3">
+                    <ChatHeader chat={chat} user={user} />
+                    <ChatBody user={user} messages={chatMessages} />
+                    <MessageInput />
+                </div>
+            );
+        } else {
+            return <BodyDefaultCircleLoader />
+        }
     }
 }
 

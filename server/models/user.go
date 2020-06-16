@@ -29,6 +29,27 @@ func getCountByEmailAddress(e string) int16 {
 	return count
 }
 
+func getUserByID(id int) User {
+	var em, uid, fn, ln, pw string
+
+	sql := `SELECT 
+				email, uid, firstName, lastName, password 
+			from 
+				users 
+			where 
+				id = ?
+			and
+				date_deleted is null`
+	err := DB.QueryRow(sql, id).Scan(&em, &uid, &fn, &ln, &pw)
+	if err != nil {
+		log.Panic(err)
+	}
+
+	u := User{em, uid, fn, ln, pw}
+
+	return u
+}
+
 func getUserByUID(id string) User {
 	var em, uid, fn, ln, pw string
 

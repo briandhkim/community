@@ -26,6 +26,69 @@ type Message struct {
 	DateCreated string `json:"dateCreated"`
 }
 
+func getChatByChatUID(uid string) Chat {
+	var u string
+	var n sql.NullString
+
+	s := `select
+			uid, name
+		from
+			chat
+		where 
+			uid = ?`
+
+	err := DB.QueryRow(s, uid).Scan(&u, &n)
+	if err != nil {
+		log.Panic(err)
+	}
+
+	c := Chat{u, n.String, "", getChatUsersByChatUID(u)}
+
+	return c
+}
+
+func getChatUsersByChatUID(uid string) map[string]User {
+	sql := `select
+				email, uid, firstName, lastName
+			from
+				users 
+			where
+				id
+			in (
+				select
+					cu.user_id
+				from
+					chat_users cu
+				join
+					chat c
+				on
+					cu.chat_id = c.id
+				where
+					c.uid = ?
+			)`
+
+	rows, err := DB.Query(sql, uid)
+	if err != nil {
+		log.Panic(err)
+	}
+	defer rows.Close()
+
+	var um = make(map[string]User)
+
+	for rows.Next() {
+		var em, uid, fn, ln string
+		if err := rows.Scan(&em, &uid, &fn, &ln); err != nil {
+			log.Panic(err)
+		}
+
+		u := User{em, uid, fn, ln, ""}
+		um[uid] = u
+	}
+
+	return um
+
+}
+
 func getDMChatByUserUIDs(aUID, bUID string) Chat {
 	var uid string
 	var n sql.NullString
@@ -63,17 +126,12 @@ func getDMChatByUserUIDs(aUID, bUID string) Chat {
 	c := Chat{}
 	if err != nil && err == sql.ErrNoRows {
 		c, _ = createNewDMChat(aUID, bUID)
+
+		c.Users = getChatUsersByChatUID(c.UID)
+
 	} else {
-		c = Chat{uid, n.String, "", map[string]User{}}
+		c = Chat{uid, n.String, "", getChatUsersByChatUID(uid)}
 	}
-
-	u := getUserByUID(aUID)
-	u.Password = ""
-	c.Users[u.UID] = u
-
-	u = getUserByUID(bUID)
-	u.Password = ""
-	c.Users[u.UID] = u
 
 	return c
 }
@@ -170,6 +228,24 @@ func getChatMessagesSlice(c Chat) []Message {
 	}
 
 	return ms
+}
+
+// LoadChatDataByChatUID gets Chat and Message data based on the chat UID provided.
+func LoadChatDataByChatUID(uid string) ([]byte, int) {
+	c := getChatByChatUID(uid)
+
+	ms := getChatMessagesSlice(c)
+
+	res := struct {
+		C  Chat      `json:"chat"`
+		MS []Message `json:"messages"`
+	}{
+		c,
+		ms,
+	}
+
+	rj, _ := json.Marshal(res)
+	return rj, http.StatusOK
 }
 
 // LoadDMDataByUserUIDs gets Chat and Message data based on the user UIDs provided.

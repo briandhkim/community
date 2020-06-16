@@ -4,8 +4,6 @@ import M from 'materialize-css/dist/js/materialize.min';
 const ChatBody = (props) => {
     const {user, messages} = props;
 
-    console.log(messages);
-
     useEffect(() => {
         const elem = document.querySelectorAll(".tooltipped");
         M.Tooltip.init(elem, {});

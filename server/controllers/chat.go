@@ -16,6 +16,30 @@ func NewChatController() *ChatController {
 	return &ChatController{}
 }
 
+// LoadChatDataByChatUID handles the post request made to /chat/load-chat-data
+func (cc ChatController) LoadChatDataByChatUID(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
+	if r.Method == http.MethodPost {
+
+		defer r.Body.Close()
+		decoder := json.NewDecoder(r.Body)
+		d := struct {
+			UID string `json:"chat_uid"`
+		}{}
+		err := decoder.Decode(&d)
+		if err != nil {
+			outputInternalServerError(w)
+			return
+		}
+
+		rj, statusCode := models.LoadChatDataByChatUID(d.UID)
+
+		outputJSONResponse(w, rj, statusCode)
+
+	} else {
+		outputBadRequestError(w)
+	}
+}
+
 // LoadDirectMessageDataByUserUID handles the post request made to /chat/load-dm-data
 func (cc ChatController) LoadDirectMessageDataByUserUID(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	if r.Method == http.MethodPost {
