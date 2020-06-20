@@ -137,3 +137,21 @@ export function openDirectMessage(uid_a, uid_b) {
         payload
     }
 }
+
+export function loadChatData(chat_uid) {
+    const payload = axios.post('/chat/load-chat-data', {chat_uid}, {headers});
+
+    return {
+        type: types.LOAD_CHAT_DATA,
+        payload
+    }
+}
+
+export function sendMessage(chat_uid, user_uid, message) {
+    const payload = axios.post('/chat/insert-new-message', {chat_uid, user_uid, message}, {headers});
+
+    return {
+        type: types.SEND_MESSAGE,
+        payload
+    }
+}

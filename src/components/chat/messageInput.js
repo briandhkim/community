@@ -1,7 +1,9 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {Field, reduxForm} from 'redux-form';
+import {Field, reset, reduxForm} from 'redux-form';
 import M from 'materialize-css/dist/js/materialize.min';
+
+import {loadChatData, sendMessage} from '../../actions/index';
 
 class MessageInput extends Component {
 
@@ -19,10 +21,18 @@ class MessageInput extends Component {
         M.CharacterCounter.init(elem);
     }
 
+    componentDidUpdate() {
+        const {chat, insertedMessage} = this.props;
+
+        if (insertedMessage) {
+            this.props.loadChatData(chat.uid);
+        }
+    }
+
     renderTextarea({input, id, label, meta:{touched, error}}) {
         return (
             <div className="input-field mt-0 mb-2r">
-                <textarea {...input} id={id} className="materialize-textarea font-primary" data-length={this.state.messageLengthLimit}></textarea>
+                <textarea {...input} id={id} className="materialize-textarea chat-input font-primary" data-length={this.state.messageLengthLimit}></textarea>
                 <label htmlFor={id} className="font-tertiary">{label}</label>
             </div>
         );
@@ -37,8 +47,8 @@ class MessageInput extends Component {
         const msgLength = message.trim().length;
         if (!msgLength || msgLength > messageLengthLimit) return;
 
-        console.log(message);
-        
+        const {chat, user} = this.props;
+        this.props.sendMessage(chat.uid, user.uid, message);
     }
 
     render() {
@@ -58,11 +68,21 @@ class MessageInput extends Component {
 }
 
 function mapStateToProps(state) {
-    return {};
+    const {chat, user} = state;
+
+    return {
+        chat            : chat.activeChat,
+        insertedMessage : chat.insertedMessage,
+        user            : user.user
+    };
 }
 
+const afterSendingMessage = (result, dispatch) => 
+    dispatch(reset('messageInput'));
+
 MessageInput = reduxForm({
-    form: 'messageInput'
+    form: 'messageInput',
+    onSubmitSuccess: afterSendingMessage
 })(MessageInput);
 
-export default connect(mapStateToProps, {})(MessageInput);
+export default connect(mapStateToProps, {loadChatData, sendMessage})(MessageInput);

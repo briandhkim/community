@@ -19,5 +19,7 @@ export default {
     RESET_SOCIAL_REDUCER_DATA   :   'reset_social_reducer_data',
 
     //Chat related actions
-    OPEN_DIRECT_MESSAGE         :   'open_direct_message'
+    OPEN_DIRECT_MESSAGE         :   'open_direct_message',
+    LOAD_CHAT_DATA              :   'load_chat_data',
+    SEND_MESSAGE                :   'send_message'
 };
