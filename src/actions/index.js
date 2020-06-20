@@ -5,30 +5,41 @@ const headers = {
     'Content-Type': 'application/x-www-form-urlencoded'
 };
 
-export function getLoggedInUser() {
-    const payload = axios.get("/user/get-logged-in-user");
-    
-    return {
-        type: types.GET_LOGGED_IN_USER,
-        payload
+export const getLoggedInUser = () => {
+    //dispatch to be used to dispatch other actions if needed?
+    return dispatch => {
+        axios.get("/user/get-logged-in-user")
+        .then(res => {
+            dispatch(logInSuccess(res));
+        })
+        .catch(err => {
+            console.log("fetching logged in user err: ", err);
+        });
     };
-}
+};
+const logInSuccess = payload => ({
+    type: types.GET_LOGGED_IN_USER,
+    payload
+});
 
-export function authenticateLogin(values) {
+export const authenticateLogin = (values) => {
     let {email, password} = values;
     
     email = email.trim();
     password = password.trim();
 
-    const payload = axios.post('/user/login', {email, password}, {headers});
-
-    return {
-        type: types.AUTHENTICATE_LOGIN,
-        payload
+    return dispatch => {
+        axios.post('/user/login', {email, password}, {headers})
+        .then(res => {
+            dispatch(getLoggedInUser());
+        })
+        .catch(err => {
+            console.log('user authenticate err: ', err);
+        });
     };
-}
+};
 
-export function signUp(values) {
+export const signUp = (values) => {
     let {email, firstName, lastName, password} = values;
 
     email = email.trim();
@@ -36,20 +47,32 @@ export function signUp(values) {
     lastName = lastName.trim();
     password = password.trim();
 
-    const payload = axios.post('/user/signup', {email, firstName, lastName, password}, {headers});
-
-    return {
-        type: types.SIGN_UP,
-        payload 
+    return dispatch => {
+        axios.post('/user/signup', {email, firstName, lastName, password}, {headers})
+        .then(res => {
+            return {
+                type: types.SIGN_UP,
+                payload: res
+            };
+        })
+        .catch(err => {
+            console.log('signup err: ', err);
+        });
     };
-}
+};
 
-export function logOut() {
-    const payload = axios.post('/user/logout');
-
-    return {
-        type: types.LOG_OUT,
-        payload
+export const logOut = () => {
+    return dispatch => {
+        axios.post('/user/logout')
+        .then(res => {
+            return {
+                type: types.LOG_OUT,
+                payload: res
+            };
+        })
+        .catch(err => {
+            console.log('logout err: ', err);
+        });
     };
 }
 
@@ -66,46 +89,76 @@ export function closeSearchPeopleWindow() {
     };
 }
 
-export function loadFriendsByUID(uid) {
-    const payload = axios.post('/friends/load-friends', {uid}, {headers});
-
-    return {
-        type: types.LOAD_FRIENDS_BY_UID,
-        payload
+export const loadFriendsByUID = (uid) => {
+    return dispatch => {
+        axios.post('/friends/load-friends', {uid}, {headers})
+        .then(res => {
+            return {
+                type: types.LOAD_FRIENDS_BY_UID,
+                payload: res
+            };
+        })
+        .catch(err => {
+            console.log('loading friendslist err: ', err);
+        });
     };
-}
-export function loadFriendRequestDataByUID(uid) {
-    const req = axios.post('/friends/load-friend-request-data', {uid}, {headers});
-
-    return {
-        type: types.LOAD_FRIEND_REQUEST_DATA,
-        payload: req
+};
+export const loadFriendRequestDataByUID = (uid) => {
+    return dispatch => {
+        axios.post('/friends/load-friend-request-data', {uid}, {headers})
+        .then(res => {
+            return {
+                type: types.LOAD_FRIEND_REQUEST_DATA,
+                payload: res
+            };
+        })
+        .catch(err => {
+            console.log('load friend req data err: ', err);
+        });
     };
-}
-export function sendFriendRequest(fromUserUID, toUserUID) {
-    const payload = axios.post('/friends/send-request', {fromUserUID, toUserUID}, {headers});
-
-    return {
-        type: types.SEND_FRIEND_REQUEST,
-        payload
+};
+export const sendFriendRequest = (fromUserUID, toUserUID) => {
+    return dispatch => {
+        axios.post('/friends/send-request', {fromUserUID, toUserUID}, {headers})
+        .then(res => {
+            return {
+                type: types.SEND_FRIEND_REQUEST,
+                payload: res
+            };
+        })
+        .catch(err => {
+            console.log('sending friend request err: ', err);
+        });
     };
-}
-export function acceptFriendRequest(fromUserUID, toUserUID) {
-    const payload = axios.post('/friends/accept-request', {fromUserUID, toUserUID}, {headers});
-
-    return {
-        type: types.ACCEPT_FRIEND_REQUEST,
-        payload
+};
+export const acceptFriendRequest = (fromUserUID, toUserUID) => {
+    return dispatch => {
+        axios.post('/friends/accept-request', {fromUserUID, toUserUID}, {headers})
+        .then(res => {
+            return {
+                type: types.ACCEPT_FRIEND_REQUEST,
+                payload: res
+            };
+        })
+        .catch(err => {
+            console.log('accept friend req err: ', err);
+        });
     };
-}
-export function rejectFriendRequest(fromUserUID, toUserUID) {
-    const payload = axios.post('/friends/reject-request', {fromUserUID, toUserUID}, {headers});
-
-    return {
-        type: types.REJECT_FRIEND_REQUEST,
-        payload
+};
+export const rejectFriendRequest = (fromUserUID, toUserUID) => {
+    return dispatch => {
+        axios.post('/friends/reject-request', {fromUserUID, toUserUID}, {headers})
+        .then(res => {            
+            return {
+                type: types.REJECT_FRIEND_REQUEST,
+                payload: res
+            };
+        })
+        .catch(err => {
+            console.log('reject friend req err: ', err);
+        });
     };
-}
+};
 
 export function toggleSearchInProgress() {
     return {
@@ -113,14 +166,20 @@ export function toggleSearchInProgress() {
         payload: {}
     };
 }
-export function searchPeople(searchValue) {
-    const payload = axios.post('/search-people', {searchValue}, {headers});
-
-    return {
-        type: types.SEARCH_PEOPLE,
-        payload
+export const searchPeople = (searchValue) => {
+    return dispatch => {
+        axios.post('/search-people', {searchValue}, {headers})
+        .then(res => {
+            return {
+                type: types.SEARCH_PEOPLE,
+                payload: res
+            };
+        })
+        .catch(err => {
+            console.log('search people err: ', err);
+        });
     };
-}
+};
 
 export function resetSocialReducerData() {
     return {
@@ -129,29 +188,47 @@ export function resetSocialReducerData() {
     };
 }
 
-export function openDirectMessage(uid_a, uid_b) {
-    const payload = axios.post('/chat/load-dm-data', {uid_a, uid_b}, {headers});
+export const openDirectMessage = (uid_a, uid_b) => {
+    return dispatch => {
+        axios.post('/chat/load-dm-data', {uid_a, uid_b}, {headers})
+        .then(res => {            
+            return {
+                type: types.OPEN_DIRECT_MESSAGE,
+                payload: res
+            };
+        })
+        .catch(err => {
+            console.log('open dm err: ', err);
+        });
+    };
+};
 
-    return {
-        type: types.OPEN_DIRECT_MESSAGE,
-        payload
-    }
-}
+export const loadChatData = (chat_uid) => {
+    return dispatch => {
+        axios.post('/chat/load-chat-data', {chat_uid}, {headers})
+        .then(res => {
+            return {
+                type: types.LOAD_CHAT_DATA,
+                payload: res
+            };
+        })
+        .catch(err => {
+            console.log('load chat data err: ', err);
+        });
+    };
+};
 
-export function loadChatData(chat_uid) {
-    const payload = axios.post('/chat/load-chat-data', {chat_uid}, {headers});
-
-    return {
-        type: types.LOAD_CHAT_DATA,
-        payload
-    }
-}
-
-export function sendMessage(chat_uid, user_uid, message) {
-    const payload = axios.post('/chat/insert-new-message', {chat_uid, user_uid, message}, {headers});
-
-    return {
-        type: types.SEND_MESSAGE,
-        payload
-    }
-}
+export const sendMessage = (chat_uid, user_uid, message) => {
+    return dispatch => {
+        axios.post('/chat/insert-new-message', {chat_uid, user_uid, message}, {headers})
+        .then(res => {
+            return {
+                type: types.SEND_MESSAGE,
+                payload: res
+            };
+        })
+        .catch(err => {
+            console.log('sending message err: ', err);
+        });
+    };
+};

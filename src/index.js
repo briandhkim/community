@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom';
 import {Provider} from 'react-redux';
 import {createStore, applyMiddleware} from 'redux';
 import promise from 'redux-promise';
+import thunk from 'redux-thunk';
 import rootReducer from './reducers/index';
 
 import {BrowserRouter as Router} from 'react-router-dom';
@@ -13,7 +14,7 @@ import * as serviceWorker from './serviceWorker';
 
 
 ReactDOM.render(
-    <Provider store={createStore(rootReducer, applyMiddleware(promise))}>
+    <Provider store={createStore(rootReducer, applyMiddleware(thunk))}>
       <Router>
         <App />
       </Router>

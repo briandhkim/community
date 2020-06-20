@@ -51,11 +51,12 @@ class Login extends Component {
 
         if (email === undefined || password === undefined) {return;}
 
-        this.props.authenticateLogin(values).then(() => {
-            if (this._isMounted) {
-                this.forceUpdate();
-            }
-        });
+        // this.props.authenticateLogin(values).then(() => {
+        //     if (this._isMounted) {
+        //         this.forceUpdate();
+        //     }
+        // });
+        const res = this.props.authenticateLogin(values);
     }
 
     render() {
