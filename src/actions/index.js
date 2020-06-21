@@ -87,16 +87,28 @@ const signUpSuccess = payload => ({
 });
 
 export const logOut = () => {
-    return dispatch => {
+    return (dispatch, getState) => {
+        if (getState().httpRequest.loggingOut) return;
+
+        dispatch(logOutStarted());
+
         axios.post('/user/logout')
         .then(res => {
+            dispatch(logOutFinished());
             dispatch(logOutSuccess(res));
         })
         .catch(err => {
+            dispatch(logOutFinished());
             console.log('logout err: ', err);
         });
     };
 }
+const logOutStarted = () => ({
+    type: types.LOG_OUT_START
+});
+const logOutFinished = () => ({
+    type: types.LOG_OUT_END
+});
 const logOutSuccess = payload => ({
     type: types.LOG_OUT,
     payload

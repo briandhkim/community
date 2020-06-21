@@ -3,6 +3,7 @@ import types from '../actions/types';
 const DEFAULT_STATE = {
     signingUp               : false,
     loggingIn               : false,
+    loggingOut              : false,
     searchingPeople         : false,
     sendingFriendRequest    : false,
     acceptingFriendRequest  : false,
@@ -37,6 +38,18 @@ export default (state = DEFAULT_STATE, action) => {
                 ...state,
                 loggingIn: false
             };
+        }
+        case types.LOG_OUT_START:{
+            return {
+                ...state,
+                loggingOut: true
+            };
+        }
+        case types.LOG_OUT_END:{
+            return {
+                ...state,
+                loggingOut: false
+            }
         }
         case types.SEARCH_PEOPE_START:{
             return {

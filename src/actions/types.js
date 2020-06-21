@@ -7,6 +7,8 @@ export default {
     SIGN_UP_START               :   'sign_up_start',
     SIGN_UP_END                 :   'sign_up_end',
     LOG_OUT                     :   'log_out',
+    LOG_OUT_START               :   'log_out_start',
+    LOG_OUT_END                 :   'log_out_end',
 
     //Search related actions
     SHOW_SEARCH_PEOPLE_WINDOW   :   'show_search_people_window',
