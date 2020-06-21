@@ -38,7 +38,7 @@
         - [x] Accept friend requests
         - [x] Reject friend requests
     - [ ] Delete users from friends list
-    - [ ] One-on-one messaging with users in friends list
+    - [x] One-on-one messaging with users in friends list
     - [ ] Group messaging with users
 - [ ] Other
     - [ ] Set up migration
