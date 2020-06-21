@@ -32,7 +32,7 @@ class SignUp extends Component {
     }
 
     render() {
-        const {handleSubmit, signUpSuccessful, isLoggedIn} = this.props;
+        const {handleSubmit, signUpSuccessful, isLoggedIn, signingUp} = this.props;
 
         if (isLoggedIn) {
             return <Redirect to={{pathname: '/'}} />
@@ -57,7 +57,7 @@ class SignUp extends Component {
                                 <div className="row">
                                     <Field name='password' id='password' type='password' label='Password' required component={this.renderSignUpInput} />
                                 </div>
-                                <button onClick={handleSubmit((val)=>{this.signUp(val)})} className="font-primary btn-large min-w-200 btn-primary waves-effect waves-light">
+                                <button onClick={handleSubmit((val)=>{this.signUp(val)})} disabled={signingUp} className="font-primary btn-large min-w-200 btn-primary waves-effect waves-light">
                                     Sign up
                                 </button>
                                 
@@ -75,11 +75,12 @@ class SignUp extends Component {
 }
 
 function mapStateToProps(state) {
-    const {user} = state;
+    const {user, httpRequest} = state;
     return {
-        signUpSuccessful: user.signUpSuccessful,
-        isLoggedIn: user.isLoggedIn,
-        user: user.user
+        signUpSuccessful    : user.signUpSuccessful,
+        isLoggedIn          : user.isLoggedIn,
+        user                : user.user,
+        signingUp           : httpRequest.signingUp
     };
 }
 

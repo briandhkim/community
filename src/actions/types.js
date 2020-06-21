@@ -2,6 +2,8 @@ export default {
     GET_LOGGED_IN_USER          :   'get_logged_in_user',
     AUTHENTICATE_LOGIN          :   'authenticate_login',
     SIGN_UP                     :   'sign_up',
+    SIGN_UP_START               :   'sign_up_start',
+    SIGN_UP_END                 :   'sign_up_end',
     LOG_OUT                     :   'log_out',
 
     //Search related actions

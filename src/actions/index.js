@@ -47,9 +47,12 @@ export const signUp = (values) => {
     lastName = lastName.trim();
     password = password.trim();
 
-    return dispatch => {
+    return (dispatch, getState) => {
+        dispatch(signUpStarted());
+
         axios.post('/user/signup', {email, firstName, lastName, password}, {headers})
         .then(res => {
+            dispatch(signUpFinished());
             dispatch(signUpSuccess(res));
         })
         .catch(err => {
@@ -57,6 +60,12 @@ export const signUp = (values) => {
         });
     };
 };
+const signUpStarted = () => ({
+    type: types.SIGN_UP_START
+});
+const signUpFinished = () => ({
+    type: types.SIGN_UP_END
+});
 const signUpSuccess = payload => ({
     type: types.SIGN_UP,
     payload
