@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {Field, reduxForm} from 'redux-form';
 
-import {searchPeople, toggleSearchInProgress} from '../../actions/index';
+import {searchPeople} from '../../actions/index';
 
 import MaterialIcon from '../util/materialIcon';
 
@@ -19,13 +19,12 @@ class SearchPeopleForm extends Component {
     }
 
     searchPeople(value) {
-        const {searchInProgress} = this.props;
-        if (searchInProgress) {return;}
+        const {searchingPeople} = this.props;
+        if (searchingPeople) {return;}
 
         const {query} = value;
         if (query === undefined || !query.trim().length) {return;}
 
-        this.props.toggleSearchInProgress();
         this.props.searchPeople(query);
     }
 
@@ -50,9 +49,9 @@ class SearchPeopleForm extends Component {
 }
 
 function mapStateToProps(state) {
-    const {social} = state;
+    const {httpRequest} = state;
     return{
-        searchInProgress: social.searchInProgress
+        searchingPeople: httpRequest.searchingPeople
     };
 }
 
@@ -60,4 +59,4 @@ SearchPeopleForm = reduxForm({
     form: 'searchPeople'
 })(SearchPeopleForm);
 
-export default connect(mapStateToProps, {searchPeople,toggleSearchInProgress})(SearchPeopleForm);
+export default connect(mapStateToProps, {searchPeople})(SearchPeopleForm);

@@ -15,13 +15,6 @@ class Login extends Component {
         this.props.getLoggedInUser();
     }
 
-    componentDidMount() {
-        this._isMounted = true;
-    }
-    componentWillUnmount() {
-        this._isMounted = false;
-    }
-
     renderLoginInput({input, id, label, type, required, placeholder, meta:{touched, error}}) {
 
         return(
@@ -50,13 +43,8 @@ class Login extends Component {
         let {email, password} = values;
 
         if (email === undefined || password === undefined) {return;}
-
-        // this.props.authenticateLogin(values).then(() => {
-        //     if (this._isMounted) {
-        //         this.forceUpdate();
-        //     }
-        // });
-        const res = this.props.authenticateLogin(values);
+        
+        this.props.authenticateLogin(values);
     }
 
     render() {

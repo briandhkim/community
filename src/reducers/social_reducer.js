@@ -1,7 +1,6 @@
 import types from '../actions/types';
 
 const DEFAULT_STATE = {
-    searchInProgress: false,
     searchPeopleResultUsers: null,
     friends: null,
     friendRequestSentToUsers: null,
@@ -54,7 +53,7 @@ export default (state = DEFAULT_STATE, action) => {
         case types.ACCEPT_FRIEND_REQUEST: {
             const {payload} = action;
 
-            if (payload.status ===201 && payload.data.success) {
+            if (payload.status === 201 && payload.data.success) {
                 return {
                     ...state,
                     shouldRefreshFriendData: true,
@@ -76,12 +75,6 @@ export default (state = DEFAULT_STATE, action) => {
 
             return {...state};
         }
-        case types.TOGGLE_SEARCH_IN_PROGRESS: {
-            return {
-                ...state,
-                searchInProgress: true
-            };
-        }
         case types.SEARCH_PEOPLE: {
             const {payload} = action;
 
@@ -91,13 +84,18 @@ export default (state = DEFAULT_STATE, action) => {
                 if (data.success) {
                     return {
                         ...state,
-                        searchInProgress: false,
                         searchPeopleResultUsers: data.users
                     };
                 }
             }
 
             return {...state};
+        }
+        case types.CLOSE_SEARCH_PEOPLE_WINDOW: {
+            return {
+                ...state,
+                searchPeopleResultUsers: null
+            }
         }
         case types.RESET_SOCIAL_REDUCER_DATA:
         default:

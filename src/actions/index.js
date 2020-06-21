@@ -144,75 +144,112 @@ const loadFriendRequestDataByUIDSuccess = payload => ({
     payload
 });
 export const sendFriendRequest = (fromUserUID, toUserUID) => {
-    return dispatch => {
+    return (dispatch, getState) => {
+        if (getState().httpRequest.sendingFriendRequest) return;
+
+        dispatch(sendFriendRequestStarted());
+
         axios.post('/friends/send-request', {fromUserUID, toUserUID}, {headers})
         .then(res => {
-            //can likely call loadFriendRequestData instead
-            //check social_reducer
-            dispatch(sendFriendRequestSuccess(res));
+            dispatch(sendFriendRequestFinished());
+            if (res.status === 201 && res.data.success) {
+                const {user} = getState().user;
+                dispatch(loadFriendRequestDataByUID(user.uid));
+            }
         })
         .catch(err => {
+            dispatch(sendFriendRequestFinished());
             console.log('sending friend request err: ', err);
         });
     };
 };
-const sendFriendRequestSuccess = payload => ({
-    type: types.SEND_FRIEND_REQUEST,
-    payload
+const sendFriendRequestStarted = () => ({
+    type: types.SEND_FRIEND_REQUEST_START
 });
+const sendFriendRequestFinished = () => ({
+    type: types.SEND_FRIEND_REQUEST_END
+});
+
 export const acceptFriendRequest = (fromUserUID, toUserUID) => {
-    return dispatch => {
+    return (dispatch, getState) => {
+        if (getState().httpRequest.acceptingFriendRequest) return;
+
+        dispatch(acceptFriendRequestStarted());
+
         axios.post('/friends/accept-request', {fromUserUID, toUserUID}, {headers})
         .then(res => {
-            //can likely call loadFriends and loadFriendRequestData here instead
-            //check social reducer
-            dispatch(acceptFriendRequestSuccess(res));
+            dispatch(acceptFriendRequestFinished());
+            
+            if (res.status === 201 && res.data.success) {
+                const {user} = getState().user;
+                dispatch(loadFriendRequestDataByUID(user.uid));
+                dispatch(loadFriendsByUID(user.uid));
+            }
         })
         .catch(err => {
+            dispatch(acceptFriendRequestFinished());
             console.log('accept friend req err: ', err);
         });
     };
 };
-const acceptFriendRequestSuccess = payload => ({
-    type: types.ACCEPT_FRIEND_REQUEST,
-    payload
+const acceptFriendRequestStarted = () => ({
+    type: types.ACCEPT_FRIEND_REQUEST_START
 });
+const acceptFriendRequestFinished = () => ({
+    type: types.ACCEPT_FRIEND_REQUEST_END
+});
+
 export const rejectFriendRequest = (fromUserUID, toUserUID) => {
-    return dispatch => {
+    return (dispatch, getState) => {
+        if (getState().httpRequest.rejectingFriendRequest) return;
+
+        dispatch(rejectFriendRequestStarted());
+
         axios.post('/friends/reject-request', {fromUserUID, toUserUID}, {headers})
         .then(res => {          
-            //can likely call loadFriendRequestData instead
-            //check social_reducer
-            dispatch(rejectFriendRequestSuccess(res));
+            dispatch(rejectFriendRequestFinished());
+
+            if (res.status === 202 && res.data.success) {
+                const {user} = getState().user;
+                dispatch(loadFriendRequestDataByUID(user.uid));
+            }
         })
         .catch(err => {
+            dispatch(rejectFriendRequestFinished());
             console.log('reject friend req err: ', err);
         });
     };
 };
-const rejectFriendRequestSuccess = payload => ({
-    type: types.REJECT_FRIEND_REQUEST,
-    payload
+const rejectFriendRequestStarted = () => ({
+    type: types.REJECT_FRIEND_REQUEST_START
+});
+const rejectFriendRequestFinished = () => ({
+    type: types.REJECT_FRIEND_REQUEST_END
 });
 
-export function toggleSearchInProgress() {
-    return {
-        type: types.TOGGLE_SEARCH_IN_PROGRESS
-    };
-}
 export const searchPeople = (searchValue) => {
-    //should probably move toggleSearchInProgress dispatch here
+    return (dispatch, getState) => {
+        if (getState().httpRequest.searchingPeople) return;
 
-    return dispatch => {
+        dispatch(searchPeopleStarted());
+
         axios.post('/search-people', {searchValue}, {headers})
         .then(res => {
+            dispatch(searchPeopleFinished());
             dispatch(searchPeopleSuccess(res));
         })
         .catch(err => {
+            dispatch(searchPeopleFinished());
             console.log('search people err: ', err);
         });
     };
 };
+const searchPeopleStarted = () => ({
+    type: types.SEARCH_PEOPE_START
+});
+const searchPeopleFinished = () => ({
+    type: types.SEARCH_PEOPLE_END
+});
 const searchPeopleSuccess = payload => ({
     type: types.SEARCH_PEOPLE,
     payload
