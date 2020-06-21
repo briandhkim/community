@@ -20,6 +20,18 @@ export default (state = DEFAULT_STATE, action) => {
             return {
                 ...state,
                 signingUp: false
+            };
+        }
+        case types.AUTHENTICATE_LOGIN_START:{
+            return {
+                ...state,
+                loggingIn: true
+            };
+        }
+        case types.AUTHENTICATE_LOGIN_END:{
+            return {
+                ...state,
+                loggingIn: false
             }
         }
         default:

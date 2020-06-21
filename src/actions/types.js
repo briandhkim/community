@@ -1,6 +1,8 @@
 export default {
     GET_LOGGED_IN_USER          :   'get_logged_in_user',
     AUTHENTICATE_LOGIN          :   'authenticate_login',
+    AUTHENTICATE_LOGIN_START    :   'authenticate_login_start',
+    AUTHENTICATE_LOGIN_END      :   'authenticate_login_end',
     SIGN_UP                     :   'sign_up',
     SIGN_UP_START               :   'sign_up_start',
     SIGN_UP_END                 :   'sign_up_end',

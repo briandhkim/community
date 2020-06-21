@@ -28,16 +28,28 @@ export const authenticateLogin = (values) => {
     email = email.trim();
     password = password.trim();
 
-    return dispatch => {
+    return (dispatch, getState) => {
+        if (getState().httpRequest.loggingIn) return;
+
+        dispatch(authenticateLoginStarted());
+
         axios.post('/user/login', {email, password}, {headers})
         .then(res => {
+            dispatch(authenticateLoginFinished());
             dispatch(getLoggedInUser());
         })
         .catch(err => {
+            dispatch(authenticateLoginFinished());
             console.log('user authenticate err: ', err);
         });
     };
 };
+const authenticateLoginStarted = () => ({
+    type: types.AUTHENTICATE_LOGIN_START
+});
+const authenticateLoginFinished = () => ({
+    type: types.AUTHENTICATE_LOGIN_END
+});
 
 export const signUp = (values) => {
     let {email, firstName, lastName, password} = values;
@@ -48,6 +60,8 @@ export const signUp = (values) => {
     password = password.trim();
 
     return (dispatch, getState) => {
+        if (getState().httpRequest.signingUp) return;
+
         dispatch(signUpStarted());
 
         axios.post('/user/signup', {email, firstName, lastName, password}, {headers})
@@ -56,6 +70,7 @@ export const signUp = (values) => {
             dispatch(signUpSuccess(res));
         })
         .catch(err => {
+            dispatch(signUpFinished());
             console.log('signup err: ', err);
         });
     };
@@ -89,14 +104,12 @@ const logOutSuccess = payload => ({
 
 export function showSearchPeopleWindow() {
     return {
-        type: types.SHOW_SEARCH_PEOPLE_WINDOW,
-        payload: {}
+        type: types.SHOW_SEARCH_PEOPLE_WINDOW
     };
 }
 export function closeSearchPeopleWindow() {
     return {
-        type: types.CLOSE_SEARCH_PEOPLE_WINDOW,
-        payload: {}
+        type: types.CLOSE_SEARCH_PEOPLE_WINDOW
     };
 }
 
@@ -184,8 +197,7 @@ const rejectFriendRequestSuccess = payload => ({
 
 export function toggleSearchInProgress() {
     return {
-        type: types.TOGGLE_SEARCH_IN_PROGRESS,
-        payload: {}
+        type: types.TOGGLE_SEARCH_IN_PROGRESS
     };
 }
 export const searchPeople = (searchValue) => {
@@ -208,8 +220,7 @@ const searchPeopleSuccess = payload => ({
 
 export function resetSocialReducerData() {
     return {
-        type: types.RESET_SOCIAL_REDUCER_DATA,
-        payload: {}
+        type: types.RESET_SOCIAL_REDUCER_DATA
     };
 }
 

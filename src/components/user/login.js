@@ -60,7 +60,7 @@ class Login extends Component {
     }
 
     render() {
-        let {handleSubmit, isLoggedIn, loginError, signUpSuccessful} = this.props;
+        let {handleSubmit, isLoggedIn, loginError, signUpSuccessful, loggingIn} = this.props;
 
         const messageBanner = signUpSuccessful ? this.renderMessageHeader("Your account has been created", "success", "check_box") : "";
 
@@ -83,7 +83,7 @@ class Login extends Component {
                                 <div className="row">
                                     <p className="text-error col s8 offset-s2 -mt-10"> {loginError} </p>
                                 </div>
-                                <button onClick={handleSubmit((val)=>{this.login(val)})} className="font-primary btn-large min-w-200 btn-primary waves-effect waves-light">
+                                <button onClick={handleSubmit((val)=>{this.login(val)})} disabled={loggingIn} className="font-primary btn-large min-w-200 btn-primary waves-effect waves-light">
                                     Login
                                 </button>
 
@@ -100,11 +100,12 @@ class Login extends Component {
 }
 
 function mapStateToProps(state) {
-    const {user} = state;
+    const {user, httpRequest} = state;
     return {
-        isLoggedIn: user.isLoggedIn,
-        loginError: user.loginError,
-        signUpSuccessful: user.signUpSuccessful
+        isLoggedIn          : user.isLoggedIn,
+        loginError          : user.loginError,
+        signUpSuccessful    : user.signUpSuccessful,
+        loggingIn           : httpRequest.loggingIn
     };
 }
 
