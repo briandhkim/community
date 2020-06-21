@@ -265,8 +265,6 @@ export const openDirectMessage = (uid_a, uid_b) => {
     return dispatch => {
         axios.post('/chat/load-dm-data', {uid_a, uid_b}, {headers})
         .then(res => {            
-            //can likely just call loadChatData here later
-            //check chat_reducer
             dispatch(openDirectMessageSuccess(res));
         })
         .catch(err => {
@@ -296,16 +294,33 @@ const loadChatDataSuccess = payload => ({
 });
 
 export const sendMessage = (chat_uid, user_uid, message) => {
-    return dispatch => {
+    return (dispatch, getState) => {
+        if (getState().httpRequest.sendingMessage) return;
+
+        dispatch(sendMessageStarted());
+
         axios.post('/chat/insert-new-message', {chat_uid, user_uid, message}, {headers})
         .then(res => {
-            dispatch(sendMessageSuccess(res));
+            dispatch(sendMessageFinished());
+
+            if (res.status === 200) {
+                const {activeChat} = getState().chat;
+                
+                dispatch(loadChatData(activeChat.uid));
+            }
         })
         .catch(err => {
+            dispatch(sendMessageFinished());
             console.log('sending message err: ', err);
         });
     };
 };
+const sendMessageStarted = () => ({
+    type: types.SEND_MESSAGE_START
+});
+const sendMessageFinished = () => ({
+    type: types.SEND_MESSAGE_END
+});
 const sendMessageSuccess = payload => ({
     type: types.SEND_MESSAGE,
     payload

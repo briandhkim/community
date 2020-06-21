@@ -78,13 +78,25 @@ export default (state = DEFAULT_STATE, action) => {
             return {
                 ...state,
                 rejectingFriendRequest: true
-            }
+            };
         }
         case types.REJECT_FRIEND_REQUEST_END:{
             return {
                 ...state,
                 rejectingFriendRequest: false
-            }
+            };
+        }
+        case types.SEND_MESSAGE_START:{
+            return {
+                ...state,
+                sendingMessage: true
+            };
+        }
+        case types.SEND_MESSAGE_END:{
+            return {
+                ...state,
+                sendingMessage: false
+            };
         }
         default:
             return state;

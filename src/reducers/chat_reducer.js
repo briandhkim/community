@@ -13,8 +13,7 @@ export default (state = DEFAULT_STATE, action) => {
             const {payload} = action;
 
             if (payload.status === 200) {
-                const {data} = payload;
-                const {chat, messages} = data;
+                const {chat, messages} = payload.data;
 
                 return {
                     ...state,

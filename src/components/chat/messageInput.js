@@ -21,13 +21,13 @@ class MessageInput extends Component {
         M.CharacterCounter.init(elem);
     }
 
-    componentDidUpdate() {
-        const {chat, insertedMessage} = this.props;
+    // componentDidUpdate() {
+    //     const {chat, insertedMessage} = this.props;
 
-        if (insertedMessage) {
-            this.props.loadChatData(chat.uid);
-        }
-    }
+    //     if (insertedMessage) {
+    //         this.props.loadChatData(chat.uid);
+    //     }
+    // }
 
     renderTextarea({input, id, label, meta:{touched, error}}) {
         return (

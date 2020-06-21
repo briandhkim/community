@@ -32,5 +32,7 @@ export default {
     //Chat related actions
     OPEN_DIRECT_MESSAGE         :   'open_direct_message',
     LOAD_CHAT_DATA              :   'load_chat_data',
-    SEND_MESSAGE                :   'send_message'
+    SEND_MESSAGE                :   'send_message',
+    SEND_MESSAGE_START          :   'send_message_start',
+    SEND_MESSAGE_END            :   'send_message_end'
 };
