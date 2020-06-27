@@ -36,5 +36,7 @@ export default {
     LOAD_CHAT_DATA              :   'load_chat_data',
     SEND_MESSAGE                :   'send_message',
     SEND_MESSAGE_START          :   'send_message_start',
-    SEND_MESSAGE_END            :   'send_message_end'
+    SEND_MESSAGE_END            :   'send_message_end',
+    SET_CHAT_POLLING_DATA       :   'set_chat_polling_data',
+    CLEAR_CHAT_POLLING_DATA     :   'clear_chat_polling_data'
 };

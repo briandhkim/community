@@ -7,7 +7,9 @@ const headers = {
 
 export const getLoggedInUser = () => {
     //dispatch to be used to dispatch other actions if needed?
-    return dispatch => {
+    return (dispatch, getState) => {
+        if (getState().user.user) return;
+
         axios.get("/user/get-logged-in-user")
         .then(res => {
             dispatch(logInSuccess(res));
@@ -90,6 +92,8 @@ export const logOut = () => {
     return (dispatch, getState) => {
         if (getState().httpRequest.loggingOut) return;
 
+        const {pollingIntervalID} = getState().chat;
+        dispatch(clearChatPollingData({pollingIntervalID}));
         dispatch(logOutStarted());
 
         axios.post('/user/logout')
@@ -274,12 +278,17 @@ export function resetSocialReducerData() {
 }
 
 export const openDirectMessage = (uid_a, uid_b) => {
-    return dispatch => {
+    return (dispatch, getState) => {
+        const {pollingIntervalID} = getState().chat;
+        dispatch(clearChatPollingData({pollingIntervalID}));
+
         axios.post('/chat/load-dm-data', {uid_a, uid_b}, {headers})
         .then(res => {            
             dispatch(openDirectMessageSuccess(res));
+            dispatch(startPollingChat());
         })
         .catch(err => {
+            dispatch(clearChatPollingData({pollingIntervalID}));
             console.log('open dm err: ', err);
         });
     };
@@ -290,18 +299,44 @@ const openDirectMessageSuccess = payload => ({
 });
 
 export const loadChatData = (chat_uid) => {
-    return dispatch => {
+    return (dispatch, getState) => {
+        const {pollingIntervalID} = getState().chat;
+
         axios.post('/chat/load-chat-data', {chat_uid}, {headers})
         .then(res => {
             dispatch(loadChatDataSuccess(res));
         })
         .catch(err => {
+            dispatch(clearChatPollingData({pollingIntervalID}));
             console.log('load chat data err: ', err);
         });
     };
 };
 const loadChatDataSuccess = payload => ({
     type: types.LOAD_CHAT_DATA,
+    payload
+});
+
+const startPollingChat = () => {
+    return (dispatch, getState) => {
+        const {activeChat, pollingIntervalID, pollingChatUID} = getState().chat;
+
+        if (activeChat && activeChat.uid !== pollingChatUID && !pollingIntervalID) {
+            const pollingID = setInterval(() => dispatch(loadChatData(activeChat.uid)), 3000);
+            dispatch(setChatPollingData({
+                pollingChatUID: activeChat.uid,
+                pollingIntervalID: pollingID
+            }));
+        }
+    }
+}
+const setChatPollingData = payload => ({
+    type: types.SET_CHAT_POLLING_DATA,
+    payload
+});
+
+const clearChatPollingData = (payload) => ({
+    type: types.CLEAR_CHAT_POLLING_DATA,
     payload
 });
 

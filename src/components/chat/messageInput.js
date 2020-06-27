@@ -64,7 +64,6 @@ function mapStateToProps(state) {
 
     return {
         chat            : chat.activeChat,
-        insertedMessage : chat.insertedMessage,
         user            : user.user
     };
 }

@@ -3,6 +3,9 @@ import types from '../actions/types';
 const DEFAULT_STATE = {
     activeChat: null,
     activeChatMessages: null,
+    pollingIntervalID: null,
+    pollingChatUID: null,
+    //deprecated
     insertedMessage: null
 };
 
@@ -24,6 +27,25 @@ export default (state = DEFAULT_STATE, action) => {
             }
 
             return {...state}
+        }
+        case types.SET_CHAT_POLLING_DATA:{
+            const {pollingChatUID, pollingIntervalID} = action.payload;
+
+            return {
+                ...state,
+                pollingIntervalID,
+                pollingChatUID
+            }
+        }
+        case types.CLEAR_CHAT_POLLING_DATA:{
+            const {pollingIntervalID} = action.payload;
+            clearInterval(pollingIntervalID);
+
+            return {
+                ...state,
+                pollingIntervalID: null,
+                pollingChatUID: null
+            }
         }
         case types.SEND_MESSAGE:{
             const {payload} = action;
