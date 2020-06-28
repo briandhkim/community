@@ -1,23 +1,56 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import M from 'materialize-css/dist/js/materialize.min';
 
 const ChatBody = (props) => {
-    const {user, messages} = props;
+    const {user, chat, messages} = props;
+
+    const [chatUID, setChatUID] = useState('');
 
     useEffect(() => {
+        // showLatestMessage();
+
         const elem = document.querySelectorAll(".tooltipped");
         M.Tooltip.init(elem, {});
-
-        showLatestMessage();
     });
 
-    const showLatestMessage = () => {
+    useEffect(() => {
         const messages = document.querySelectorAll('.user-msg-container');
+        const chatbody = document.querySelector('.chat-body');
+
+        if (chat.uid === chatUID) {
+            return;
+        } else {
+            setChatUID(chat.uid);
+        }
+
 
         if (messages.length) {
             const latestMessage = messages[messages.length-1];
             
-            latestMessage.scrollIntoView();
+            chatbody.scrollTo(0, latestMessage.offsetTop);
+        }
+    }, [chat, chatUID]);
+
+    const showLatestMessage = () => {
+        const messages = document.querySelectorAll('.user-msg-container');
+        const chatbody = document.querySelector('.chat-body');
+
+        const innerHeight = chatbody.scrollHeight;
+        const bottom = innerHeight - 550;
+
+        // console.log(chatbody.scrollTop);
+        // console.log(bottom);
+        console.log('xxxxxxxxx')
+        if (chatUID === chat.uid) {
+            return;
+        }
+
+        setChatUID(chat.uid);
+
+        if (messages.length) {
+            const latestMessage = messages[messages.length-1];
+            
+            chatbody.scrollTo(0, latestMessage.offsetTop);
         }
     };
 
@@ -74,7 +107,7 @@ const ChatBody = (props) => {
     });
 
     return (
-        <div className="chat-body row blue-grey lighten-5 p-105r mb-0 min-h-500 overflow-y-auto custom-scroll-bar max-h-550">
+        <div className="chat-body row blue-grey lighten-5 p-105r mb-0 min-h-500 overflow-y-auto custom-scroll-bar max-h-550" tabIndex="0">
             {messages.length ? renderMessages : noMessages()}
         </div>
     );

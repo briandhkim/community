@@ -15,7 +15,7 @@ class ChatContainer extends Component {
             return (
                 <div className=" chatMain mt-05r z-depth-3">
                     <ChatHeader chat={chat} user={user} />
-                    <ChatBody user={user} messages={chatMessages} />
+                    <ChatBody user={user} messages={chatMessages} chat={chat} />
                     <MessageInput />
                 </div>
             );
