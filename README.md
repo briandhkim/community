@@ -41,6 +41,11 @@
     - [x] One-on-one messaging with users in friends list
     - [ ] Group messaging with users
 - [ ] Other
+    - [ ] Show user stats on home
+        - [ ] messages sent
+        - [ ] messages received
+        - [ ] active chats
+        - [ ] friends
     - [ ] Set up migration
     - [ ] Set up electron
         - [x] configure electron for development
