@@ -8,6 +8,7 @@ const DEFAULT_STATE = {
     sendingFriendRequest    : false,
     acceptingFriendRequest  : false,
     rejectingFriendRequest  : false,
+    loadingAvailableChatList: false,
     sendingMessage          : false,
     loadingChat             : false,
     loadingDirectMessage    : false
@@ -109,6 +110,18 @@ export default (state = DEFAULT_STATE, action) => {
             return {
                 ...state,
                 sendingMessage: false
+            };
+        }
+        case types.LOAD_AVAILABLE_CHAT_LIST_START:{
+            return {
+                ...state,
+                loadingAvailableChatList: true
+            };
+        }
+        case types.LOAD_AVAILABLE_CHAT_LIST_END:{
+            return {
+                ...state,
+                loadingAvailableChatList: false,
             };
         }
         default:

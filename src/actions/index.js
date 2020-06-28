@@ -372,3 +372,31 @@ const sendMessageSuccess = payload => ({
     type: types.SEND_MESSAGE,
     payload
 });
+
+export const loadAvailableChatList = (user_uid) => {
+    return (dispatch, getState) => {
+        if (getState().httpRequest.loadingAvailableChatList) return;
+
+        dispatch(loadAvailableChatListStarted());
+
+        axios.get(`/chat/available-chat-list/${user_uid}`)
+        .then(res => {
+            dispatch(loadAvailableChatListFinished());
+            dispatch(loadAvailableChatListSuccess(res));
+        })
+        .catch(err => {
+            dispatch(loadAvailableChatListFinished());
+            console.log('loading available chat list err: ', err);
+        })
+    };
+};
+const loadAvailableChatListStarted = () => ({
+    type: types.LOAD_AVAILABLE_CHAT_LIST_START
+});
+const loadAvailableChatListFinished = () => ({
+    type: types.LOAD_AVAILABLE_CHAT_LIST_END
+});
+const loadAvailableChatListSuccess = payload => ({
+    type: types.LOAD_AVAILABLE_CHAT_LIST,
+    payload
+});

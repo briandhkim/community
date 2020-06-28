@@ -346,7 +346,7 @@ func InsertNewChatMessage(cUID, uUID, m string) ([]byte, int) {
 }
 
 // LoadAllChatByUserUID returns a map containing all of the Chat that
-// a given user is participant of. 
+// a given user is participant of.
 // This does not load the messages for the chat
 func LoadAllChatByUserUID(uid string) ([]byte, int) {
 

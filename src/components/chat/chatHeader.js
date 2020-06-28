@@ -12,7 +12,7 @@ const ChatHeader = (props) => {
         let uLabel = '';
         if (key !== user.uid) {
             const u = cUsers[key];
-            uLabel = `${commaIdx++ ? ',': ''} ${u.firstName} ${u.lastName}`
+            uLabel = `${commaIdx++ ? ',': ''} ${u.firstName} ${u.lastName}`;
         }
 
         return (
@@ -22,12 +22,14 @@ const ChatHeader = (props) => {
         );
     });
 
+    const chatLabel = chat.name.length ? chat.name : chatUsers;
+
 
     return (
         <div className="chat-header row bg-primary bg-primary mb-0">
             <div className="white-text text-h5 px-r2 py-r05 border-b-10 border-primary-dark font-secondary">
                 <MaterialIcon icon={"chat"} styleClass={"align-v mr-8"} />
-                {chatUsers}
+                {chatLabel}
             </div>
         </div>
     );

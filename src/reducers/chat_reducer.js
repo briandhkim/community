@@ -1,6 +1,7 @@
 import types from '../actions/types';
 
 const DEFAULT_STATE = {
+    availableChatList: null,
     activeChat: null,
     activeChatMessages: null,
     pollingIntervalID: null,
@@ -11,6 +12,21 @@ const DEFAULT_STATE = {
 
 export default (state = DEFAULT_STATE, action) => {
     switch(action.type) {
+        case types.LOAD_AVAILABLE_CHAT_LIST:{
+            const {payload} = action;
+            console.log(payload);
+
+            if (payload.status === 200) {
+                const {chatList} = payload.data;
+
+                return {
+                    ...state,
+                    availableChatList: chatList
+                }
+            }
+
+            return {...state};
+        }
         case types.OPEN_DIRECT_MESSAGE:
         case types.LOAD_CHAT_DATA:{
             const {payload} = action;

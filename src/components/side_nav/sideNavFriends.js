@@ -42,12 +42,12 @@ class SideNavFriends extends Component {
                     <MaterialIcon icon={"people"} />
                     Social
                 </div>
-                <div className="collapsible-body px-0 pt-0 grey lighten-3">
+                <div className="collapsible-body px-0 pt-0 pb-0 grey lighten-3">
                     <button className="font-secondary w-full btn btn-secondary waves-effect waves-light" onClick={this.props.showSearchPeopleWindow}>
                         Search People
                         <MaterialIcon icon={"search"} styleClass="align-v" />
                     </button>
-                    <div className="p-1r">
+                    <div className="p-05r">
                         <ul className="collapsible">
                             <li className="active">
                                 <CollapsibleFriendsList />

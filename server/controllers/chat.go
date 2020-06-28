@@ -91,7 +91,7 @@ func (cc ChatController) InsertNewMessage(w http.ResponseWriter, r *http.Request
 	}
 }
 
-// GetListChatByUserUID handles the get request made to /chat/get-chat-list
+// GetListChatByUserUID handles the get request made to /chat/available-chat-list
 func (cc ChatController) GetListChatByUserUID(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 	if r.Method == http.MethodGet {
 

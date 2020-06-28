@@ -32,6 +32,9 @@ export default {
     RESET_SOCIAL_REDUCER_DATA   :   'reset_social_reducer_data',
 
     //Chat related actions
+    LOAD_AVAILABLE_CHAT_LIST    :   'load_available_chat_list',
+    LOAD_AVAILABLE_CHAT_LIST_START: 'load_available_chat_list_start',
+    LOAD_AVAILABLE_CHAT_LIST_END:   'load_available_chat_list_end',
     OPEN_DIRECT_MESSAGE         :   'open_direct_message',
     LOAD_CHAT_DATA              :   'load_chat_data',
     SEND_MESSAGE                :   'send_message',
