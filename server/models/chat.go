@@ -89,6 +89,45 @@ func getChatUsersByChatUID(uid string) map[string]User {
 
 }
 
+func getChatListByUserUID(uid string) map[string]Chat {
+	s := `select
+				uid, name
+			from
+				chat
+			where id in (
+				select
+					cu.chat_id
+				from 
+					chat_users cu
+				join
+					users u on u.id = cu.user_id
+				where
+					u.uid = ?
+			)`
+
+	rows, err := DB.Query(s, uid)
+	if err != nil {
+		log.Panic(err)
+	}
+	defer rows.Close()
+
+	var cm = make(map[string]Chat)
+
+	for rows.Next() {
+		var u string
+		var n sql.NullString
+		if err := rows.Scan(&u, &n); err != nil {
+			log.Panic(err)
+		}
+
+		c := Chat{u, n.String, "", getChatUsersByChatUID(u)}
+
+		cm[u] = c
+	}
+
+	return cm
+}
+
 func getDMChatByUserUIDs(aUID, bUID string) Chat {
 	var uid string
 	var n sql.NullString
@@ -300,6 +339,23 @@ func InsertNewChatMessage(cUID, uUID, m string) ([]byte, int) {
 		S bool `json:"success"`
 	}{
 		true,
+	}
+
+	rj, _ := json.Marshal(res)
+	return rj, http.StatusOK
+}
+
+// LoadAllChatByUserUID returns a map containing all of the Chat that
+// a given user is participant of. 
+// This does not load the messages for the chat
+func LoadAllChatByUserUID(uid string) ([]byte, int) {
+
+	cm := getChatListByUserUID(uid)
+
+	res := struct {
+		CL map[string]Chat `json:"chatList"`
+	}{
+		cm,
 	}
 
 	rj, _ := json.Marshal(res)

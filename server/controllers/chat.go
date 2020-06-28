@@ -90,3 +90,16 @@ func (cc ChatController) InsertNewMessage(w http.ResponseWriter, r *http.Request
 		outputBadRequestError(w)
 	}
 }
+
+// GetListChatByUserUID handles the get request made to /chat/get-chat-list
+func (cc ChatController) GetListChatByUserUID(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
+	if r.Method == http.MethodGet {
+
+		rj, statusCode := models.LoadAllChatByUserUID(ps.ByName("uid"))
+
+		outputJSONResponse(w, rj, statusCode)
+
+	} else {
+		outputBadRequestError(w)
+	}
+}

@@ -32,6 +32,7 @@ func main() {
 	r.POST("/friends/reject-request", fc.RejectFriendRequest)
 	r.POST("/search-people", sc.SearchPeopleByNameOrEmail)
 
+	r.GET("/chat/get-chat-list/:uid", cc.GetListChatByUserUID)
 	r.POST("/chat/load-chat-data", cc.LoadChatDataByChatUID)
 	r.POST("/chat/load-dm-data", cc.LoadDirectMessageDataByUserUID)
 	r.POST("/chat/insert-new-message", cc.InsertNewMessage)
